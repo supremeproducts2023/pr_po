@@ -3,7 +3,7 @@
 if(session_is_registered("valid_userprpo")) {
 		require_once("../include_RedThemes/odbc_connect.php");				
 		$empno_user = $_SESSION["empno_user"];
-		//============= Start-ส่วนการทำงานเมื่อผ่านการกดปุ่ม SUBMIT ในหน้าการทำงานนี้ (code) ===============	
+		//============= Start-๏ฟฝ๏ฟฝวน๏ฟฝ๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอผ๏ฟฝาน๏ฟฝ๏ฟฝรก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ SUBMIT ๏ฟฝหน๏ฟฝาก๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ (code) ===============	
 				$flagAction=@$_POST["flagAction"];
 				if($flagAction=='SearchCode'){ 
 						$prod_type = @$_POST["s_prod_type"];
@@ -40,7 +40,7 @@ if(session_is_registered("valid_userprpo")) {
 					$arr_gar_price=@$_POST["arr_gar_price"];
 
 
-					$strMAX = "select nvl(max(id)+1,1) id  from po_details where po_no='$v_po_no'";			
+					$strMAX = "select ISNULL(max(id)+1,1) id  from po_details where po_no='$v_po_no'";			
 					$curMAX = @odbc_exec($conn,$strMAX);
 					$id = @odbc_result($curMAX, "id");
 
@@ -85,20 +85,20 @@ if(session_is_registered("valid_userprpo")) {
 					$result=odbc_exec($conn,"update po_master set po_status='1' where po_no='$v_po_no'");						
 					$exeCOMMIT = odbc_exec($conn,"commit");
 					echo '<script language="JavaScript" type="text/JavaScript">';
-					echo '		alert ("ข้อมูลถูกบันทึกทั้งสิ้น '.$ok.' รายการค่ะ");';
+					echo '		alert ("๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลถูก๏ฟฝัน๏ฟฝึก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ '.$ok.' ๏ฟฝ๏ฟฝยก๏ฟฝรค๏ฟฝ๏ฟฝ");';
 					echo '		window.opener.location.reload("./pomas_edit.php");';
 					echo '		window.close();';
 					echo '</script>'; 
 				}else{
 					$v_po_no = $_GET["po_no"]; 
 				}
-		//============= End-ส่วนการทำงานเมื่อผ่านการกดปุ่ม SUBMIT ในหน้าการทำงานนี้ (code) ===============	
+		//============= End-๏ฟฝ๏ฟฝวน๏ฟฝ๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอผ๏ฟฝาน๏ฟฝ๏ฟฝรก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ SUBMIT ๏ฟฝหน๏ฟฝาก๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ (code) ===============	
 	include "../include_RedThemes/wait.php";
 	flush();
 ?>
 <html>
 	<head>
-		<title>เพิ่มสินค้าประเภท BOM, Product, Service</title>
+		<title>๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาป๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ BOM, Product, Service</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-874">
 		<link href="../include/style1.css" rel="stylesheet" type="text/css">
 		<script language='javascript' src='../include_RedThemes/funcChkInput.js'></script>	
@@ -114,9 +114,9 @@ if(session_is_registered("valid_userprpo")) {
 			<tr>
 				<td><table width="100%"  border="1" align="center" cellpadding="0" cellspacing="0">
                   <tr>
-                    <td width="130" class="tdleftwhite">&nbsp;เลขที่ใบ PO <span class="style_star">*</span></td>
+                    <td width="130" class="tdleftwhite">&nbsp;๏ฟฝลข๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ PO <span class="style_star">*</span></td>
                     <td width="250"><input name="po_no" type="text" class="style_readonly" value="<?=$v_po_no; ?>"  readonly=""></td>
-                    <td width="120"><span class="tdleftwhite">&nbsp;ประเภทสินค้าที่บันทึก</span></td>
+                    <td width="120"><span class="tdleftwhite">&nbsp;๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาท๏ฟฝ๏ฟฝัน๏ฟฝึก</span></td>
                     <td class="style_text">&nbsp;
                       <? if(@$prod_type=="1") echo 'BOM'; else if(@$prod_type=="3") echo 'Product'; else if(@$prod_type=="4") echo 'Service'; ?></td>
                   </tr>
@@ -133,15 +133,15 @@ if(session_is_registered("valid_userprpo")) {
 						<td>
 							<table width="100%"  border="1" cellspacing="0" cellpadding="0">
 							<tr>
-								<td width="130"  class="tdleftwhite">&nbsp;Keyword ที่ใช้ค้นหา </td>
+								<td width="130"  class="tdleftwhite">&nbsp;Keyword ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ </td>
 								<td><select name="s_prod_type">
                                   <option value="1" <? if((@$prod_type=="")||(@$prod_type=="1"))echo 'selected="selected"'; ?>>BOM</option>
                                   <option value="3" <? if(@$prod_type=="3")echo 'selected="selected"'; ?>>Product</option>
                                   <option value="4" <? if(@$prod_type=="4")echo 'selected="selected"'; ?>>Service</option>
                                 </select>
 								  <input name="keyword" type="text"  size="60" value="<?= @$keyword; ?>"> 
-							    (รหัสสินค้า, ชื่อสินค้า) 
-						        <input type="submit" name="Submit" value="ค้นหา" onKeyDown="if(event.keyCode==13) document.form1.submit();"></td>
+							    (๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ, ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ) 
+						        <input type="submit" name="Submit" value="๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ" onKeyDown="if(event.keyCode==13) document.form1.submit();"></td>
 							</tr>
 							</table>						</td>
 					</tr>		
@@ -153,20 +153,20 @@ if(session_is_registered("valid_userprpo")) {
 									<table border="1" align="left" cellpadding="0" cellspacing="0" >
 									<tr>
 										<td width="25" rowspan="2" class="tdcenterblack"><input type="checkbox" name="CheckOrUn" onClick="return unOrCheckCheckbox(document.form1);"></td>
-										<td width="80" rowspan="2" class="tdcenterblack">ประเภท</td>
-										<td width="130" rowspan="2" class="tdcenterblack">รหัสสินค้า</td>
-										<td width="260" rowspan="2" class="tdcenterblack">ชื่อสินค้า</td>
-										<td colspan="3" class="tdcenterblack">รายการบนใบ PO </td>
-										<td colspan="3" class="tdcenterblack">รายการรับเข้า</td>
+										<td width="80" rowspan="2" class="tdcenterblack">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ</td>
+										<td width="130" rowspan="2" class="tdcenterblack">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</td>
+										<td width="260" rowspan="2" class="tdcenterblack">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</td>
+										<td colspan="3" class="tdcenterblack">๏ฟฝ๏ฟฝยก๏ฟฝรบ๏ฟฝ๏ฟฝ PO </td>
+										<td colspan="3" class="tdcenterblack">๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ๏ฟฝับ๏ฟฝ๏ฟฝ๏ฟฝ</td>
 										<td width="15" rowspan="2" class="tdcenterblack">&nbsp;</td>
 								      </tr>
 									<tr>
-									  <td width="50" class="tdcenterblack">จำนวน</td>
-									  <td width="50" class="tdcenterblack">หน่วย</td>
-									  <td width="80" class="tdcenterblack">ราคาต่อหน่วย</td>
-									  <td width="50" class="tdcenterblack">จำนวน</td>
-									  <td width="50" class="tdcenterblack">หน่วย</td>
-									  <td width="80" class="tdcenterblack">ราคาต่อหน่วย</td>
+									  <td width="50" class="tdcenterblack">๏ฟฝำนวน</td>
+									  <td width="50" class="tdcenterblack">หน๏ฟฝ๏ฟฝ๏ฟฝ</td>
+									  <td width="80" class="tdcenterblack">๏ฟฝาคาต๏ฟฝ๏ฟฝหน๏ฟฝ๏ฟฝ๏ฟฝ</td>
+									  <td width="50" class="tdcenterblack">๏ฟฝำนวน</td>
+									  <td width="50" class="tdcenterblack">หน๏ฟฝ๏ฟฝ๏ฟฝ</td>
+									  <td width="80" class="tdcenterblack">๏ฟฝาคาต๏ฟฝ๏ฟฝหน๏ฟฝ๏ฟฝ๏ฟฝ</td>
 									</tr>
 									</table>								</td>
 							</tr>

@@ -3,9 +3,9 @@
 if(session_is_registered("valid_userprpo")) {
 		require_once("../include_RedThemes/odbc_connect.php");				
 		$empno_user = $_SESSION["empno_user"];
-		//============= Start-ส่วนการทำงานเมื่อผ่านการกดปุ่ม SUBMIT ในหน้าการทำงานนี้ (code) ===============	
+		//============= Start-๏ฟฝ๏ฟฝวน๏ฟฝ๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอผ๏ฟฝาน๏ฟฝ๏ฟฝรก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ SUBMIT ๏ฟฝหน๏ฟฝาก๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ (code) ===============	
 				$flagAction=@$_POST["flagAction"];
-				if($flagAction=='AddCode'){  // กรณีกดปุ่มเพื่อทำงานหน้า code
+				if($flagAction=='AddCode'){  // ๏ฟฝรณีก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอทำงานหน๏ฟฝ๏ฟฝ code
 					$v_po_no = @$_POST["po_no"];
 					
 					$checkbox=@$_POST["checkbox"];
@@ -21,7 +21,7 @@ if(session_is_registered("valid_userprpo")) {
 					$v_prod_qty = $_POST["prod_qty"];
 					$v_prod_price = $_POST["prod_price"];
 
-					$strMAX = "select nvl(max(id)+1,1) id  from po_details where po_no='$v_po_no'";			
+					$strMAX = "select ISNULL(max(id)+1,1) id  from po_details where po_no='$v_po_no'";			
 					$curMAX = @odbc_exec($conn,$strMAX);
 					$id = @odbc_result($curMAX, "id");
 					$strINSMaster = "insert into po_details (
@@ -71,19 +71,19 @@ if(session_is_registered("valid_userprpo")) {
 					$result=odbc_exec($conn,"update po_master set po_status='1' where po_no='$v_po_no'");						
 					$exeCOMMIT = odbc_exec($conn,"commit");
 					echo '<script language="JavaScript" type="text/JavaScript">';
-					echo '		alert ("ข้อมูลถูกบันทึกทั้งสิ้น '.$ok.' รายการค่ะ");';
+					echo '		alert ("๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลถูก๏ฟฝัน๏ฟฝึก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ '.$ok.' ๏ฟฝ๏ฟฝยก๏ฟฝรค๏ฟฝ๏ฟฝ");';
 					echo '		window.opener.location.reload("./pomas_edit.php");';
 					echo '		window.close();';
 					echo '</script>';
 				}// end if($flagAction!='')
-		//============= End-ส่วนการทำงานเมื่อผ่านการกดปุ่ม SUBMIT ในหน้าการทำงานนี้ (code) ===============	
+		//============= End-๏ฟฝ๏ฟฝวน๏ฟฝ๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอผ๏ฟฝาน๏ฟฝ๏ฟฝรก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ SUBMIT ๏ฟฝหน๏ฟฝาก๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ (code) ===============	
 	$v_po_no = $_GET["po_no"]; 
 	include "../include_RedThemes/wait.php";
 	flush();
 ?>
 <html>
 	<head>
-		<title>เพิ่มสินค้าประเภท SubContract</title>
+		<title>๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาป๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ SubContract</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-874">
 		<link href="../include/style1.css" rel="stylesheet" type="text/css">
 		<script language='javascript' src='../include_RedThemes/funcChkInput.js'></script>	
@@ -93,7 +93,7 @@ if(session_is_registered("valid_userprpo")) {
 		<script language='javascript'>
 				function check_podetsubc(obj){
 							if(obj.prod_noshow.value==""){  	
-								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
+								alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ * ๏ฟฝ๏ฟฝ๏ฟฝรบ๏ฟฝ๏ฟฝ๏ฟฝ");
 								obj.btnBOM.focus();
 								return false;
 							}			
@@ -146,7 +146,7 @@ if(session_is_registered("valid_userprpo")) {
 			<input name="flagAction" type="hidden" value="AddCode">	 
 			<table width="800"  border="0" cellpadding="0" cellspacing="0"  bgcolor="E9EAEB">
 			<tr>
-				<th width="550">&nbsp;&nbsp;รายการสินค้า</th>
+				<th width="550">&nbsp;&nbsp;๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</th>
 			</tr>
 			<tr>
 				<td> 
@@ -155,9 +155,9 @@ if(session_is_registered("valid_userprpo")) {
 						<td>
 							<table width="100%"  border="1" align="center" cellpadding="0" cellspacing="0">
 							<tr>
-								<td width="150" class="tdleftwhite">เลขที่ใบ PO  <span class="style_star">*</span></td>
+								<td width="150" class="tdleftwhite">๏ฟฝลข๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ PO  <span class="style_star">*</span></td>
 							  <td width="300"><input name="po_no" type="text" class="style_readonly" value="<?=$v_po_no; ?>"  readonly=""></td>
-							  <td width="120"><span class="tdleftwhite">&nbsp;ประเภทสินค้าที่บันทึก</span></td>
+							  <td width="120"><span class="tdleftwhite">&nbsp;๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาท๏ฟฝ๏ฟฝัน๏ฟฝึก</span></td>
 							  <td class="style_text">SubContact </td>
 							</tr>
 							</table>
@@ -167,27 +167,27 @@ if(session_is_registered("valid_userprpo")) {
 						<td>
 							<table width="100%"  border="1" cellspacing="0" cellpadding="0">
 							<tr>
-								<td  class="tdleftwhite">&nbsp;รหัสสินค้า <span class="style_star">*</span> </td>
+								<td  class="tdleftwhite">&nbsp;๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ <span class="style_star">*</span> </td>
 								<td colspan="3">
-									<input name="prod_noshow" type="text"  value="" size="20" maxlength="50" readonly="" class="style_readonly"><input name="btnBOM" type="button" id="btnBOM"  value="สินค้า(BOM)"  onClick="lovBOM('R,P');">
+									<input name="prod_noshow" type="text"  value="" size="20" maxlength="50" readonly="" class="style_readonly"><input name="btnBOM" type="button" id="btnBOM"  value="๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ(BOM)"  onClick="lovBOM('R,P');">
 									<input name="prod_no" type="hidden"  value=""></td>
 							</tr>
 							<tr>
-								<td  class="tdleftwhite">&nbsp;ชื่อสินค้า</td>
+								<td  class="tdleftwhite">&nbsp;๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</td>
 								<td colspan="3"><input name="prod_name" type="text"  value="" size="60" maxlength="300"  onKeyUp="return chkStringInput(this,300);"></td>
 							</tr>
 							<tr>
-								<td width="150"  class="tdleftwhite">&nbsp;จำนวน(บนใบ PO)</td>
+								<td width="150"  class="tdleftwhite">&nbsp;๏ฟฝำนวน(๏ฟฝ๏ฟฝ๏ฟฝ PO)</td>
 								<td width="200"><input name="prod_qty" type="text"   onKeyDown="return chkNumberInput('float');" size="15" maxlength="8">
 							    
-								<td width="120"><span class="tdleftwhite">&nbsp;หน่วย(บนใบ PO)</span></td>
+								<td width="120"><span class="tdleftwhite">&nbsp;หน๏ฟฝ๏ฟฝ๏ฟฝ(๏ฟฝ๏ฟฝ๏ฟฝ PO)</span></td>
 							    <td width="300"><input name="prod_unit" type="text" value="" size="20"  maxlength="15"></td>
 							</tr>
 							<tr>
-							  <td  class="tdleftwhite">&nbsp;ราคาต่อหน่วย (บนใบ PO)</td>
+							  <td  class="tdleftwhite">&nbsp;๏ฟฝาคาต๏ฟฝ๏ฟฝหน๏ฟฝ๏ฟฝ๏ฟฝ (๏ฟฝ๏ฟฝ๏ฟฝ PO)</td>
 							  <td><input name="prod_price" type="text"   onKeyDown="return chkNumberInput('float');" size="15" maxlength="16">
 						      
-							  <td class="tdleftwhite">&nbsp;หน่วย(รับเข้า)</td>
+							  <td class="tdleftwhite">&nbsp;หน๏ฟฝ๏ฟฝ๏ฟฝ(๏ฟฝับ๏ฟฝ๏ฟฝ๏ฟฝ)</td>
 							  <td><input name="gar_unit" type="text" value="" size="20"  maxlength="15" readonly="" class="style_readonly"></td>
 							  </tr>
 							</table>
@@ -202,14 +202,14 @@ if(session_is_registered("valid_userprpo")) {
 									<tr>
 										<td width="25" rowspan="2" class="tdcenterblack"><input type="checkbox" name="CheckOrUn" onClick="return unOrCheckCheckbox(document.form1);"></td>
 										<td width="80" rowspan="2" class="tdcenterblack">Subjob No. </td>
-										<td width="130" rowspan="2" class="tdcenterblack">รหัสสินค้า</td>
-										<td width="398" rowspan="2" class="tdcenterblack">ชื่อสินค้า</td>
-										<td colspan="2" class="tdcenterblack">รายการรับเข้า</td>
+										<td width="130" rowspan="2" class="tdcenterblack">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</td>
+										<td width="398" rowspan="2" class="tdcenterblack">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</td>
+										<td colspan="2" class="tdcenterblack">๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ๏ฟฝับ๏ฟฝ๏ฟฝ๏ฟฝ</td>
 										<td width="15" rowspan="2" class="tdcenterblack">&nbsp;</td>
 								      </tr>
 									<tr>
-									  <td width="50" class="tdcenterblack">จำนวน</td>
-									  <td width="80" class="tdcenterblack">ราคาต่อหน่วย</td>
+									  <td width="50" class="tdcenterblack">๏ฟฝำนวน</td>
+									  <td width="80" class="tdcenterblack">๏ฟฝาคาต๏ฟฝ๏ฟฝหน๏ฟฝ๏ฟฝ๏ฟฝ</td>
 									</tr>
 									</table>
 								</td>
@@ -254,7 +254,7 @@ if(session_is_registered("valid_userprpo")) {
 								<td>
 									<table border="0" align="left" cellpadding="0" cellspacing="0" >
 									<tr>
-										<td width="644" align="right" class="tdrightblack">รวม&nbsp;&nbsp;</td>
+										<td width="644" align="right" class="tdrightblack">๏ฟฝ๏ฟฝ๏ฟฝ&nbsp;&nbsp;</td>
 										<td width="50" class="tdleftblack" ><input name="sum_prod_qty" type="text"   size="3" maxlength="8" readonly=""  class="style_readonly"></td>
 									    <td width="82" class="tdleftblack" ><input name="sum_prod_price" type="text"  class="style_readonly" id="sum_prod_price"   size="8" maxlength="8" readonly=""></td>
 								      </tr>

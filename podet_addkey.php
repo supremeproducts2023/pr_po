@@ -4,9 +4,9 @@
 		require_once("../include_RedThemes/odbc_connect.php");		
 		$empno_user = $_SESSION["empno_user"];
 	
-		//============= Start-ส่วนการทำงานเมื่อผ่านการกดปุ่ม SUBMIT ในหน้าการทำงานนี้ (code) ===============	
+		//============= Start-๏ฟฝ๏ฟฝวน๏ฟฝ๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอผ๏ฟฝาน๏ฟฝ๏ฟฝรก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ SUBMIT ๏ฟฝหน๏ฟฝาก๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ (code) ===============	
 				$flagAction=@$_POST["flagAction"];
-				if($flagAction=='AddCode'){  // กรณีกดปุ่มเพื่อทำงานหน้า code
+				if($flagAction=='AddCode'){  // ๏ฟฝรณีก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอทำงานหน๏ฟฝ๏ฟฝ code
 						$v_data = $_POST["data"];
 						$v_po_no = @$_POST["po_no"];
 						
@@ -21,7 +21,7 @@
 								$v_prod_unit = $v_data[$i++];		
 								$v_prod_price = $v_data[$i++];	
 								if($v_prod_type=="Etc") $v_prod_type='5'; else $v_prod_type='6';	 
-								$str_mx = "select nvl(max(id)+1,1) mx  from po_details where po_no='$v_po_no'";			
+								$str_mx = "select ISNULL(max(id)+1,1) mx  from po_details where po_no='$v_po_no'";			
 								$cur_mx = @odbc_exec($conn,$str_mx);
 								$v_mx = @odbc_result($cur_mx, "mx");
 								$strINS = "insert into po_details (
@@ -48,19 +48,19 @@
 						$result=odbc_exec($conn,"update po_master set po_status='1' where po_no='$v_po_no' ");
 						$exe_commit = odbc_exec($conn,"commit");
 						echo '<script language="JavaScript" type="text/JavaScript">';
-						echo '		alert ("ข้อมูลถูกบันทึกทั้งสิ้น '.$ok.' รายการค่ะ");';
+						echo '		alert ("๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลถูก๏ฟฝัน๏ฟฝึก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ '.$ok.' ๏ฟฝ๏ฟฝยก๏ฟฝรค๏ฟฝ๏ฟฝ");';
 						echo '		window.opener.location.reload("./pomas_edit.php");';
 						echo '		window.close();';
 						echo '</script>';
 
 				}// end if($flagAction!='')
-		//============= End-ส่วนการทำงานเมื่อผ่านการกดปุ่ม SUBMIT ในหน้าการทำงานนี้ (code) ===============	
+		//============= End-๏ฟฝ๏ฟฝวน๏ฟฝ๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอผ๏ฟฝาน๏ฟฝ๏ฟฝรก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ SUBMIT ๏ฟฝหน๏ฟฝาก๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ (code) ===============	
 		$v_po_no = @$_POST["po_no"];
 		if($v_po_no=="")$v_po_no = @$_GET["po_no"];
 		?>
 		<html>
 				<head>
-						<title>เพิ่มสินค้าประเภท Detail, Etc</title>
+						<title>๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาป๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ Detail, Etc</title>
 						<meta http-equiv="Content-Type" content="text/html; charset=windows-874">
 						<script language='javascript' src='../include_RedThemes/funcChkInput.js'></script>		
 						<script language='javascript' src='../include_RedThemes/funcEtc.js'></script>		
@@ -115,9 +115,9 @@
 
 								function createItem(ID1,value1,check,ID2,value2) {
 										if(check=="Etc"){	
-												return "<input name='btn_select' type='button' id='btn"+ ID1 +"' value='เลือก...' onClick='lovItem(\"test\"+ "+ID1+",\"test\"+ "+ID2+","+ID1+","+ID2+");' style='width:40'><input type='text' id='test"+ ID1 +"' value='"+ value1 +"' readonly='readonly'  style='width:206;background-color:#FF99CC'><input name='data[]' id='test"+ ID2 +"' type='hidden' value='"+ value2 +"' />";
+												return "<input name='btn_select' type='button' id='btn"+ ID1 +"' value='๏ฟฝ๏ฟฝ๏ฟฝอก...' onClick='lovItem(\"test\"+ "+ID1+",\"test\"+ "+ID2+","+ID1+","+ID2+");' style='width:40'><input type='text' id='test"+ ID1 +"' value='"+ value1 +"' readonly='readonly'  style='width:206;background-color:#FF99CC'><input name='data[]' id='test"+ ID2 +"' type='hidden' value='"+ value2 +"' />";
 										}else{
-												return "<input name='btn_select' type='button' value='เลือก...' onClick='lovItem(\"test\"+ "+ID1+",\"test\"+ "+ID2+","+ID1+","+ID2+");' style='width:40' disabled='disabled'><input type='text' id='test"+ ID1 +"' value='"+ value1 +"' readonly='readonly'  style='width:206;background-color:#FF99CC'><input name='data[]' id='test"+ ID2 +"' type='hidden' value='"+ value2 +"' />";
+												return "<input name='btn_select' type='button' value='๏ฟฝ๏ฟฝ๏ฟฝอก...' onClick='lovItem(\"test\"+ "+ID1+",\"test\"+ "+ID2+","+ID1+","+ID2+");' style='width:40' disabled='disabled'><input type='text' id='test"+ ID1 +"' value='"+ value1 +"' readonly='readonly'  style='width:206;background-color:#FF99CC'><input name='data[]' id='test"+ ID2 +"' type='hidden' value='"+ value2 +"' />";
 										}
 								}
 
@@ -164,10 +164,10 @@
 									if(arrInput.length>0){
 										if(document.getElementById('test'+(arrInput.length-8)).value=='Etc' && 
 										 document.getElementById('test'+(arrInput.length-7)).value==''){
-													alert("กรุณาเลือกกลุ่มของค่าใช้จ่ายด้วยค่ะ");
+													alert("๏ฟฝ๏ฟฝุณ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยด๏ฟฝ๏ฟฝยค๏ฟฝ๏ฟฝ");
 													document.getElementById('btn'+(arrInput.length-7)).focus();
 										  }else if(document.getElementById('test'+(arrInput.length-4)).value==''){
-													alert("กรุณากรอกชื่อสินค้าด้วยค่ะ");
+													alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาด๏ฟฝ๏ฟฝยค๏ฟฝ๏ฟฝ");
 													document.getElementById('test'+(arrInput.length-4)).focus();
 										  }else{
 											  		addInput2(type);
@@ -201,17 +201,17 @@
 								
 								function checknotnull(chk){
 									if(chk <= 6){
-										alert('คุณยังไม่ได้ทำการเพิ่มรายการค่ะ');
+										alert('๏ฟฝุณ๏ฟฝัง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝำก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยก๏ฟฝรค๏ฟฝ๏ฟฝ');
 										document.getElementById("flagAction").value = "close";
 										return false;
 									}else{
 										 if(document.getElementById('test'+(arrInput.length-8)).value=='Etc' && 
 										 document.getElementById('test'+(arrInput.length-7)).value==''){
-													alert("กรุณาเลือกกลุ่มของค่าใช้จ่ายด้วยค่ะ");
+													alert("๏ฟฝ๏ฟฝุณ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยด๏ฟฝ๏ฟฝยค๏ฟฝ๏ฟฝ");
 													document.getElementById('btn'+(arrInput.length-7)).focus();
 													return false;
 										  }else if(document.getElementById('test'+(arrInput.length-4)).value==''){
-													alert("กรุณากรอกชื่อสินค้าด้วยค่ะ");
+													alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาด๏ฟฝ๏ฟฝยค๏ฟฝ๏ฟฝ");
 													document.getElementById('test'+(arrInput.length-4)).focus();
 													return false;
 										  }
@@ -228,7 +228,7 @@
 											<center>
 											  <table width="900"  border="0" cellpadding="0" cellspacing="0"  bgcolor="E9EAEB">
                                                 <tr>
-                                                  <th width="550">&nbsp;&nbsp;รายการสินค้า</th>
+                                                  <th width="550">&nbsp;&nbsp;๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</th>
                                                 </tr>
                                                 <tr>
                                                   <td>
@@ -237,7 +237,7 @@
 																	<td>
 																				  <table width="100%"  border="1" align="center" cellpadding="0" cellspacing="0">
 																					<tr>
-																					  <td width="120" class="tdleftwhite">เลขที่ใบ PO <span class="style_star">*</span></td>
+																					  <td width="120" class="tdleftwhite">๏ฟฝลข๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ PO <span class="style_star">*</span></td>
 																					  <td><input name="po_no" type="text" class="style_readonly" value="<?=$v_po_no; ?>"  readonly=""></td>
 																					</tr>
 																				  </table>																	
@@ -247,24 +247,24 @@
 																  <td>
 																				<table width="900"  border="1" cellspacing="0" cellpadding="0">
 																				  <tr>
-																					<td width="80" rowspan="2" class="tdcenterblack">ประเภทสินค้า</td>
-																					<td width="248" rowspan="2" class="tdcenterblack">กลุ่มของค่าใช้จ่าย</td>
-																					<td width="162" rowspan="2" class="tdcenterblack">รหัสสินค้า</td>
-																					<td width="200" rowspan="2" class="tdcenterblack" >ชื่อสินค้า</td>
-																					<td colspan="3" class="tdcenterblack" >ใช้ในการสั่งซื้อ</td>
+																					<td width="80" rowspan="2" class="tdcenterblack">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</td>
+																					<td width="248" rowspan="2" class="tdcenterblack">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ</td>
+																					<td width="162" rowspan="2" class="tdcenterblack">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</td>
+																					<td width="200" rowspan="2" class="tdcenterblack" >๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</td>
+																					<td colspan="3" class="tdcenterblack" >๏ฟฝ๏ฟฝในก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ่งซ๏ฟฝ๏ฟฝ๏ฟฝ</td>
 																					<td width="16" rowspan="2" class="tdcenterblack" >&nbsp;</td>
 																				  </tr>
 																				  <tr>
-																					<td width="50" class="tdcenterblack" >จำนวน</td>
-																					<td width="60" class="tdcenterblack" >หน่วย</td>
-																					<td width="80" class="tdcenterblack" >ราคาต่อหน่วย</td>
+																					<td width="50" class="tdcenterblack" >๏ฟฝำนวน</td>
+																					<td width="60" class="tdcenterblack" >หน๏ฟฝ๏ฟฝ๏ฟฝ</td>
+																					<td width="80" class="tdcenterblack" >๏ฟฝาคาต๏ฟฝ๏ฟฝหน๏ฟฝ๏ฟฝ๏ฟฝ</td>
 																				  </tr>
 																		  </table>	  
 																				<div id="maentabel" style="  height:350px; width:900; overflow:auto; z-index=2;display:block; font-size:11px; text-align:left" >
 																								<p id="parah">
 																								
-																											กดที่ปุ่ม "เพิ่ม ETC"  หรือปุ่ม "เพิ่ม Detail" <br>
-																											เพื่อเพิ่มช่องให้กรอกรายการสินค้าค่ะ																								</p>																	
+																											๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ "๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ ETC"  ๏ฟฝ๏ฟฝ๏ฟฝอป๏ฟฝ๏ฟฝ๏ฟฝ "๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ Detail" <br>
+																											๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอก๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาค๏ฟฝ๏ฟฝ																								</p>																	
 																				</div>																  </td>
 																  </tr>
 																<tr>
@@ -272,13 +272,13 @@
 																				<table width="100%"  border="1" align="center" cellpadding="0" cellspacing="0">
 																				<tr>
 																					<th >
-																							<input type="button" name="Submit" value="บันทึกรายการทั้งหมดลงบนใบ PO" onClick="if(checknotnull(document.form1.length)){ document.form1.flagAction.value='AddCode'; document.form1.submit(); }
+																							<input type="button" name="Submit" value="๏ฟฝัน๏ฟฝึก๏ฟฝ๏ฟฝยก๏ฟฝรท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลง๏ฟฝ๏ฟฝ๏ฟฝ PO" onClick="if(checknotnull(document.form1.length)){ document.form1.flagAction.value='AddCode'; document.form1.submit(); }
 																							else if(document.form1.flagAction.value=='close'){ document.form1.submit(); }">
 																					</th>																						
 																				    <th><div  align="right">
-																							<input type="button" name="AddEtc" onClick="javascript:addInput('etc');" value="เพิ่ม ETC">
-																							<input type="button" name="AddDetail" onClick="javascript:addInput('detail');" value="เพิ่ม Detail">
-																							<input type="button" name="AddEtc" onClick="javascript:deleteInput()" value="ลบบรรทัดล่างสุด">																					
+																							<input type="button" name="AddEtc" onClick="javascript:addInput('etc');" value="๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ ETC">
+																							<input type="button" name="AddDetail" onClick="javascript:addInput('detail');" value="๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ Detail">
+																							<input type="button" name="AddEtc" onClick="javascript:deleteInput()" value="ลบ๏ฟฝ๏ฟฝรทัด๏ฟฝ๏ฟฝาง๏ฟฝุด">																					
 																							</div>
 																					</th>
 																				</tr>		

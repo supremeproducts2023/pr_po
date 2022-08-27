@@ -26,19 +26,19 @@
 											ID,ID_RUN,LOG_TYPE,
 											NEW_DATE,REMARK,REC_USER,REC_DATE
 											) values(
-											(select nvl(max(ID)+1,1) from LOG_SENT_AMBU),
+											(select ISNULL(max(ID)+1,1) from LOG_SENT_AMBU),
 											'$po_no','p',to_date('$delivery_date','dd-MM-yyyy'),'$log_remark',
 											'$user_id',sysdate)";
 											if(@odbc_exec($conn,$strINS))
 											{echo '<script language="JavaScript" type="text/JavaScript">
-										alert ("ปรับปรุงข้อมูล Delivery Date เรียบร้อยแล้วค่ะ");';
+										alert ("๏ฟฝ๏ฟฝับ๏ฟฝ๏ฟฝุง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ Delivery Date ๏ฟฝ๏ฟฝ๏ฟฝยบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝวค๏ฟฝ๏ฟฝ");';
 										echo 'parent.main_frame.location.href = "./po_search_Delivery.php?po_no='.$po_no.'";';
 										echo '</script>';
 														$exeCOMMIT = @odbc_exec($conn,"commit");
 										}
 										else
 										{echo '<script language="JavaScript" type="text/JavaScript">
-										alert("เกิดข้อผิดพลาดขึ้นกับระบบ ทำให้ไม่สามารถบันทึกข้อมูล PO นี้ลงบนฐานข้อมูลได้ค่ะ");';
+										alert("๏ฟฝิด๏ฟฝ๏ฟฝอผิด๏ฟฝ๏ฟฝาด๏ฟฝ๏ฟฝ้นกับ๏ฟฝะบ๏ฟฝ ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรถ๏ฟฝัน๏ฟฝึก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ PO ๏ฟฝ๏ฟฝ๏ฟฝลง๏ฟฝ๏ฟฝ๏ฟฝาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ");';
 										//echo 'parent.main_frame.location.href = "./pomas_edit.php";';
 								echo '</script>';
 								}
@@ -46,7 +46,7 @@
 						else
 						{
 						echo '<script language="JavaScript" type="text/JavaScript">
-										alert("เกิดข้อผิดพลาดขึ้นกับระบบ ทำให้ไม่สามารถบันทึกข้อมูล PO นี้ลงบนฐานข้อมูลได้ค่ะ");';
+										alert("๏ฟฝิด๏ฟฝ๏ฟฝอผิด๏ฟฝ๏ฟฝาด๏ฟฝ๏ฟฝ้นกับ๏ฟฝะบ๏ฟฝ ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรถ๏ฟฝัน๏ฟฝึก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ PO ๏ฟฝ๏ฟฝ๏ฟฝลง๏ฟฝ๏ฟฝ๏ฟฝาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ");';
 										//echo 'parent.main_frame.location.href = "./pomas_edit.php";';
 								echo '</script>';
 						}
@@ -66,7 +66,7 @@
 		 <script language='javascript'>
 					function check_po(obj){
 							if(obj.log_remark.value==""){  	
-								alert("กรุณากรอกสาเหตุการเลื่อนกำหนดส่งสินค้าค่ะ");
+								alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝหตุก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอน๏ฟฝ๏ฟฝหน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาค๏ฟฝ๏ฟฝ");
 								obj.log_remark.focus();
 								return false;
 							}		
@@ -95,7 +95,7 @@
 			?>
 		<table width="600"  border="0" cellpadding="0" cellspacing="0"  bgcolor="E9EAEB">
           <tr>
-            <th> &nbsp;&nbsp;เลื่อนกำหนดส่งสินค้า</th>
+            <th> &nbsp;&nbsp;๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอน๏ฟฝ๏ฟฝหน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</th>
             <th><div align="right">&nbsp;</div></th>
           </tr>
           <tr>
@@ -106,7 +106,7 @@
                       </tr>
                         <td class="tdleftwhite">&nbsp;Delivery Date</td>
                         <td><input name="delivery_date_old" type="text"  class="style_readonly"value="<? echo $po_deliv_date; ?>" size="15" readonly="" ></td>
-						 <td class="tdleftwhite">&nbsp;เลื่อนส่งสินค้า</td>
+						 <td class="tdleftwhite">&nbsp;๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอน๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</td>
 						 <td>
 						 <input name="delivery_date" type="text"  class="style_readonly"value="<? echo $po_deliv_date; ?>" size="15" readonly="" >						  
                         <script language='javascript'>
@@ -119,7 +119,7 @@
 						 </td>
                       </tr>
 					  <tr>
-					  <td>สาเหตุ</td>
+					  <td>๏ฟฝ๏ฟฝ๏ฟฝหต๏ฟฝ</td>
 					  <td colspan = 3><textarea name="log_remark" cols="50" id="log_remark" onKeyUp="return chkStringInput(this,100);"><? echo @$log_remark; ?></textarea></td>
 					  </tr>
 					</table>					  
@@ -162,7 +162,7 @@
 	else{
 			include("index.php");
 			echo '<script language="JavaScript" type="text/JavaScript">';
-			echo 'alert ("ขออภัยค่ะ คุณยังไม่ได้ Login");';
+			echo 'alert ("๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยค๏ฟฝ๏ฟฝ ๏ฟฝุณ๏ฟฝัง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ Login");';
 			echo '</script>';
 	}
 ?>

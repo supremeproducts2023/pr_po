@@ -3,7 +3,7 @@
 if(session_is_registered("valid_userprpo")) {
 		require_once("../include_RedThemes/odbc_connect.php");				
 		$empno_user = $_SESSION["empno_user"];
-		//============= Start-ส่วนการทำงานเมื่อผ่านการกดปุ่ม SUBMIT ในหน้าการทำงานนี้ (code) ===============	
+		//============= Start-๏ฟฝ๏ฟฝวน๏ฟฝ๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอผ๏ฟฝาน๏ฟฝ๏ฟฝรก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ SUBMIT ๏ฟฝหน๏ฟฝาก๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ (code) ===============	
 				$flagAction=@$_POST["flagAction"];
 				if($flagAction=='SearchCode'){ 
 						$v_po_no= $_POST["po_no"];
@@ -54,7 +54,7 @@ if(session_is_registered("valid_userprpo")) {
 					$discount_percent=0;
 					$discount_baht=0;		
 
-					$strMAX = "select nvl(max(id)+1,1) id  from po_details where po_no='$v_po_no'";			
+					$strMAX = "select ISNULL(max(id)+1,1) id  from po_details where po_no='$v_po_no'";			
 					$curMAX = @odbc_exec($conn,$strMAX);
 					$id = @odbc_result($curMAX, "id");
 
@@ -142,14 +142,14 @@ if(session_is_registered("valid_userprpo")) {
 					$result=odbc_exec($conn,"update po_master set po_status='1' where po_no='$v_po_no'");						
 					$exeCOMMIT = odbc_exec($conn,"commit");
 					echo '<script language="JavaScript" type="text/JavaScript">';
-					echo '		alert ("ข้อมูลถูกบันทึกทั้งสิ้น '.$ok.' รายการ\n\n  พร้อมทั้งเพิ่มเติมความสัมพันธ์ระหว่าง PO และ PR เรียบร้อยแล้วค่ะ");';
+					echo '		alert ("๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลถูก๏ฟฝัน๏ฟฝึก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ '.$ok.' ๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ\n\n  ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝัน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝาง PO ๏ฟฝ๏ฟฝ๏ฟฝ PR ๏ฟฝ๏ฟฝ๏ฟฝยบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝวค๏ฟฝ๏ฟฝ");';
 					echo '		window.opener.location.reload("./pomas_edit.php");';
 					echo '		window.close();';
 					echo '</script>'; 								
 				}else{
 						$v_po_no = @$_GET["po_no"]; 
 				}
-		//============= End-ส่วนการทำงานเมื่อผ่านการกดปุ่ม SUBMIT ในหน้าการทำงานนี้ (code) ===============	
+		//============= End-๏ฟฝ๏ฟฝวน๏ฟฝ๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอผ๏ฟฝาน๏ฟฝ๏ฟฝรก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ SUBMIT ๏ฟฝหน๏ฟฝาก๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ (code) ===============	
 	include "../include_RedThemes/wait.php";
 	flush();
 		
@@ -159,7 +159,7 @@ if(session_is_registered("valid_userprpo")) {
 ?>
 <html>
 	<head>
-		<title>เพิ่มสินค้าตาม PR (หลายประเภท)</title>
+		<title>๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาต๏ฟฝ๏ฟฝ PR (๏ฟฝ๏ฟฝ๏ฟฝยป๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ)</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-874">
 		<link href="../include/style1.css" rel="stylesheet" type="text/css">
 		<script language='javascript' src='../include_RedThemes/funcChkInput.js'></script>	
@@ -212,7 +212,7 @@ if(session_is_registered("valid_userprpo")) {
 			<tr>
 				<td><table width="100%"  border="1" align="center" cellpadding="0" cellspacing="0">
                   <tr>
-                    <td width="130" class="tdleftwhite">&nbsp;เลขที่ใบ PO <span class="style_star">*</span></td>
+                    <td width="130" class="tdleftwhite">&nbsp;๏ฟฝลข๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ PO <span class="style_star">*</span></td>
                     <td><input name="po_no" type="text" class="style_readonly" value="<?=$v_po_no; ?>"  readonly=""></td>
                   </tr>
 
@@ -228,16 +228,16 @@ if(session_is_registered("valid_userprpo")) {
 						<td>
 							<table width="100%"  border="1" cellspacing="0" cellpadding="0">
 							<tr>
-								<td width="130"  class="tdleftwhite">&nbsp;Keyword ที่ใช้ค้นหา </td>
+								<td width="130"  class="tdleftwhite">&nbsp;Keyword ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ </td>
 								<td>
 										<select name="type_search">
-										  <option value="pr_no" <? if((@$type_search=="pr_no")||(@$type_search==""))echo 'selected="selected"'; ?>>ค้นหาตามเลขที่ PR</option>
-										  <option value="e_name" <? if(@$type_search=="e_name")echo 'selected="selected"'; ?>>ค้นหาตามชื่อผู้เปิด PR</option>
-										  <option value="prod_no" <? if(@$type_search=="prod_no")echo 'selected="selected"'; ?>>ค้นหาตามรหัสสินค้า</option>
-										  <option value="prod_name" <? if(@$type_search=="prod_name")echo 'selected="selected"'; ?>>ค้นหาตามชื่อสินค้า</option>
+										  <option value="pr_no" <? if((@$type_search=="pr_no")||(@$type_search==""))echo 'selected="selected"'; ?>>๏ฟฝ๏ฟฝ๏ฟฝาต๏ฟฝ๏ฟฝ๏ฟฝลข๏ฟฝ๏ฟฝ๏ฟฝ PR</option>
+										  <option value="e_name" <? if(@$type_search=="e_name")echo 'selected="selected"'; ?>>๏ฟฝ๏ฟฝ๏ฟฝาต๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอผ๏ฟฝ๏ฟฝ๏ฟฝิด PR</option>
+										  <option value="prod_no" <? if(@$type_search=="prod_no")echo 'selected="selected"'; ?>>๏ฟฝ๏ฟฝ๏ฟฝาต๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</option>
+										  <option value="prod_name" <? if(@$type_search=="prod_name")echo 'selected="selected"'; ?>>๏ฟฝ๏ฟฝ๏ฟฝาต๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</option>
 										</select>
 										  <input name="keyword" type="text"  size="50" value="<?= @$keyword; ?>">
-										  <input type="submit" name="Submit" value="ค้นหา" onKeyDown="if(event.keyCode==13) document.form1.submit();">
+										  <input type="submit" name="Submit" value="๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ" onKeyDown="if(event.keyCode==13) document.form1.submit();">
 								</td>
 							</tr>
 							</table>						
@@ -251,21 +251,21 @@ if(session_is_registered("valid_userprpo")) {
 									<table border="1" align="left" cellpadding="0" cellspacing="0" >
 									<tr>
 										<td width="25" rowspan="2" class="tdcenterblack"><input type="checkbox" name="CheckOrUn" onClick="return unOrCheckCheckbox(document.form1);"></td>
-										<td width="83" rowspan="2" class="tdcenterblack">ประเภท</td>
+										<td width="83" rowspan="2" class="tdcenterblack">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ</td>
 										<td width="60" rowspan="2" class="tdcenterblack">PR No. </td>
-										<td width="130" rowspan="2" class="tdcenterblack">รหัสสินค้า</td>
-										<td width="305" rowspan="2" class="tdcenterblack">ชื่อสินค้า</td>
-										<td colspan="3" class="tdcenterblack">รายการบนใบ PO </td>
-										<td colspan="3" class="tdcenterblack">รายการรับเข้า</td>
+										<td width="130" rowspan="2" class="tdcenterblack">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</td>
+										<td width="305" rowspan="2" class="tdcenterblack">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</td>
+										<td colspan="3" class="tdcenterblack">๏ฟฝ๏ฟฝยก๏ฟฝรบ๏ฟฝ๏ฟฝ PO </td>
+										<td colspan="3" class="tdcenterblack">๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ๏ฟฝับ๏ฟฝ๏ฟฝ๏ฟฝ</td>
 										<td width="15" rowspan="2" class="tdcenterblack">&nbsp;</td>
 								      </tr>
 									<tr>
-									  <td width="40" class="tdcenterblack">จำนวน</td>
-									  <td width="40" class="tdcenterblack">หน่วย</td>
-									  <td width="70" class="tdcenterblack">ราคาต่อหน่วย</td>
-									  <td width="40" class="tdcenterblack">จำนวน</td>
-									  <td width="40" class="tdcenterblack">หน่วย</td>
-									  <td width="70" class="tdcenterblack">ราคาต่อหน่วย</td>
+									  <td width="40" class="tdcenterblack">๏ฟฝำนวน</td>
+									  <td width="40" class="tdcenterblack">หน๏ฟฝ๏ฟฝ๏ฟฝ</td>
+									  <td width="70" class="tdcenterblack">๏ฟฝาคาต๏ฟฝ๏ฟฝหน๏ฟฝ๏ฟฝ๏ฟฝ</td>
+									  <td width="40" class="tdcenterblack">๏ฟฝำนวน</td>
+									  <td width="40" class="tdcenterblack">หน๏ฟฝ๏ฟฝ๏ฟฝ</td>
+									  <td width="70" class="tdcenterblack">๏ฟฝาคาต๏ฟฝ๏ฟฝหน๏ฟฝ๏ฟฝ๏ฟฝ</td>
 									</tr>
 									</table>								</td>
 							</tr>

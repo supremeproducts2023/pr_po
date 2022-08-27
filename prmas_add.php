@@ -23,67 +23,67 @@
 		 <script language='javascript'>
 				function check_pr(obj,pr_type){
 							if(obj.pr_date.value==""){  	
-								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
+								alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ * ๏ฟฝ๏ฟฝ๏ฟฝรบ๏ฟฝ๏ฟฝ๏ฟฝ");
 								obj.pr_date.focus();
 								return false;
 							}			
 							if(obj.PayCode.value == "none"){
-								alert("กรุณาระบุ Payment Term ด้วยค่ะ");
+								alert("๏ฟฝ๏ฟฝุณ๏ฟฝ๏ฟฝะบ๏ฟฝ Payment Term ๏ฟฝ๏ฟฝ๏ฟฝยค๏ฟฝ๏ฟฝ");
 								obj.PayCode.focus();
 								return false;
 							}
 							if(pr_type=="T"){
 								if(obj.obj_name81.value=="") {	
-									alert("กรุณาระบุวัตถุประสงค์ด้วยค่ะ");
+									alert("๏ฟฝ๏ฟฝุณ๏ฟฝ๏ฟฝะบ๏ฟฝ๏ฟฝัต๏ฟฝุป๏ฟฝ๏ฟฝสง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยค๏ฟฝ๏ฟฝ");
 									return false;
 								}									
 							}else{
 									if((!obj.flag_obj[0].checked)&&(!obj.flag_obj[1].checked)&&(!obj.flag_obj[2].checked)&&
 										(!obj.flag_obj[3].checked)&&(!obj.flag_obj[4].checked)&&(!obj.flag_obj[5].checked)&&(!obj.flag_obj[6].checked)){  	
-										alert("กรุณาเลือกวัตถุประสงค์ด้วยค่ะ");
+										alert("๏ฟฝ๏ฟฝุณ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอก๏ฟฝัต๏ฟฝุป๏ฟฝ๏ฟฝสง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยค๏ฟฝ๏ฟฝ");
 										obj.flag_obj[0].focus();
 										return false;
 									}		
 									if((obj.flag_obj[0].checked)&&((obj.obj_name11.value=="")||((obj.obj_name12.value=="")&&(obj.obj_name13.value=="")))){  	
-										alert("กรุณากรอกรายละเอียดของวัตถุประสงค์ให้ครบค่ะ");
+										alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยด๏ฟฝอง๏ฟฝัต๏ฟฝุป๏ฟฝ๏ฟฝสง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรบ๏ฟฝ๏ฟฝ๏ฟฝ");
 										obj.obj_name11.focus();
 										return false;
 									}	
 									if((obj.flag_obj[1].checked)&&((obj.obj_name21.value=="")||(obj.obj_name22.value==""))){  	
-										alert("กรุณากรอกรายละเอียดของวัตถุประสงค์ให้ครบค่ะ");
+										alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยด๏ฟฝอง๏ฟฝัต๏ฟฝุป๏ฟฝ๏ฟฝสง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรบ๏ฟฝ๏ฟฝ๏ฟฝ");
 										obj.obj_name21.focus();
 										return false;
 									}	
 									if((obj.flag_obj[2].checked)&&((obj.obj_name31.value=="")||(obj.obj_name32.value=="")||(obj.obj_name33.value==""))){  	
-										alert("กรุณากรอกรายละเอียดของวัตถุประสงค์ให้ครบค่ะ");
+										alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยด๏ฟฝอง๏ฟฝัต๏ฟฝุป๏ฟฝ๏ฟฝสง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรบ๏ฟฝ๏ฟฝ๏ฟฝ");
 										obj.obj_name31.focus();
 										return false;
 									}	
 									if((obj.flag_obj[3].checked)&&(obj.obj_name41.value=="")){  	
-										alert("กรุณากรอกรายละเอียดของวัตถุประสงค์ให้ครบค่ะ");
+										alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยด๏ฟฝอง๏ฟฝัต๏ฟฝุป๏ฟฝ๏ฟฝสง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรบ๏ฟฝ๏ฟฝ๏ฟฝ");
 										obj.obj_name41.focus();
 										return false;
 									}	
 									if((obj.flag_obj[4].checked)&&(obj.obj_name51.value=="")){  	
-										alert("กรุณากรอกรายละเอียดของวัตถุประสงค์ให้ครบค่ะ");
+										alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยด๏ฟฝอง๏ฟฝัต๏ฟฝุป๏ฟฝ๏ฟฝสง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรบ๏ฟฝ๏ฟฝ๏ฟฝ");
 										obj.obj_name51.focus();
 										return false;
 									}	
 									if((obj.flag_obj[6].checked)&&(obj.obj_name61.value=="")){  	
-										alert("กรุณากรอกรายละเอียดของวัตถุประสงค์ให้ครบค่ะ");
+										alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยด๏ฟฝอง๏ฟฝัต๏ฟฝุป๏ฟฝ๏ฟฝสง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรบ๏ฟฝ๏ฟฝ๏ฟฝ");
 										obj.obj_name61.focus();
 										return false;
 									}	
 							}
 														
 							if(obj.estimate_day.value==""){  	
-								alert("กรุณาระบุวันด้วยค่ะ");
+								alert("๏ฟฝ๏ฟฝุณ๏ฟฝ๏ฟฝะบ๏ฟฝ๏ฟฝัน๏ฟฝ๏ฟฝ๏ฟฝยค๏ฟฝ๏ฟฝ");
 								obj.estimate_day[0].focus();
 								return false;
 							}		
 				
 							if((!obj.vat_include[0].checked)&&(!obj.vat_include[1].checked)){  	
-								alert("กรุณาระบุราคาสินค้าที่ ต้องการกรอกว่าเป็นราคา รวมหรือยังไม่รวม VAT ด้วยค่ะ");
+								alert("๏ฟฝ๏ฟฝุณ๏ฟฝ๏ฟฝะบ๏ฟฝ๏ฟฝาค๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาท๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝรก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝาค๏ฟฝ ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝัง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ VAT ๏ฟฝ๏ฟฝ๏ฟฝยค๏ฟฝ๏ฟฝ");
 								obj.vat_include[0].focus();
 								return false;
 							}								
@@ -302,7 +302,7 @@
 							$cur_int_year = @odbc_exec($conn,$str_int_year);
 							$int_year = @odbc_result($cur_int_year, "int_year");
 						
-							$str_mx = "select nvl(max(substr(pr_no,5,5))+1,1) int_mx from pr_master ";
+							$str_mx = "select ISNULL(max(substr(pr_no,5,5))+1,1) int_mx from pr_master ";
 							$str_mx = $str_mx."where substr(pr_no,3,2) = '".$int_year."'";
 							$cur_mx = @odbc_exec($conn,$str_mx);
 							$int_mx = @odbc_result($cur_mx, "int_mx");
@@ -324,13 +324,13 @@
 													if(!move_uploaded_file($_FILES['pr_path']['tmp_name'],"$path_file\\$filename")){											
 															$filename="";
 															echo '<script language="JavaScript" type="text/JavaScript">';
-															echo 'alert ("พบปัญหาไม่สามารถ Attach ไฟล์ ใบกรรมวิธีตรวจรับสินค้า ได้ค่ะ");';
+															echo 'alert ("๏ฟฝ๏ฟฝ๏ฟฝัญ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรถ Attach ๏ฟฝ๏ฟฝ๏ฟฝ ใบก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิธีต๏ฟฝวจ๏ฟฝับ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ");';
 															echo '</script>';
 													}
 									}else{
 												$filename="";
 												echo '<script language="JavaScript" type="text/JavaScript">';
-												echo 'alert ("พบปัญหาไม่สามารถ Attach ไฟล์ ใบกรรมวิธีตรวจรับสินค้า ได้ค่ะ");';
+												echo 'alert ("๏ฟฝ๏ฟฝ๏ฟฝัญ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรถ Attach ๏ฟฝ๏ฟฝ๏ฟฝ ใบก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิธีต๏ฟฝวจ๏ฟฝับ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ");';
 												echo '</script>';
 									}
 						}
@@ -353,7 +353,7 @@
 						
 						$_SESSION["sespk_no"] = $pr_no;			
 						echo '<script language="JavaScript" type="text/JavaScript">
-										alert ("บันทึกข้อมูลส่วนหัวของ PR เรียบร้อยแล้ว กรุณาใส่รายละเอียดสินค้าที่ต้องการขอซื้อค่ะ");
+										alert ("๏ฟฝัน๏ฟฝึก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝวน๏ฟฝ๏ฟฝวของ PR ๏ฟฝ๏ฟฝ๏ฟฝยบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝุณ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยด๏ฟฝิน๏ฟฝ๏ฟฝาท๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝรขอซ๏ฟฝ๏ฟฝอค๏ฟฝ๏ฟฝ");
 										parent.main_frame.location.href = "./prmas_edit.php";
 								</script>';					
 			}			
@@ -387,7 +387,7 @@
 			<input name="flagAction" type="hidden" value="AddCode">					
 		<table width="870"  border="0" cellpadding="0" cellspacing="0"  bgcolor="E9EAEB">
           <tr>
-            <th> &nbsp;&nbsp;เพิ่ม PR <?php if($_SESSION["pr_type"]=="T") echo "Transtek"; else echo "Supreme"; ?></th>
+            <th> &nbsp;&nbsp;๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ PR <?php if($_SESSION["pr_type"]=="T") echo "Transtek"; else echo "Supreme"; ?></th>
             <th><div align="right">&nbsp;</div></th>
           </tr>
           <tr>
@@ -396,11 +396,11 @@
                 <tr>
                   <td><table width="100%"  border="1" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td width="120" class="tdleftwhite"> &nbsp;เลขที่ PR <span class="style_star">*</span> </td>
-                        <td><input name="pr_no" type="text"  value="ระบบจะ Generate ให้ หลังจาก Save ค่ะ" size="31"  class="style_readonly" readonly="">						</td>
+                        <td width="120" class="tdleftwhite"> &nbsp;๏ฟฝลข๏ฟฝ๏ฟฝ๏ฟฝ PR <span class="style_star">*</span> </td>
+                        <td><input name="pr_no" type="text"  value="๏ฟฝะบ๏ฟฝ๏ฟฝ๏ฟฝ Generate ๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝัง๏ฟฝาก Save ๏ฟฝ๏ฟฝ๏ฟฝ" size="31"  class="style_readonly" readonly="">						</td>
                       </tr>
                       <tr>
-                        <td class="tdleftwhite">&nbsp;วันที่ขอซื้อ<span class="style_star">*</span> </td>
+                        <td class="tdleftwhite">&nbsp;๏ฟฝัน๏ฟฝ๏ฟฝ๏ฟฝอซ๏ฟฝ๏ฟฝ๏ฟฝ<span class="style_star">*</span> </td>
                         <td>
                           <input name="pr_date" type="text"  class="style_readonly" readonly="" value="<? echo date("d-m-Y"); ?>" size="8" >						  
                         <script language='javascript'>
@@ -412,7 +412,7 @@
 							</script>						</td>
                       </tr>
                       <tr>
-                        <td class="tdleftwhite">  &nbsp;เงื่อนไขการชำระเงิน<span class="style_star">*</span></td>
+                        <td class="tdleftwhite">  &nbsp;๏ฟฝ๏ฟฝ๏ฟฝอนไขก๏ฟฝรช๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน<span class="style_star">*</span></td>
 <?php	/*					onChange="var i = document.form_pr.PayCode;
 															if(i.value == 'none')
 																document.form_pr.pr_payment.value = '';
@@ -420,9 +420,9 @@
                         <td><select name="PayCode" id="PayCode">
 									<?php	
 											$strSEL = "select payment_name, payment_description from Payment_method where status = 'Y'";
-											$queSEL = @odbc_exec($conn,$strSEL) or die(alert("เกิดข้อผิดพลาด ไม่สามารถประมวลผลข้อมูลในฐานข้อมูลได้ค่ะ"));
+											$queSEL = @odbc_exec($conn,$strSEL) or die(alert("๏ฟฝิด๏ฟฝ๏ฟฝอผิด๏ฟฝ๏ฟฝาด ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรถ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลผลข๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝในฐาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ"));
 									?>	
-											<option value="none">กรุณาระบุ Payment Term</option> 
+											<option value="none">๏ฟฝ๏ฟฝุณ๏ฟฝ๏ฟฝะบ๏ฟฝ Payment Term</option> 
 									<?php 
 											while(@odbc_fetch_row($queSEL)){
 												$PayCode = @odbc_result($queSEL,"payment_name");
@@ -435,39 +435,39 @@
 						<input type="text" name="pr_payment" value="<?=@$pr_payment;?>" size="70" maxlength="120"></td>
                       </tr>
                       <tr>
-                        <td class="tdleftwhite">&nbsp;วัตถุประสงค์<span class="style_star"> *</span></td>
+                        <td class="tdleftwhite">&nbsp;๏ฟฝัต๏ฟฝุป๏ฟฝ๏ฟฝสง๏ฟฝ๏ฟฝ<span class="style_star"> *</span></td>
                         <td>						
 						<?php if($_SESSION["pr_type"]=="T") { ?>
 						<input name="flag_obj" type="hidden" value="8">
 						<input name="obj_name81" type="text" onKeyUp="return check_string(document.form_pr.obj_name81,100);" value="<? echo @$obj_name1; ?>" size="100" maxlength="100">
 						<?php }else{ ?>
 						<input name="flag_obj" type="radio" value="1" onClick="return flag_obj_check(document.form_pr,1)" <? if((@$flag_obj=="1") || (@$flag_obj==""))echo "checked";  ?> > 
-						ขายให้กับลูกค้า (ชื่อ)  <input name="obj_name11" type="text" onKeyUp="return check_string(document.form_pr.obj_name11,100);" value="<? echo @$obj_name1; ?>"   size="33" maxlength="100">
+						๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝับ๏ฟฝูก๏ฟฝ๏ฟฝ๏ฟฝ (๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ)  <input name="obj_name11" type="text" onKeyUp="return check_string(document.form_pr.obj_name11,100);" value="<? echo @$obj_name1; ?>"   size="33" maxlength="100">
                         Req No.  <input name="obj_name12" type="text"  onKeyUp="return check_string(document.form_pr.obj_name12,30);" value="<? echo @$obj_name2; ?>"   size="15" maxlength="30">
                         Job No.<input name="obj_name13" type="text" onKeyUp="return check_string(document.form_pr.obj_name13,30);" value="<? echo @$obj_name3; ?>"   size="15" maxlength="30">
 						&lt;&lt;product&gt;&gt;<br>
 						<input name="flag_obj" type="radio" value="2" onClick="return flag_obj_check(document.form_pr,2)" <? if(@$flag_obj=="2")echo "checked";  ?>> 
-						ผลิตสินค้าเพื่อขายในโครงการ (ชื่อ) <input name="obj_name21" type="text" onKeyUp="return check_string(document.form_pr.obj_name21,100);" value="<? echo @$obj_name1; ?>"   size="40" maxlength="100">
-                         รหัสบัญชี <input name="obj_name22" type="text"  onKeyUp="return check_string(document.form_pr.obj_name22,30);" value="<? echo @$obj_name2; ?>"   size="20" maxlength="30"><input name="acc_but" type="button" value="..." onClick="lovCodeAccount1();">
+						๏ฟฝ๏ฟฝิต๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอข๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรง๏ฟฝ๏ฟฝ๏ฟฝ (๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ) <input name="obj_name21" type="text" onKeyUp="return check_string(document.form_pr.obj_name21,100);" value="<? echo @$obj_name1; ?>"   size="40" maxlength="100">
+                         ๏ฟฝ๏ฟฝ๏ฟฝสบัญ๏ฟฝ๏ฟฝ <input name="obj_name22" type="text"  onKeyUp="return check_string(document.form_pr.obj_name22,30);" value="<? echo @$obj_name2; ?>"   size="20" maxlength="30"><input name="acc_but" type="button" value="..." onClick="lovCodeAccount1();">
 &nbsp;&lt;&lt;bom&gt;&gt;<br>
 						
 						<input name="flag_obj" type="radio" value="3" onClick="return flag_obj_check(document.form_pr,3)" <? if(@$flag_obj=="3")echo "checked";  ?>> 
-						จ้างทำอะหลั่ยเพื่อซ่อมเครื่องมือแพทย์ให้กับลูกค้า (ชื่อ)  <input name="obj_name31" type="text" onKeyUp="return check_string(document.form_pr.obj_name31,100);" value="<? echo @$obj_name1; ?>"   size="15" maxlength="100">
-                        รหัสบัญชี  <input name="obj_name32" type="text"  onKeyUp="return check_string(document.form_pr.obj_name32,30);" value="<? echo @$obj_name2; ?>"   size="8" maxlength="30"><input name="acc_but2" type="button" value="..." onClick="lovCodeAccount2();">
+						๏ฟฝ๏ฟฝาง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอซ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝแพท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝับ๏ฟฝูก๏ฟฝ๏ฟฝ๏ฟฝ (๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ)  <input name="obj_name31" type="text" onKeyUp="return check_string(document.form_pr.obj_name31,100);" value="<? echo @$obj_name1; ?>"   size="15" maxlength="100">
+                        ๏ฟฝ๏ฟฝ๏ฟฝสบัญ๏ฟฝ๏ฟฝ  <input name="obj_name32" type="text"  onKeyUp="return check_string(document.form_pr.obj_name32,30);" value="<? echo @$obj_name2; ?>"   size="8" maxlength="30"><input name="acc_but2" type="button" value="..." onClick="lovCodeAccount2();">
                         Job No.  
                         <input name="obj_name33" type="text" onKeyUp="return check_string(document.form_pr.obj_name33,30);" value="<? echo @$obj_name3; ?>"   size="10" maxlength="30" >
 						  &lt;&lt;service&gt;&gt;<br>
 						<input name="flag_obj" type="radio" value="4" onClick="return flag_obj_check(document.form_pr,4)" <? if(@$flag_obj=="4")echo "checked";  ?>> 
-						เพื่อใช้ในงานตกแต่งสถานที่เพื่อการติดตั้งสินค้า (ชื่อ) <input name="obj_name41" type="text" onKeyUp="return check_string(document.form_pr.obj_name41,100);" value="<? echo @$obj_name1; ?>"   size="60" maxlength="100">
+						๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝในงาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝสถาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอก๏ฟฝรติด๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ (๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ) <input name="obj_name41" type="text" onKeyUp="return check_string(document.form_pr.obj_name41,100);" value="<? echo @$obj_name1; ?>"   size="60" maxlength="100">
 						&nbsp;&lt;&lt;etc&gt;&gt;<br>
 						<input name="flag_obj" type="radio" value="5" onClick="return flag_obj_check(document.form_pr,5)" <? if(@$flag_obj=="5")echo "checked";  ?>>
-						 อุปกรณ์/เครื่องมือเครื่องใช้ในแผนก (ระบุ) <input name="obj_name51" type="text" onKeyUp="return check_string(document.form_pr.obj_name51,100);" value="<? echo @$obj_name1; ?>"   size="68" maxlength="100">
+						 ๏ฟฝุป๏ฟฝรณ๏ฟฝ/๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝแผน๏ฟฝ (๏ฟฝะบ๏ฟฝ) <input name="obj_name51" type="text" onKeyUp="return check_string(document.form_pr.obj_name51,100);" value="<? echo @$obj_name1; ?>"   size="68" maxlength="100">
 						  &nbsp;&lt;&lt;etc&gt;&gt;<br>
 						 <input name="flag_obj" type="radio" value="7" onClick="return flag_obj_check(document.form_pr,7)" <? if(@$flag_obj=="7")echo "checked";  ?>>
 SubContact
 										&nbsp;&lt;&lt;subcontact&gt;&gt;<br>
 						<input name="flag_obj" type="radio" value="6" onClick="return flag_obj_check(document.form_pr,6)" <? if(@$flag_obj=="6")echo "checked";  ?>> 
-						อื่นๆ (ระบุ) <input name="obj_name61" type="text" onKeyUp="return check_string(document.form_pr.obj_name61,100);" value="<? echo @$obj_name1; ?>"   size="92" maxlength="100" >
+						๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ (๏ฟฝะบ๏ฟฝ) <input name="obj_name61" type="text" onKeyUp="return check_string(document.form_pr.obj_name61,100);" value="<? echo @$obj_name1; ?>"   size="92" maxlength="100" >
 						&nbsp;&lt;&lt;etc&gt;&gt;<br>
 			<script language="JavaScript" type="text/JavaScript">
 			<!--
@@ -478,28 +478,28 @@ SubContact
 					</td>
                       </tr>
                       <tr>
-                        <td class="tdleftwhite">&nbsp;ต้องการใช้ภายใน<span class="style_star">*</span></td>
+                        <td class="tdleftwhite">&nbsp;๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ<span class="style_star">*</span></td>
                         <td>
 						 <input name="estimate_day" type="text"  onKeyUp="return check_string(document.form_pr.estimate_day,10);" value="<? echo @$estimate_day; ?>"   size="10" maxlength="15">
-						วัน</td>
+						๏ฟฝัน</td>
                       </tr>
 					  <tr>
-                        <td class="tdleftwhite">&nbsp;เพื่อ Job No.</td>
+                        <td class="tdleftwhite">&nbsp;๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ Job No.</td>
                         <td>
 						   <input name="Jobno" type="text" onKeyUp="return check_string(document.form_pr.Jobno,9);" value="<? echo @$Jobno; ?>"   size="20" maxlength="30" >
 						 </td>
                       </tr>
                       <tr>
-                        <td class="tdleftwhite">&nbsp;สถานที่หาซื้อได้</td>
+                        <td class="tdleftwhite">&nbsp;สถาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝาซ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ</td>
                         <td><input name="supplier_id" type="text" value="<? echo @$supplier_id; ?>"  size="10" class="style_readonly" readonly="">
                         <input name="supplier_show" type="text" value="<? echo @$supplier_show; ?>"  size="70" class="style_readonly" readonly=""><input name="supplier_but" type="button" value="..." onClick="lovSupplier();"></td>
                       </tr>
                       <tr>
-                        <td class="tdleftwhite">&nbsp;หมายเหตุ</td>
+                        <td class="tdleftwhite">&nbsp;๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝหต๏ฟฝ</td>
                         <td><textarea name="pr_remark" cols="85" rows="3" onKeyUp="return check_string(document.form_pr.pr_remark,300);"><? echo @$pr_remark; ?></textarea></td>
                       </tr>
                       <tr>
-                        <td class="tdleftwhite">&nbsp;ผู้ขอซื้อ<span class="style_star">*</span></td>
+                        <td class="tdleftwhite">&nbsp;๏ฟฝ๏ฟฝ๏ฟฝอซ๏ฟฝ๏ฟฝ๏ฟฝ<span class="style_star">*</span></td>
                         <td><input name="empno" type="text" value="<? echo @$empno_user; ?>"   size="10" maxlength="15" class="style_readonly" readonly="">
 						<input name="empno_show" type="text" value="<? echo @$empno_show; ?>"   size="50" maxlength="15" class="style_readonly" readonly="">
 						<?
@@ -513,30 +513,30 @@ SubContact
 						?>						</td>
                       </tr>
                       <tr>
-                        <td class="tdleftwhite"> &nbsp;แผนก<span class="style_star">*</span></td>
+                        <td class="tdleftwhite"> &nbsp;แผน๏ฟฝ<span class="style_star">*</span></td>
                         <td><input name="deptno" type="text" value="<? echo @$deptno; ?>"  size="10" maxlength="20" class="style_readonly" readonly="">
 						<input name="deptno_show" type="text" value="<? echo @$deptno_show; ?>"   size="50" maxlength="15" class="style_readonly" readonly=""><input name="deptno_but" type="button" value="..." onClick="lovDeptUse();">						</td>
                       </tr>
                       <tr>
-                        <td class="tdleftwhite">&nbsp;ผู้อนุมัติ<span class="style_star">*</span></td>
+                        <td class="tdleftwhite">&nbsp;๏ฟฝ๏ฟฝ๏ฟฝอน๏ฟฝ๏ฟฝัต๏ฟฝ<span class="style_star">*</span></td>
                         <td><input name="mngno" type="text" value="<? echo @$mngno; ?>"   size="10" maxlength="15" class="style_readonly" readonly="">
 						<input name="mngno_show" type="text" value="<? echo @$mngno_show; ?>"   size="50" maxlength="15" class="style_readonly" readonly="">
 						<img src="../include/images/emp_icon.gif" width="20" height="19" onClick="lovMng();">						</td>
                       </tr>
                       <tr>
-                        <td class="tdleftwhite">&nbsp;ราคาสินค้าที่บันทึก<span class="style_star">*</span></td>
+                        <td class="tdleftwhite">&nbsp;๏ฟฝาค๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาท๏ฟฝ๏ฟฝัน๏ฟฝึก<span class="style_star">*</span></td>
                         <td><input name="vat_include" type="radio" value="1">
-                          รวม VAT แล้ว 
+                          ๏ฟฝ๏ฟฝ๏ฟฝ VAT ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ 
                           <input name="vat_include" type="radio" value="0"> 
-                          ยังไม่รวม VAT </td>
+                          ๏ฟฝัง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ VAT </td>
                       </tr>
                       <tr>
-                        <td class="tdleftwhite">&nbsp;ใบกรรมวิธี<br>
-                          &nbsp;ตรวจรับสินค้า</td>
+                        <td class="tdleftwhite">&nbsp;ใบก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิธ๏ฟฝ<br>
+                          &nbsp;๏ฟฝ๏ฟฝวจ๏ฟฝับ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</td>
                         <td>
 						
                         <input name="pr_path" type="file" size="50">
-                        <span class="style_text">* กรณีเลือกไฟล์เข้าไปเพิ่ม จะบันทึกทับไฟล์เก่า</span>															
+                        <span class="style_text">* ๏ฟฝรณ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝะบัน๏ฟฝึก๏ฟฝับ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ</span>															
 						 <? 
 /*						 	 switch($ses_deptno){
 									case '08'	:
@@ -548,9 +548,9 @@ SubContact
 														break;
 									default		:	if(($_SESSION["empno_user"] == ' 05020')||($_SESSION["empno_user"] == '05008')||($_SESSION["empno_user"] == '02019')){									
 															echo '<input name="pr_path" type="file" size="50">';
-															echo '<span class="style_text">* กรณีเลือกไฟล์เข้าไปเพิ่ม จะบันทึกทับไฟล์เก่า</span>';																	
+															echo '<span class="style_text">* ๏ฟฝรณ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝะบัน๏ฟฝึก๏ฟฝับ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ</span>';																	
 														}else{
-															echo '<font color="#FF0000"><b>&lt;&lt;Upload ไฟล์ไม่ได้ชั่วคราว&gt;&gt;</b></font><br><input name="pr_path" type="file" size="50" readonly>';
+															echo '<font color="#FF0000"><b>&lt;&lt;Upload ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝวค๏ฟฝ๏ฟฝ๏ฟฝ&gt;&gt;</b></font><br><input name="pr_path" type="file" size="50" readonly>';
 														}
 														break;
 								} 
@@ -566,20 +566,20 @@ SubContact
 				<td>
 				<table width="100%" border="1" align="center" cellpadding="0" cellspacing="0">
                   <tr bgcolor="999999">
-                    <td colspan="9" class="tdleftblack">รายละเอียดสินค้า</td>
+                    <td colspan="9" class="tdleftblack">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยด๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</td>
                   </tr>
                   <tr>
                     <td width="25" class="tdcenterwhite">Del</td>
                     <td width="25" class="tdcenterwhite">Edit</td>
-                    <td width="125" class="tdcenterwhite">รหัส</td>
-                    <td width="300" class="tdcenterwhite">ชื่อรายการ</td>
-                    <td class="tdcenterwhite">จำนวน</td>
-                    <td class="tdcenterwhite">หน่วยนับ</td>
-                    <td width="100" class="tdcenterwhite">ราคาต่อหน่วย<br>                    </td>
-                    <td width="100" class="tdcenterwhite">ราคารวม</td>
+                    <td width="125" class="tdcenterwhite">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ</td>
+                    <td width="300" class="tdcenterwhite">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ</td>
+                    <td class="tdcenterwhite">๏ฟฝำนวน</td>
+                    <td class="tdcenterwhite">หน๏ฟฝ๏ฟฝยนับ</td>
+                    <td width="100" class="tdcenterwhite">๏ฟฝาคาต๏ฟฝ๏ฟฝหน๏ฟฝ๏ฟฝ๏ฟฝ<br>                    </td>
+                    <td width="100" class="tdcenterwhite">๏ฟฝาค๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ</td>
                   </tr>
 				<tr>
-                    <td colspan="7" > <strong> &nbsp;<span class="thai_baht">ราคาที่แสดงเป็นราคาที่หักส่วนลดแล้ว</span></strong></td>
+                    <td colspan="7" > <strong> &nbsp;<span class="thai_baht">๏ฟฝาคาท๏ฟฝ๏ฟฝ๏ฟฝสด๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝาคาท๏ฟฝ๏ฟฝ๏ฟฝัก๏ฟฝ๏ฟฝวนลด๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ</span></strong></td>
                     <td >&nbsp;</td>
                   </tr>				  
                   <tr>

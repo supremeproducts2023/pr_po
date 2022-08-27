@@ -21,7 +21,7 @@
 				echo "login=0";
 		}else
 		{
-				$txt_empno = "select s.empno,nvl(r.program_role,'Sales') roles_user,e.deptno
+				$txt_empno = "select s.empno,ISNULL(r.program_role,'Sales') roles_user,e.deptno
 											from sup_user s,(select * from program_role r where program_name='pr_po') r,emp e
 											where s.empno=r.empno(+)
 											and s.empno = e.empno

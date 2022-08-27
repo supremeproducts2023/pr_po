@@ -12,7 +12,7 @@ if(session_is_registered("valid_userprpo")) {
 						$vendor_name=@$_POST["vendor_name"];
 						$vendor_no_old=@$_POST["vendor_no_old"];
 						
-						$curQUEVendorSup = odbc_exec($conn,"select nvl(count(vendor_id),0) as count_vendor from vendor_group where vendor_no='$vendor_no'");
+						$curQUEVendorSup = odbc_exec($conn,"select ISNULL(count(vendor_id),0) as count_vendor from vendor_group where vendor_no='$vendor_no'");
 						$totalVendorNo = @odbc_result($curQUEVendorSup, "count_vendor");	
 						
 						if ($totalVendorNo==0 or $vendor_no_old == $vendor_no){				
@@ -27,16 +27,16 @@ if(session_is_registered("valid_userprpo")) {
 						if($exeSupplierUPD){
 									$exeCommit = @odbc_exec($conn,"commit");
 									echo '<script language="JavaScript" type="text/JavaScript">';
-									echo 'alert ("บันทึกข้อมูลเรียบร้อยแล้วค่ะ");';
+									echo 'alert ("๏ฟฝัน๏ฟฝึก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝวค๏ฟฝ๏ฟฝ");';
 									echo '</script>';
 						}else{
 									echo '<script language="JavaScript" type="text/JavaScript">';
-									echo 'alert ("ระบบมีปัญหาไม่สามารถบันทึกข้อมูลได้ค่ะ");';
+									echo 'alert ("๏ฟฝะบ๏ฟฝ๏ฟฝีปัญ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรถ๏ฟฝัน๏ฟฝึก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ");';
 									echo '</script>';
 						}		
 						}else{
 									echo '<script language="JavaScript" type="text/JavaScript">';
-									echo 'alert ("กรุณาป้อนรหัส Vendor ใหม่เนื่องจากรหัส Vendor นี้มีในระบบแล้ว");';
+									echo 'alert ("๏ฟฝ๏ฟฝุณาป๏ฟฝอน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ Vendor ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝาก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ Vendor ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝะบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ");';
 									echo '</script>';		
 						}						
 				}
@@ -70,12 +70,12 @@ if(session_is_registered("valid_userprpo")) {
 			 <script language='javascript'>
 					function check_sup(obj){
 							if(obj.vendor_no.value==""){  	
-								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
+								alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ * ๏ฟฝ๏ฟฝ๏ฟฝรบ๏ฟฝ๏ฟฝ๏ฟฝ");
 								obj.vendor_no.focus();
 								return false;
 							}
 							if(obj.vendor_name.value==""){
-								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
+								alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ * ๏ฟฝ๏ฟฝ๏ฟฝรบ๏ฟฝ๏ฟฝ๏ฟฝ");
 								obj.vendor_name.focus();
 								return false;
 							}			
@@ -89,7 +89,7 @@ if(session_is_registered("valid_userprpo")) {
 						<form name="form_sup" action="vendorGroup_edit.php" method="post">
 							<table width="600"  border="0" cellpadding="0" cellspacing="0"  bgcolor="E9EAEB">
 							  <tr>
-								<th> &nbsp;&nbsp;แก้ไขข้อมูล vendor GROUP</th>
+								<th> &nbsp;&nbsp;๏ฟฝ๏ฟฝไขข๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ vendor GROUP</th>
 								<th><div align="right">&nbsp;</div></th>
 							  </tr>
 							  <tr>
@@ -98,14 +98,14 @@ if(session_is_registered("valid_userprpo")) {
 										<tr>
 										                    <td><table width="100%"  border="1" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td width="148" class="tdleftwhite"> &nbsp;เลขที่ vendor Group <span class="style_star">*</span></td>
+                        <td width="148" class="tdleftwhite"> &nbsp;๏ฟฝลข๏ฟฝ๏ฟฝ๏ฟฝ vendor Group <span class="style_star">*</span></td>
                         <td width="438">	<input name="vendor_no" type="text"  size="20"  value="<?=$vendor_no?>" >
                        		 						<input name="vendor_id" type="hidden"   value="<?=$vendor_id?>" >
                                                     <input name="vendor_no_old" type="hidden"   value="<?=$vendor_no?>" >
                         </td>
                       </tr>
 					  <tr>
-					  	<td class="tdleftwhite">&nbsp;ชื่อ Vendor Group <span class="style_star">*</span></td>
+					  	<td class="tdleftwhite">&nbsp;๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ Vendor Group <span class="style_star">*</span></td>
 						<td><input name="vendor_name" type="text" id="vendorno"  size="50" maxlength="150"  value="<?=$vendor_name?>"/></td>
                       </tr>
                   </table></td>
@@ -116,7 +116,7 @@ if(session_is_registered("valid_userprpo")) {
 												<tr>
 												  <th colspan="3">
 														<div align="right">
-															<input name="txtCode" type="hidden" value="บันทึก">                   
+															<input name="txtCode" type="hidden" value="๏ฟฝัน๏ฟฝึก">                   
 															<a onClick="return check_sup(document.form_sup);" style="cursor:hand"
 															onMousedown="document.images['butsave'].src=save3.src" 
 															onMouseup="document.images['butsave'].src=save1.src"						

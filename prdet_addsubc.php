@@ -9,7 +9,7 @@ if(session_is_registered("valid_userprpo")) {
 ?>
 <html>
 	<head>
-		<title>*** เพิ่มรายการสินค้า ***</title>
+		<title>*** ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ ***</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-874">
 		<link href="../include/style1.css" rel="stylesheet" type="text/css">
 		<script language='javascript' src='../include_RedThemes/funcChkInput.js'></script>	
@@ -38,7 +38,7 @@ if(session_is_registered("valid_userprpo")) {
 		<script language='javascript'>
 				function check_prdetsubc(obj){
 					if(obj.prod_no.value==""){  	
-						alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
+						alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ * ๏ฟฝ๏ฟฝ๏ฟฝรบ๏ฟฝ๏ฟฝ๏ฟฝ");
 						obj.FG.focus();
 						return false;
 					}			
@@ -63,9 +63,9 @@ if(session_is_registered("valid_userprpo")) {
 	</head>
 <body topmargin="0" leftmargin="0">
 <?
-		//============= Start-ส่วนการทำงานเมื่อผ่านการกดปุ่ม SUBMIT ในหน้าการทำงานนี้ (code) ===============	
+		//============= Start-๏ฟฝ๏ฟฝวน๏ฟฝ๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอผ๏ฟฝาน๏ฟฝ๏ฟฝรก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ SUBMIT ๏ฟฝหน๏ฟฝาก๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ (code) ===============	
 				$flagAction=@$_POST["flagAction"];
-				if($flagAction=='AddCode'){  // กรณีกดปุ่มเพื่อทำงานหน้า code
+				if($flagAction=='AddCode'){  // ๏ฟฝรณีก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอทำงานหน๏ฟฝ๏ฟฝ code
 					$v_pr_no = @$_POST["pr_no"];
 					$v_prod_noshow = $_POST["prod_noshow"];
 					$v_prod_no = $_POST["prod_no"];
@@ -74,7 +74,7 @@ if(session_is_registered("valid_userprpo")) {
 					$discount_percent=0;
 					$discount_baht=0;		
 					
-					$strMAX = "select nvl(max(id)+1,1) id  from pr_details where pr_no='$v_pr_no'";			
+					$strMAX = "select ISNULL(max(id)+1,1) id  from pr_details where pr_no='$v_pr_no'";			
 					$curMAX = @odbc_exec($conn,$strMAX);
 					$id = @odbc_result($curMAX, "id");
 					$strINSMaster = "insert into pr_details (
@@ -115,7 +115,7 @@ if(session_is_registered("valid_userprpo")) {
 					$result=odbc_exec($conn,"update pr_master set pr_status='1',mng_remark='' where pr_no='$v_pr_no'");						
 					$exeCOMMIT = odbc_exec($conn,"commit");
 					echo '<script language="JavaScript" type="text/JavaScript">';
-					echo '		alert ("ข้อมูลถูกบันทึกทั้งสิ้น '.$ok.' รายการค่ะ");';
+					echo '		alert ("๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลถูก๏ฟฝัน๏ฟฝึก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ '.$ok.' ๏ฟฝ๏ฟฝยก๏ฟฝรค๏ฟฝ๏ฟฝ");';
 					echo '		window.opener.location.reload("./prmas_edit.php");';
 					echo '		window.close();';
 					echo '</script>';
@@ -157,12 +157,12 @@ if(session_is_registered("valid_userprpo")) {
 					$result=odbc_exec($conn,"update pr_master set pr_status='1',mng_remark='' where pr_no='$v_pr_no'");						
 					$exeCOMMIT = odbc_exec($conn,"commit");
 					echo '<script language="JavaScript" type="text/JavaScript">';
-					echo '		alert ("ข้อมูลถูกบันทึกทั้งสิ้น '.$ok.' รายการค่ะ");';
+					echo '		alert ("๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลถูก๏ฟฝัน๏ฟฝึก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ '.$ok.' ๏ฟฝ๏ฟฝยก๏ฟฝรค๏ฟฝ๏ฟฝ");';
 					echo '		window.opener.location.reload("./prmas_edit.php");';
 					echo '		window.close();';
 					echo '</script>';				
 				}// end if($flagAction!='')
-		//============= End-ส่วนการทำงานเมื่อผ่านการกดปุ่ม SUBMIT ในหน้าการทำงานนี้ (code) ===============	
+		//============= End-๏ฟฝ๏ฟฝวน๏ฟฝ๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอผ๏ฟฝาน๏ฟฝ๏ฟฝรก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ SUBMIT ๏ฟฝหน๏ฟฝาก๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ (code) ===============	
 
 	$pr_no = $_SESSION["sespk_no"]; 
 	$vat_include=$_GET["vat_include"];
@@ -186,7 +186,7 @@ if(session_is_registered("valid_userprpo")) {
 			<input name="flagAction" type="hidden" value="<? if($flag=="edit")echo 'UpCode'; else echo 'AddCode'; ?>">	 
 			<table width="790"  border="0" cellpadding="0" cellspacing="0"  bgcolor="E9EAEB">
 			<tr>
-				<th width="550">&nbsp;&nbsp;รายการสินค้า</th>
+				<th width="550">&nbsp;&nbsp;๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</th>
 			</tr>
 			<tr>
 				<td> 
@@ -195,7 +195,7 @@ if(session_is_registered("valid_userprpo")) {
 						<td>
 							<table width="100%"  border="1" align="center" cellpadding="0" cellspacing="0">
 							<tr>
-								<td width="120" class="tdleftwhite">เลขที่ใบ PR  <span class="style_star">*</span></td>
+								<td width="120" class="tdleftwhite">๏ฟฝลข๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ PR  <span class="style_star">*</span></td>
 								<td width="439"><input name="pr_no" type="text" class="style_readonly" value="<?=$pr_no; ?>"  readonly=""></td>
 							</tr>
 							</table>
@@ -205,23 +205,23 @@ if(session_is_registered("valid_userprpo")) {
 						<td>
 							<table width="100%"  border="1" cellspacing="0" cellpadding="0">
 							<tr>
-								<td width="120"  class="tdleftwhite">&nbsp;รหัสสินค้า <span class="style_star">*</span> </td>
+								<td width="120"  class="tdleftwhite">&nbsp;๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ <span class="style_star">*</span> </td>
 								<td width="433">
-									<input name="prod_noshow" type="text"  value="<?=@$prod_noshow; ?>" size="20" maxlength="50" readonly="" class="style_readonly"><input name="FG" type="button" id="FG"  value="สินค้า(BOM)"  onClick="lovBOM('R,P');" <? if($flag=="edit")echo "disabled"; ?>>
+									<input name="prod_noshow" type="text"  value="<?=@$prod_noshow; ?>" size="20" maxlength="50" readonly="" class="style_readonly"><input name="FG" type="button" id="FG"  value="๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ(BOM)"  onClick="lovBOM('R,P');" <? if($flag=="edit")echo "disabled"; ?>>
 									<input name="prod_no" type="hidden"  value="<?=@$prod_no; ?>">
-									<br><span class="style_text">กรณีไม่ทราบรหัสสินค้า กรุณาสอบถามที่แผนก MS Local โดยตรง</span>
+									<br><span class="style_text">๏ฟฝรณ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝาบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝุณ๏ฟฝ๏ฟฝอบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝแผน๏ฟฝ MS Local ๏ฟฝยตรง</span>
 								</td>
 							</tr>
 							<tr>
-								<td  class="tdleftwhite">&nbsp;ชื่อสินค้า</td>
+								<td  class="tdleftwhite">&nbsp;๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</td>
 								<td><input name="prod_name" type="text"  value="<?=@$prod_name; ?>" size="60" maxlength="300"  onKeyUp="return chkStringInput(this,300);" readonly="" class="style_readonly"></td>
 							</tr>
 							<tr>
-								<td  class="tdleftwhite">&nbsp;หน่วย  <span class="style_star">*</span></td>
+								<td  class="tdleftwhite">&nbsp;หน๏ฟฝ๏ฟฝ๏ฟฝ  <span class="style_star">*</span></td>
 								<td>
 									<input name="prod_unit" type="text" value="<?=@$prod_unit; ?>" size="20"  maxlength="15" readonly="" class="style_readonly">
 									<?
-				  						if($vat_include=="1")echo '<span class="style_text">(ราคารวม VATแล้ว)</span>'; else if($vat_include=="0")echo '<span class="style_text">(ราคายังไม่รวม VAT)</span>';
+				  						if($vat_include=="1")echo '<span class="style_text">(๏ฟฝาค๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ VAT๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ)</span>'; else if($vat_include=="0")echo '<span class="style_text">(๏ฟฝาค๏ฟฝ๏ฟฝัง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ VAT)</span>';
 									  ?>
 								</td>
 							</tr>
@@ -237,9 +237,9 @@ if(session_is_registered("valid_userprpo")) {
 									<tr>
 										<td width="25" class="tdcenterblack"><input type="checkbox" name="CheckOrUn" onClick="return unOrCheckCheckbox(document.form_prdet);"></td>
 										<td width="80" class="tdcenterblack">Subjob No. </td>
-										<td width="130" class="tdcenterblack">รหัสสินค้า</td>
-										<td width="455" class="tdcenterblack">ชื่อสินค้า</td>
-										<td width="60" class="tdcenterblack">จำนวน</td>
+										<td width="130" class="tdcenterblack">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</td>
+										<td width="455" class="tdcenterblack">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</td>
+										<td width="60" class="tdcenterblack">๏ฟฝำนวน</td>
 									  </tr>
 									</table>
 								</td>
@@ -283,7 +283,7 @@ if(session_is_registered("valid_userprpo")) {
 								<td>
 									<table border="0" align="left" cellpadding="0" cellspacing="0" >
 									<tr>
-										<td width="690" align="right" class="tdrightblack">รวม&nbsp;&nbsp;</td>
+										<td width="690" align="right" class="tdrightblack">๏ฟฝ๏ฟฝ๏ฟฝ&nbsp;&nbsp;</td>
 										<td width="50" class="tdleftblack" ><input name="sum_prod_qty" type="text"   size="4" maxlength="8" readonly=""  class="style_readonly"></td>
 									</tr>
 									</table>

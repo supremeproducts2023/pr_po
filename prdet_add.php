@@ -3,7 +3,7 @@
 	if(session_is_registered("valid_userprpo")) {
 				require_once("../include_RedThemes/odbc_connect.php");				
 				$empno_user = $_SESSION["empno_user"];
-		//============= Start-ส่วนการทำงานเมื่อผ่านการกดปุ่ม SUBMIT ในหน้าการทำงานนี้ (code) ===============	
+		//============= Start-๏ฟฝ๏ฟฝวน๏ฟฝ๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอผ๏ฟฝาน๏ฟฝ๏ฟฝรก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ SUBMIT ๏ฟฝหน๏ฟฝาก๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ (code) ===============	
 				$flagAction = @$_POST["flagAction"];
 				if($flagAction != ""){
 						$pr_no=$_POST["pr_no"];
@@ -20,7 +20,7 @@
 						if($discount_baht=="")$discount_baht=0;
 						
 						if($flagAction=="AddCode"){
-								$str_mx = "select nvl(max(id)+1,1) id  from pr_details where pr_no='$pr_no'";			
+								$str_mx = "select ISNULL(max(id)+1,1) id  from pr_details where pr_no='$pr_no'";			
 								$cur_mx = @odbc_exec($conn,$str_mx);
 								$id = @odbc_result($cur_mx, "id");
 				
@@ -65,7 +65,7 @@
 						echo 'window.close();';
 						echo '</script>';	
 				}
-		//============= End-ส่วนการทำงานเมื่อผ่านการกดปุ่ม SUBMIT ในหน้าการทำงานนี้ (code) ===============	
+		//============= End-๏ฟฝ๏ฟฝวน๏ฟฝ๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอผ๏ฟฝาน๏ฟฝ๏ฟฝรก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ SUBMIT ๏ฟฝหน๏ฟฝาก๏ฟฝรทำงาน๏ฟฝ๏ฟฝ๏ฟฝ (code) ===============	
 				
 				$pr_no = $_SESSION["sespk_no"]; 
 				$flag = @$_GET["flag"];
@@ -97,7 +97,7 @@
 
 <html>
 <head>
-<title>*** เพิ่มรายการสินค้า ***</title>
+<title>*** ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ ***</title>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-874">
 		<link href="../include/style1.css" rel="stylesheet" type="text/css">
 		<script language='javascript' src='../include/buttonanimate.js'></script>		
@@ -111,17 +111,17 @@
 		<script language='javascript'>			
 				function check_prdet(obj){
 							if(obj.prod_no.value==""){  	
-								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
+								alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ * ๏ฟฝ๏ฟฝ๏ฟฝรบ๏ฟฝ๏ฟฝ๏ฟฝ");
 								obj.prod_no.focus();
 								return false;
 							}			
 							if(obj.prod_qty.value==""){  	
-								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
+								alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ * ๏ฟฝ๏ฟฝ๏ฟฝรบ๏ฟฝ๏ฟฝ๏ฟฝ");
 								obj.prod_qty.focus();
 								return false;
 							}			
 							if(obj.prod_price.value==""){  	
-								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
+								alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ * ๏ฟฝ๏ฟฝ๏ฟฝรบ๏ฟฝ๏ฟฝ๏ฟฝ");
 								obj.prod_price.focus();
 								return false;
 							}			
@@ -130,7 +130,7 @@
 		</script>	
 		<!-- Calculate -->
 		<script language='javascript'>
-				// a=จำนวน, b=ราคา, c=ส่วนลด%, d=ส่วนลด(เงิน), e=ราคารวม
+				// a=๏ฟฝำนวน, b=๏ฟฝาค๏ฟฝ, c=๏ฟฝ๏ฟฝวนลด%, d=๏ฟฝ๏ฟฝวนลด(๏ฟฝิน), e=๏ฟฝาค๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ
 				function cal_prdet_price(a,b,c,d,e,objname){	
 						if((a.value=="")||(b.value=="")){
 								e.value = '';
@@ -308,7 +308,7 @@
 	  <input name="pr_no" type="hidden" value="<? echo $pr_no; ?>">
         <table width="600"  border="0" cellpadding="0" cellspacing="0"  bgcolor="E9EAEB">
     <tr>
-      <th width="550">&nbsp;&nbsp;รายการสินค้า</th>
+      <th width="550">&nbsp;&nbsp;๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</th>
     </tr>
     <tr>
       <td> 
@@ -318,7 +318,7 @@
            
               <table width="100%"  border="1" align="center" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td width="120" class="tdleftwhite">&nbsp;เลขที่ใบ PR  <span class="style_star">*</span></td>
+                  <td width="120" class="tdleftwhite">&nbsp;๏ฟฝลข๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ PR  <span class="style_star">*</span></td>
                   <td width="439"><input name="pr_no" type="text" class="style_readonly" value="<? echo $pr_no; ?>"  readonly=""></td>
                 </tr>
               </table>		</td>
@@ -326,25 +326,25 @@
 		<tr><td>
               <table width="100%"  border="1" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td width="120"  class="tdleftwhite">&nbsp;รหัสสินค้า <span class="style_star">*</span> </td>
+                  <td width="120"  class="tdleftwhite">&nbsp;๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ <span class="style_star">*</span> </td>
                   <td>
-				  <input name="prod_no" id="prod_no" type="text"  value="<? echo @$prod_no; ?>" size="30" maxlength="20" onKeyUp="return check_string(document.form_prdet.prod_no,50);"><input name="product_but" type="button" value="สินค้า(ML)" onClick="lovProduct();"><input name="acc_but" type="button" value="รหัสบัญชี" onClick="lovCodeAccount()"><input name="FillorChoice" type="checkbox" id="FillorChoice" onClick="fn_FillorChoice(document.form_prdet,'yes');" <? if(@$code=="")echo "checked"; ?>>กรอกสินค้าเอง
+				  <input name="prod_no" id="prod_no" type="text"  value="<? echo @$prod_no; ?>" size="30" maxlength="20" onKeyUp="return check_string(document.form_prdet.prod_no,50);"><input name="product_but" type="button" value="๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ(ML)" onClick="lovProduct();"><input name="acc_but" type="button" value="๏ฟฝ๏ฟฝ๏ฟฝสบัญ๏ฟฝ๏ฟฝ" onClick="lovCodeAccount()"><input name="FillorChoice" type="checkbox" id="FillorChoice" onClick="fn_FillorChoice(document.form_prdet,'yes');" <? if(@$code=="")echo "checked"; ?>>๏ฟฝ๏ฟฝอก๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง
 				  <br>
-				  <span class="style_text">กรณีไม่ทราบรหัสสินค้า กรุณาสอบถามที่แผนก MS Local โดยตรง	    </span>
+				  <span class="style_text">๏ฟฝรณ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝาบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝุณ๏ฟฝ๏ฟฝอบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝแผน๏ฟฝ MS Local ๏ฟฝยตรง	    </span>
 				  <input name="code" type="hidden" id="code"   value="<? echo @$code; ?>" size="8" maxlength="50">
 				  </td>
                 </tr>
                 <tr>
-                  <td  class="tdleftwhite">&nbsp;ชื่อสินค้า</td>
+                  <td  class="tdleftwhite">&nbsp;๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</td>
                   <td><input name="prod_name" id="prod_name" type="text"  value="<? echo @$prod_name; ?>" size="60" maxlength="300"  onKeyUp="return check_string(document.form_prdet.prod_name,300);">				  
 				  </td>
                 </tr>
                 <tr>
-                  <td  class="tdleftwhite">&nbsp;จำนวน <span class="style_star">* </span></td>
+                  <td  class="tdleftwhite">&nbsp;๏ฟฝำนวน <span class="style_star">* </span></td>
                   <td><input name="prod_qty" type="text"  onKeyDown="return check_number();" value="<? echo @$prod_qty; ?>" size="10" maxlength="8" onKeyUp="return cal_prdet_price(document.form_prdet.prod_qty,document.form_prdet.prod_price,document.form_prdet.discount_percent,document.form_prdet.discount_baht,document.form_prdet.total_price,'a');"></td>
                 </tr>
                 <tr>
-                  <td  class="tdleftwhite">&nbsp;หน่วย</td>
+                  <td  class="tdleftwhite">&nbsp;หน๏ฟฝ๏ฟฝ๏ฟฝ</td>
                   <td><input name="prod_unit" type="text" value="<? echo @$prod_unit; ?>" size="20"  maxlength="15" onKeyUp="return check_string(document.form_prdet.prod_unit,15);"> 
 				<script language="JavaScript" type="text/JavaScript">
 						fn_FillorChoice(document.form_prdet,"no");
@@ -354,22 +354,22 @@
                 </tr>
                 
                 <tr>
-                  <td  class="tdleftwhite">&nbsp;ราคาต่อหน่วย <span class="style_star">*</span></td>
+                  <td  class="tdleftwhite">&nbsp;๏ฟฝาคาต๏ฟฝ๏ฟฝหน๏ฟฝ๏ฟฝ๏ฟฝ <span class="style_star">*</span></td>
                   <td><input name="prod_price" type="text"  onKeyDown="return check_number();" value="<? echo @$prod_price; ?>" size="20" maxlength="15" onKeyUp="return cal_prdet_price(document.form_prdet.prod_qty,document.form_prdet.prod_price,document.form_prdet.discount_percent,document.form_prdet.discount_baht,document.form_prdet.total_price,'b');">
 				  <?
-				  		if($vat_include=="1")echo '<span class="style_text">(ราคารวม VATแล้ว)</span>'; else if($vat_include=="0")echo '<span class="style_text">(ราคายังไม่รวม VAT)</span>';
+				  		if($vat_include=="1")echo '<span class="style_text">(๏ฟฝาค๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ VAT๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ)</span>'; else if($vat_include=="0")echo '<span class="style_text">(๏ฟฝาค๏ฟฝ๏ฟฝัง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ VAT)</span>';
 				  ?>
 				  </td>
                 </tr>
                 <tr>
-                  <td  class="tdleftwhite">&nbsp;ส่วนลด</td>
+                  <td  class="tdleftwhite">&nbsp;๏ฟฝ๏ฟฝวนลด</td>
                   <td class="tdleftwhite"><input name="discount_percent" type="text"  onKeyDown="return check_number();" value="<? echo @$discount_percent; ?>" size="5" maxlength="5" onKeyUp="return cal_prdet_price(document.form_prdet.prod_qty,document.form_prdet.prod_price,document.form_prdet.discount_percent,document.form_prdet.discount_baht,document.form_prdet.total_price,'c');"> 
-                    % คิดเป็นเงิน 
+                    % ๏ฟฝิด๏ฟฝ๏ฟฝ๏ฟฝิน 
                     <input name="discount_baht" type="text"  onKeyDown="return check_number();" value="<? echo @$discount_baht; ?>" size="16" maxlength="15" onKeyUp="return cal_prdet_price(document.form_prdet.prod_qty,document.form_prdet.prod_price,document.form_prdet.discount_percent,document.form_prdet.discount_baht,document.form_prdet.total_price,'d');"> 
-                    บาท                    </td>
+                    ๏ฟฝาท                    </td>
                 </tr>
                 <tr>
-                  <td  class="tdleftwhite">&nbsp;ราคาหลังหักส่วนลด</td>
+                  <td  class="tdleftwhite">&nbsp;๏ฟฝาค๏ฟฝ๏ฟฝ๏ฟฝัง๏ฟฝัก๏ฟฝ๏ฟฝวนลด</td>
                   <td><input name="total_price" type="text"  value="<? echo @$total_price; ?>" size="20" class="style_readonly"  readonly=""></td>
                 </tr>
               </table>

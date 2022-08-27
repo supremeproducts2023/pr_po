@@ -9,7 +9,7 @@ if(session_is_registered("empno_user")) {
 			require_once("../include_RedThemes/mysql_connect.php");	
 			require_once("../include_RedThemes/funcShow.php");								
 											
-				// ========= ลบข้อมูลเก่า ========= 		
+				// ========= ลบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ ========= 		
 				$del_pr_master = "delete from pr_master";
 				$del_pr_detail = "delete from pr_details";
 				
@@ -48,8 +48,8 @@ if(session_is_registered("empno_user")) {
 							$obj_name1 = "Sub-Contact";
 						}
 						
-						if($vat_include=="0") $pr_vat = 'ราคาสินค้าที่ระบุเป็นราคาสินค้าที่ยังไม่รวม VAT';
-						else $pr_vat = 'ราคาสินค้าที่ระบุเป็นราคาสินค้าที่รวม VAT แล้ว';
+						if($vat_include=="0") $pr_vat = '๏ฟฝาค๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาท๏ฟฝ๏ฟฝ๏ฟฝะบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝาค๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาท๏ฟฝ๏ฟฝ๏ฟฝัง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ VAT';
+						else $pr_vat = '๏ฟฝาค๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาท๏ฟฝ๏ฟฝ๏ฟฝะบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝาค๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ VAT ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ';
 						
 						$pr_remark =  $pr_vat."\n".$pr_remark;
 									
@@ -72,7 +72,7 @@ if(session_is_registered("empno_user")) {
 						//echo  $txt_addprmaster.'<br>';
 						mysql_query($txt_addprmaster,$conn_mysql);
 				// ========= Insert Detail ========= 		
-						$str_pr_details = "select  id,prod_no,prod_name,prod_qty,prod_unit,prod_price,nvl(discount_baht,0) discount_baht 
+						$str_pr_details = "select  id,prod_no,prod_name,prod_qty,prod_unit,prod_price,ISNULL(discount_baht,0) discount_baht 
 														from pr_details 
 														where pr_no='$pr_no'
 														order by id";

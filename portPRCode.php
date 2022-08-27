@@ -8,14 +8,14 @@
 		{
 			include("../include/odbc_connect.php");	
 			$strSQL = "select to_char(to_date('$DATE','mm/dd/yyyy'),'dd-mm-yyyy') cDATE from dual";
-			$strResult = @odbc_exec($conn,$strSQL) or die(alert("เกิดข้อผิดพลาดขึ้นกับระบบ ทำให้ไม่สามารถประมวลผลข้อมูลในฐานข้อมูลได้ค่ะ"));
+			$strResult = @odbc_exec($conn,$strSQL) or die(alert("๏ฟฝิด๏ฟฝ๏ฟฝอผิด๏ฟฝ๏ฟฝาด๏ฟฝ๏ฟฝ้นกับ๏ฟฝะบ๏ฟฝ ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรถ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลผลข๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝในฐาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ"));
 			return @odbc_result($strResult,"cDATE");																						
 		}
 		function emp($name)
 		{
 			include("../include/odbc_connect.php");	
 			$strSQL = "select empno from emp where trim(upper(e_name)) like trim(upper('$name'))";
-			$strResult = @odbc_exec($conn,$strSQL) or die(alert("เกิดข้อผิดพลาดขึ้นกับระบบ ทำให้ไม่สามารถประมวลผลข้อมูลในฐานข้อมูลได้ค่ะ"));
+			$strResult = @odbc_exec($conn,$strSQL) or die(alert("๏ฟฝิด๏ฟฝ๏ฟฝอผิด๏ฟฝ๏ฟฝาด๏ฟฝ๏ฟฝ้นกับ๏ฟฝะบ๏ฟฝ ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรถ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลผลข๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝในฐาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ"));
 			return @odbc_result($strResult,"empno");																				
 		}
 		
@@ -64,7 +64,7 @@
 				if($strResult1 && $strResult2)
 				{																															
 					@odbc_exec($conn,"commit");										
-					alert("บันทึก PR เลขที่ $PR_NO ลงในฐานข้อมูลเรียบร้อยแล้วค่ะ");
+					alert("๏ฟฝัน๏ฟฝึก PR ๏ฟฝลข๏ฟฝ๏ฟฝ๏ฟฝ $PR_NO ลงในฐาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝวค๏ฟฝ๏ฟฝ");
 					$_SESSION["pr_type"] = "T";
 					$_SESSION["choice_value"] = "prup";
 					echo '<script language="javascript"  type="text/javascript">
@@ -77,10 +77,10 @@
 							$strSQL = "delete from pr_details where pr_no = '$PR_NO'";						
 							@odbc_exec($conn,$strSQL);
 							@odbc_exec($conn,"commit");
-							alert("เกิดข้อผิดพลาดขึ้นกับระบบ ทำให้ไม่สามารถบันทึก PR นี้ลงในฐานข้อมูลได้ค่ะ");
+							alert("๏ฟฝิด๏ฟฝ๏ฟฝอผิด๏ฟฝ๏ฟฝาด๏ฟฝ๏ฟฝ้นกับ๏ฟฝะบ๏ฟฝ ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรถ๏ฟฝัน๏ฟฝึก PR ๏ฟฝ๏ฟฝ๏ฟฝลงในฐาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ");
 				}
 			}else{
-				alert("ไม่สามารถบันทึก PR นี้ลงในฐานข้อมูลได้ค่ะ \\nเนื่องจากขาดข้อมูลส่วนสำคัญ (ช่องที่ highlight ด้วยสีชมพู) ค่ะ");
+				alert("๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรถ๏ฟฝัน๏ฟฝึก PR ๏ฟฝ๏ฟฝ๏ฟฝลงในฐาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ \\n๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝาก๏ฟฝาด๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝวน๏ฟฝำคัญ (๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ highlight ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝีช๏ฟฝ๏ฟฝ๏ฟฝ) ๏ฟฝ๏ฟฝ๏ฟฝ");
 			}	
 		}
 	$target_path = "C:\\WebServ\\webroot\\temp_report\\";
@@ -135,7 +135,7 @@ th {
 	$cur_int_year = @odbc_exec($conn,$str_int_year);
 	$int_year = @odbc_result($cur_int_year, "int_year");
 						
-	$str_mx = "select nvl(max(substr(pr_no,5,5))+1,1) int_mx from pr_master ";
+	$str_mx = "select ISNULL(max(substr(pr_no,5,5))+1,1) int_mx from pr_master ";
 	$str_mx = $str_mx."where substr(pr_no,3,2) = '".$int_year."'";
 	$cur_mx = @odbc_exec($conn,$str_mx);
 	$int_mx = @odbc_result($cur_mx, "int_mx");
@@ -165,11 +165,11 @@ th {
 	$empno_show = $ExcelSheet->Cells(220,3);
 	$empno_show = (string)$empno_show;
 	$strSQL = "select empno,e_name from emp where empno = '$empno_show'";
-	$strResult = @odbc_exec($conn,$strSQL) or die(alert("เกิดข้อผิดพลาดขึ้นกับระบบ ทำให้ไม่สามารถประมวลผลข้อมูลในฐานข้อมูลได้ค่ะ"));
+	$strResult = @odbc_exec($conn,$strSQL) or die(alert("๏ฟฝิด๏ฟฝ๏ฟฝอผิด๏ฟฝ๏ฟฝาด๏ฟฝ๏ฟฝ้นกับ๏ฟฝะบ๏ฟฝ ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรถ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลผลข๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝในฐาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ"));
 	$EMPNO = @odbc_result($strResult,"empno");																										//EMPNO
 	$e_name = @odbc_result($strResult,"e_name");
 	$strSQL = "select d.deptno,d.deptname from emp e, dept d where e.empno = '$EMPNO' and e.deptno = d.deptno";
-	$strResult = @odbc_exec($conn,$strSQL) or die(alert("เกิดข้อผิดพลาดขึ้นกับระบบ ทำให้ไม่สามารถประมวลผลข้อมูลในฐานข้อมูลได้ค่ะ"));
+	$strResult = @odbc_exec($conn,$strSQL) or die(alert("๏ฟฝิด๏ฟฝ๏ฟฝอผิด๏ฟฝ๏ฟฝาด๏ฟฝ๏ฟฝ้นกับ๏ฟฝะบ๏ฟฝ ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรถ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลผลข๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝในฐาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ"));
 	$DEPTNO = @odbc_result($strResult,"deptno");																										//DEPTNO
 	$deptname = @odbc_result($strResult,"deptname");								
 	if($DEPTNO=="")
@@ -233,8 +233,8 @@ th {
 	$ESTIMATE_DAY = $ExcelSheet->Cells(214,3);																																	//ESTIMATE_DAY
 	$ESTIMATE_DAY = (string)$ESTIMATE_DAY;	
 	if($ESTIMATE_DAY=="")
-		echo "<tr><td><b>&nbsp;".$ExcelSheet->Cells(214,2)."</b></td><td bgcolor='#FFCCFF'><div align='center'>&nbsp;".$ESTIMATE_DAY."</div></td><td><b>&nbsp;วัน</b></td></tr>";
-	else	echo "<tr><td><b>&nbsp;".$ExcelSheet->Cells(214,2)."</b></td><td><div align='center'>&nbsp;".$ESTIMATE_DAY."</div></td><td><b>&nbsp;วัน</b></td></tr>";
+		echo "<tr><td><b>&nbsp;".$ExcelSheet->Cells(214,2)."</b></td><td bgcolor='#FFCCFF'><div align='center'>&nbsp;".$ESTIMATE_DAY."</div></td><td><b>&nbsp;๏ฟฝัน</b></td></tr>";
+	else	echo "<tr><td><b>&nbsp;".$ExcelSheet->Cells(214,2)."</b></td><td><div align='center'>&nbsp;".$ESTIMATE_DAY."</div></td><td><b>&nbsp;๏ฟฝัน</b></td></tr>";
 	$supplier_name = $ExcelSheet->Cells(215,3);
 	$supplier_name = (string)$supplier_name;	
 	$strSQL = "select supplier_id from supplier where upper(trim(company_name)) like upper(trim('$supplier_name'))";
@@ -280,13 +280,13 @@ th {
 <input type="hidden" name="PR_STATUS" value="1" />
 <input type="hidden" name="VAT_INCLUDE" value="1" />
 <input type="hidden" name="NUMBER" value="<?=$number;?>" />
-<input name="submit" type="submit" value="บันทึก PR ใบนี้ลงในฐานข้อมูล" style="font-size:15px; width:230px; height:35px; color:#0033CC; cursor:pointer;" />
+<input name="submit" type="submit" value="๏ฟฝัน๏ฟฝึก PR ใบน๏ฟฝ๏ฟฝลงในฐาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ" style="font-size:15px; width:230px; height:35px; color:#0033CC; cursor:pointer;" />
 </div>
 </td><td>
 <table width="240">
-<tr><td bgcolor="#FFCCFF"><div align="justify"><span class="style4">ไฮไลท์สีชมพู </span>หมายถึง ข้อมูลในช่องนี้ ห้ามเป็นค่าว่าง </div></td></tr>
-<tr><td bgcolor="#FFFF99"><div align="justify"><span class="style4">ไฮไลท์สีเหลือง </span>หมายถึง ข้อมูลที่คุณกรอกไม่ตรงตามฐานข้อมูลของบริษัท  ถ้าคุณกดปุ่ม "บันทึก PR ใบนี้ลงในฐานข้อมูล" ข้อมูลช่องนี้จะถูกบันทึกเป็นค่าว่าง (null) </div></td></tr>
-<tr><td style="color:#0000FF"><div align="justify"><strong>ข้อมูลที่เป็นตัวอักษรสีน้ำเงิน</strong> คือ ข้อมูลที่ทำการดึงมาจากฐานข้อมูล</div></td></tr>
+<tr><td bgcolor="#FFCCFF"><div align="justify"><span class="style4">๏ฟฝ๏ฟฝ๏ฟฝลท๏ฟฝ๏ฟฝีช๏ฟฝ๏ฟฝ๏ฟฝ </span>๏ฟฝ๏ฟฝ๏ฟฝยถึง ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝในช๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ็นค๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝาง </div></td></tr>
+<tr><td bgcolor="#FFFF99"><div align="justify"><span class="style4">๏ฟฝ๏ฟฝ๏ฟฝลท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง </span>๏ฟฝ๏ฟฝ๏ฟฝยถึง ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลท๏ฟฝ๏ฟฝุณ๏ฟฝ๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝรง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลของ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝัท  ๏ฟฝ๏ฟฝาคุณ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ "๏ฟฝัน๏ฟฝึก PR ใบน๏ฟฝ๏ฟฝลงในฐาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ" ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลช๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝะถูก๏ฟฝัน๏ฟฝึก๏ฟฝ็นค๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝาง (null) </div></td></tr>
+<tr><td style="color:#0000FF"><div align="justify"><strong>๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลท๏ฟฝ๏ฟฝ๏ฟฝ็นต๏ฟฝ๏ฟฝ๏ฟฝัก๏ฟฝ๏ฟฝ๏ฟฝีน๏ฟฝ๏ฟฝ๏ฟฝิน</strong> ๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลท๏ฟฝ๏ฟฝำก๏ฟฝรดึง๏ฟฝาจาก๏ฟฝาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ</div></td></tr>
 </table>
 </td></tr></table>
 </form>

@@ -1,6 +1,4 @@
 <?
-// จัดย่อหน้าแล้วจ้า... ^_^
-//   ถ้าเพิ่ม elements ในโปรแกรม อย่าลืมเปลี่ยน onclick ที่ checkbox ด้วย  
  @session_start();
 if(session_is_registered("valid_userprpo")) {	
 	require_once("../include_RedThemes/odbc_connect.php");
@@ -25,17 +23,17 @@ if(session_is_registered("valid_userprpo")) {
 	$for = @$_POST["for"];		
 	
     if($flagAction == 'AddCode'){  
-	$curGarQty = @odbc_exec($conn,"select nvl(gar_qty,0) as Qty from po_details where po_no = '$head_po_no' and id = '$head_id' ");
+	$curGarQty = @odbc_exec($conn,"select ISNULL(gar_qty,0) as Qty from po_details where po_no = '$head_po_no' and id = '$head_id' ");
 	$GarQty = @odbc_result($curGarQty, "Qty");
 	
-	$curtotalQty = @odbc_exec($conn,"select nvl(sum(qty),0) as totalQty from po_details_job where po_no = '$head_po_no' and id = '$head_id' ");
+	$curtotalQty = @odbc_exec($conn,"select ISNULL(sum(qty),0) as totalQty from po_details_job where po_no = '$head_po_no' and id = '$head_id' ");
 	$totalQty = @odbc_result($curtotalQty, "totalQty");
 	
 	$remainQty = $GarQty-$totalQty;
 	
 	if(($remainQty > $qty) || ($remainQty == $qty) ){
 	
-	$curMAX = @odbc_exec($conn,"select  nvl(max(detail_id)+1,1) mx  from po_details_job ");
+	$curMAX = @odbc_exec($conn,"select  ISNULL(max(detail_id)+1,1) mx  from po_details_job ");
 	$mx = @odbc_result($curMAX, "mx");
 	
 	$strINS = "insert into po_details_job (						
@@ -53,7 +51,6 @@ if(session_is_registered("valid_userprpo")) {
 	}
 	else{
 	    			echo '<script language="JavaScript" type="text/JavaScript">';
-					echo 'alert("จำนวนสินค้าที่ป้อนเกินจำนวนที่ทำการสั่งซื้อไป");window.location.reload("po_details_job.php?id='.$head_id.'&po_no='.$head_po_no.'");';
 					echo '</script>';	
 	}
 	}elseif ( $flagAction == 'DelCode'){
@@ -117,10 +114,8 @@ if(session_is_registered("valid_userprpo")) {
 				}
 			
 				if(count_qty > limit){
-					alert("จำนวนของที่ตัดมากกว่าจำนวนที่เบิกค่ะ");
 					return false;
 				}else if(count_qty < limit){
-					alert("ยังตัดเบิกไม่ครบนะคะ !");
 					return true;
 				}else{
 					return true;
@@ -146,34 +141,30 @@ if(session_is_registered("valid_userprpo")) {
 				
 				<table width="720" border="0" cellpadding="0" cellspacing="0" bgcolor="E9EAEB">
 				<tr>
-					<td width="100" height="20" class="tdleftwhite">รหัส PO</td>
 					<td colspan="3" class="fontMaster2Set">&nbsp;<?= $head_po_no; ?></td>
 				</tr>
 				<tr>
-					<td width="100"><span class="tdleftwhite">ประเภทของสินค้า</span></td>
 					<td colspan="3" class="fontMaster2Set">&nbsp; TEST</td>
 				</tr>
 				<tr>
-					<td width="100" height="20" class="tdleftwhite">รหัสสินค้า</td>
 					<td width="180" class="fontMaster2Set">&nbsp;<?= $head_prod_no; ?></td>
 				</tr>
 				<tr>
-					<td height="20" class="tdleftwhite">ชื่อสินค้า</td>
 					<td colspan="3" class="fontMaster2Set">&nbsp;<?= $head_prod_name; ?></td>
 				</tr>
 				<tr>
-					<td height="20" class="tdleftwhite">จำนวนที่สั่งซื้อ</td>
+					<td height="20" class="tdleftwhite">๏ฟฝำนวน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ่งซ๏ฟฝ๏ฟฝ๏ฟฝ</td>
 					<td class="fontMaster2Set">&nbsp;<? echo number_format($head_prod_qty,2,".",","); ?></td>
-					<td width="100"><span class="tdleftwhite">จำนวนที่ต้องรับเข้า</span></td>
+					<td width="100"><span class="tdleftwhite">๏ฟฝำนวน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝับ๏ฟฝ๏ฟฝ๏ฟฝ</span></td>
 					<td class="fontMaster2Set">&nbsp;<? echo number_format($head_gar_qty ,2,".",","); ?></td>
 				</tr>
 				</table>		
 				<table width="720"  border="0" cellspacing="0" cellpadding="0">
 				<tr  class="tdleftblack" >			
 				     <td width="20" >&nbsp;</td>
-					<td width="160">รหัสสินค้า</td>
-					<td width="180">สำหรับ Job No.</td>
-					<td width="150">จำนวน</td>
+					<td width="160">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</td>
+					<td width="180">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝับ Job No.</td>
+					<td width="150">๏ฟฝำนวน</td>
 				</tr>
 				</table>
 				<div id="list_lot" style="  height:270px; width:720; overflow:auto; z-index=2;display:block;border-width:thin;border-style:dashed; border-color: #DCDCDC;">		  
@@ -208,17 +199,17 @@ if(session_is_registered("valid_userprpo")) {
 				</div> 
 				<table width="720"  border="0" cellspacing="0" cellpadding="0" bgcolor="E9EAEB" >
 					<tr>
-					  <td colspan="5" align="left"  class="tdleftblack" ><input type="button" name="Submit2" value="ลบข้อมูล" onClick=" if(chkCheckboxChoose(document.form1)){ document.form1.flagAction.value= 'DelCode'; document.form1.submit(); }"></td>
+					  <td colspan="5" align="left"  class="tdleftblack" ><input type="button" name="Submit2" value="ลบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ" onClick=" if(chkCheckboxChoose(document.form1)){ document.form1.flagAction.value= 'DelCode'; document.form1.submit(); }"></td>
 				  </tr>
 					<tr>
-					  <td colspan="5" align="center" bgcolor="E9EAEB" class="tdleftwhite" ><div align="center">กรอกข้อมูลจำนวนสินค้าในแต่ละ Job No.</div>
+					  <td colspan="5" align="center" bgcolor="E9EAEB" class="tdleftwhite" ><div align="center">๏ฟฝ๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลจำนวน๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ Job No.</div>
 				      </td>
 				  </tr>
 					<tr align="center">
 						<td width="30%" align="left" bgcolor="E9EAEB"  >&nbsp;</td>
-						<td width="25%" align="center" bgcolor="E9EAEB" class="tdleftwhite" > สำหรับ Job No. </td>
+						<td width="25%" align="center" bgcolor="E9EAEB" class="tdleftwhite" > ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝับ Job No. </td>
 						<td width="2%" align="center" bgcolor="E9EAEB"  >&nbsp; </td>
-						<td width="25%" align="right" bgcolor="E9EAEB" class="tdleftwhite" >จำนวน</td>
+						<td width="25%" align="right" bgcolor="E9EAEB" class="tdleftwhite" >๏ฟฝำนวน</td>
 						<td width="18%" align="center" bgcolor="E9EAEB"  >&nbsp;</td>
 					</tr>
 					<tr>
@@ -232,8 +223,6 @@ if(session_is_registered("valid_userprpo")) {
 					  <td colspan="5"  align="center" bgcolor="E9EAEB">&nbsp;</td>
 				  </tr>
 					<tr>
-					<td colspan="3"  align="center" bgcolor="E9EAEB"><span class="tdleftwhite">** กรุณาระบุข้อมูลโดยละเอียด เพื่อช่วยให้การส่งข้อมูลเข้า SAP ถูกต้อง </span></td>
-					  <td  align="center" bgcolor="E9EAEB"><input type="button" name="Submit22" value="บันทึกข้อมูล" onClick=" if(document.form1.qty.value > 0){ document.form1.flagAction.value= 'AddCode',document.form1.submit(); }else{ alert('กรุณากรอกจำนวนที่มากกว่า 0 ด้วยค่ะ');}"></td>
 					  <td width="18%" align="left" bgcolor="E9EAEB" class="fontMenu1Set" >&nbsp;</td>
 				  </tr>
 					<tr>
@@ -248,7 +237,6 @@ if(session_is_registered("valid_userprpo")) {
 <?
 }else{
 	echo '<script language="JavaScript" type="text/JavaScript">';
-	echo 'alert ("คุณยังไม่ได้ทำการ Login หรือ เวลาในการทำงานของคุณหมดลง \n \n กรุณา Login เข้าระบบใหม่อีกครั้งค่ะ");';
 	echo 'win= top;';
 	echo 'win.opener=top;';
 	echo 'win.location = "index.html";';

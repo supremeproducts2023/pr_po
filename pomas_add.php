@@ -34,7 +34,7 @@
 					$int_year = @odbc_result($cur_int_year, "int_year");
 			
 					if($po_c == 's'){
-					$str_mx = "select nvl(max(substr(po_no,6,5))+1,1) int_mx from po_master ";
+					$str_mx = "select ISNULL(max(substr(po_no,6,5))+1,1) int_mx from po_master ";
 					$str_mx = $str_mx."where substr(po_no,3,1) = '1' and substr(po_no,4,2) = '".$int_year."' and  length(po_no) = 10";
 					$cur_mx = @odbc_exec($conn,$str_mx);
 					$int_mx = @odbc_result($cur_mx, "int_mx");
@@ -48,7 +48,7 @@
 						$po_no = "PO1" . $int_year . $str_middle . $int_mx;
 					}
 					else{
-						$str_mx = "select nvl(max(substr(po_no,6,5))+1,1) int_mx from po_master ";
+						$str_mx = "select ISNULL(max(substr(po_no,6,5))+1,1) int_mx from po_master ";
 						$str_mx = $str_mx."where substr(po_no,3,1) = '3' and substr(po_no,4,2) = '".$int_year."' and  length(po_no) = 10";
 						$cur_mx = @odbc_exec($conn,$str_mx);
 						$int_mx = @odbc_result($cur_mx, "int_mx");
@@ -82,12 +82,12 @@
 									'$redhead',
 									'$for_ref','1','$empno_user',sysdate,'$ref_po_no','$po_company',to_date('$delivery_date','dd-MM-yyyy'),'$boi')";
 									echo $strINS;
-				$exeINS = @odbc_exec($conn,$strINS) or die(alert("เกิดข้อผิดพลาดขึ้นกับระบบ ทำให้ไม่สามารถบันทึกข้อมูล PO นี้ลงบนฐานข้อมูลได้ค่ะ"));
+				$exeINS = @odbc_exec($conn,$strINS) or die(alert("๏ฟฝิด๏ฟฝ๏ฟฝอผิด๏ฟฝ๏ฟฝาด๏ฟฝ๏ฟฝ้นกับ๏ฟฝะบ๏ฟฝ ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรถ๏ฟฝัน๏ฟฝึก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ PO ๏ฟฝ๏ฟฝ๏ฟฝลง๏ฟฝ๏ฟฝ๏ฟฝาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ"));
 				$exeCOMMIT = @odbc_exec($conn,"commit");
 				
 				$_SESSION["sespk_no"] = $po_no;			
 				echo '<script language="JavaScript" type="text/JavaScript">
-								alert ("บันทึกข้อมูลส่วนหัวของ PO เรียบร้อยแล้ว กรุณาใส่รายละเอียดสินค้าที่ต้องการสั่งซื้อค่ะ");
+								alert ("๏ฟฝัน๏ฟฝึก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝวน๏ฟฝ๏ฟฝวของ PO ๏ฟฝ๏ฟฝ๏ฟฝยบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝุณ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยด๏ฟฝิน๏ฟฝ๏ฟฝาท๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ่งซ๏ฟฝ๏ฟฝอค๏ฟฝ๏ฟฝ");
 								parent.main_frame.location.href = "./pomas_edit.php";
 						</script>';
 			}			
@@ -106,17 +106,17 @@
 		 <script language='javascript'>
 				function check_po(obj){
 							if(obj.po_date.value==""){  	
-								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
+								alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ * ๏ฟฝ๏ฟฝ๏ฟฝรบ๏ฟฝ๏ฟฝ๏ฟฝ");
 								obj.po_date.focus();
 								return false;
 							}			
 							if(obj.supplier_id.value==""){  	
-								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
+								alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ * ๏ฟฝ๏ฟฝ๏ฟฝรบ๏ฟฝ๏ฟฝ๏ฟฝ");
 								obj.supplier_but.focus();
 								return false;
 							}			
 							if(obj.PayCode.value == "none"){
-								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
+								alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ * ๏ฟฝ๏ฟฝ๏ฟฝรบ๏ฟฝ๏ฟฝ๏ฟฝ");
 								obj.PayCode.focus();
 								return false;
 							}
@@ -141,34 +141,34 @@
 		<!-- Calculate -->
 		<script language="javascript">
 				function cal_descpatch_to(descpatch_to){
-							if(descpatch_to.value=="บริษัท สุพรีม โพรดักส์ จำกัด"){
-									descpatch_to.value='บริษัท ทรานสเทค จำกัด';
-							}else if(descpatch_to.value=="บริษัท ทรานสเทค จำกัด"){
-									descpatch_to.value='โรงงานราษฏร์นิยม';
-							}else if(descpatch_to.value=="โรงงานราษฏร์นิยม"){
-									descpatch_to.value='ช่างไปรับสินค้า';
-							}else if(descpatch_to.value=="ช่างไปรับสินค้า"){
-									descpatch_to.value='โกดังไปรับสินค้า';
-							}else if(descpatch_to.value=="โกดังไปรับสินค้า"){
-									descpatch_to.value='รพ.กรุงเทพ (ตึกอินเตอร์ชั้นใต้ดิน)';
-							}else if(descpatch_to.value=="รพ.กรุงเทพ (ตึกอินเตอร์ชั้นใต้ดิน)"){
+							if(descpatch_to.value=="๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝัท ๏ฟฝุพ๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝรดัก๏ฟฝ๏ฟฝ ๏ฟฝำกัด"){
+									descpatch_to.value='๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝัท ๏ฟฝ๏ฟฝาน๏ฟฝเทค ๏ฟฝำกัด';
+							}else if(descpatch_to.value=="๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝัท ๏ฟฝ๏ฟฝาน๏ฟฝเทค ๏ฟฝำกัด"){
+									descpatch_to.value='๏ฟฝรง๏ฟฝาน๏ฟฝ๏ฟฝษฏ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ';
+							}else if(descpatch_to.value=="๏ฟฝรง๏ฟฝาน๏ฟฝ๏ฟฝษฏ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ"){
+									descpatch_to.value='๏ฟฝ๏ฟฝาง๏ฟฝ๏ฟฝับ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ';
+							}else if(descpatch_to.value=="๏ฟฝ๏ฟฝาง๏ฟฝ๏ฟฝับ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ"){
+									descpatch_to.value='โกดัง๏ฟฝ๏ฟฝับ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ';
+							}else if(descpatch_to.value=="โกดัง๏ฟฝ๏ฟฝับ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ"){
+									descpatch_to.value='รพ.๏ฟฝ๏ฟฝุงเทพ (๏ฟฝึก๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน)';
+							}else if(descpatch_to.value=="รพ.๏ฟฝ๏ฟฝุงเทพ (๏ฟฝึก๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน)"){
 									descpatch_to.value='';
 							}else{
-									descpatch_to.value='บริษัท สุพรีม โพรดักส์ จำกัด';
+									descpatch_to.value='๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝัท ๏ฟฝุพ๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝรดัก๏ฟฝ๏ฟฝ ๏ฟฝำกัด';
 							}
 				}
 				
 				function cal_delivery_time(delivery_time){
-							if(delivery_time.value=="ได้รับสินค้าแล้ว"){
-									delivery_time.value='ภายใน    วัน';
-							}else if(delivery_time.value=="ภายใน    วัน"){
-									delivery_time.value='ภายในวันที่';
-							}else if(delivery_time.value=="ภายในวันที่"){
-									delivery_time.value='ดำเนินการแล้ว';
-							}else if(delivery_time.value=="ดำเนินการแล้ว"){
+							if(delivery_time.value=="๏ฟฝ๏ฟฝ๏ฟฝับ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ"){
+									delivery_time.value='๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ    ๏ฟฝัน';
+							}else if(delivery_time.value=="๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ    ๏ฟฝัน"){
+									delivery_time.value='๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝัน๏ฟฝ๏ฟฝ๏ฟฝ';
+							}else if(delivery_time.value=="๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝัน๏ฟฝ๏ฟฝ๏ฟฝ"){
+									delivery_time.value='๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ';
+							}else if(delivery_time.value=="๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ"){
 									delivery_time.value='';
 							}else{
-									delivery_time.value='ได้รับสินค้าแล้ว';
+									delivery_time.value='๏ฟฝ๏ฟฝ๏ฟฝับ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ';
 							}
 				}
 		</script>		
@@ -229,7 +229,7 @@
 				if (returnvalue != null){ 
 					var txtReturn='';
 					var values =  returnvalue.split("|-|");
-						if(document.getElementById("accid").value =="") txtReturn = 'รหัสบัญชี '+values[0]+' '+values[1];
+						if(document.getElementById("accid").value =="") txtReturn = '๏ฟฝ๏ฟฝ๏ฟฝสบัญ๏ฟฝ๏ฟฝ '+values[0]+' '+values[1];
 						else txtReturn = document.getElementById("accid").value+'\n'+values[0]+' '+values[1];
 						document.getElementById("accid").value = txtReturn.substring(0,200);				 
 				 }
@@ -247,7 +247,7 @@
             <input name="po_company" type="hidden" value="<?=$po_company;?>">
 		<table width="950"  border="0" cellpadding="0" cellspacing="0"  bgcolor="E9EAEB">
           <tr>
-            <th> &nbsp;&nbsp;เพิ่ม PO <?php if($po_company=="T") $po_company = "Transtek"; else $po_company = "Supreme";
+            <th> &nbsp;&nbsp;๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ PO <?php if($po_company=="T") $po_company = "Transtek"; else $po_company = "Supreme";
 																echo $po_company; ?> </th>
             <th><div align="right">&nbsp;</div></th>
           </tr>
@@ -257,16 +257,16 @@
                 <tr>
                   <td><table width="100%"  border="1" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td width="120" class="tdleftwhite"> &nbsp;เลขที่ PO <span class="style_star">*</span> </td>                       
+                        <td width="120" class="tdleftwhite"> &nbsp;๏ฟฝลข๏ฟฝ๏ฟฝ๏ฟฝ PO <span class="style_star">*</span> </td>                       
 						<?php if($po_company=="Supreme") { ?>
-						 <td width="363"><input name="po_no" type="text"  class="style_readonly" value="ระบบจะ Generate ให้ หลังจาก Save ค่ะ" size="31" readonly="">
+						 <td width="363"><input name="po_no" type="text"  class="style_readonly" value="๏ฟฝะบ๏ฟฝ๏ฟฝ๏ฟฝ Generate ๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝัง๏ฟฝาก Save ๏ฟฝ๏ฟฝ๏ฟฝ" size="31" readonly="">
 						 <input name="po_c" type="hidden" value="s">
 						 </td>
-                        <td width="102">อ้างอิง PO เก่าเลขที่</td>
+                        <td width="102">๏ฟฝ๏ฟฝาง๏ฟฝิง PO ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลข๏ฟฝ๏ฟฝ๏ฟฝ</td>
                         <td width="347"><input name="ref_po_no" type="text"  class="style_readonly" id="ref_po_no" value="" size="31" readonly="">
                         <input name='btn_select' type='button' value='...' onClick='lov_PO_CAN("<?php if($po_company=="Supreme") echo "S"; else echo "T"; ?>");' style=' width:40; cursor:pointer'></td>
 						<?php }else{ ?>						
-						<td colspan="3"><input name="po_no" type="text"  class="style_readonly" value="ระบบจะ Generate ให้ หลังจาก Save ค่ะ" size="31" readonly="">
+						<td colspan="3"><input name="po_no" type="text"  class="style_readonly" value="๏ฟฝะบ๏ฟฝ๏ฟฝ๏ฟฝ Generate ๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝัง๏ฟฝาก Save ๏ฟฝ๏ฟฝ๏ฟฝ" size="31" readonly="">
 						<input name="po_c" type="hidden" value="t">
 						</td>
 						<?php } ?>
@@ -286,11 +286,11 @@
 						  <input name="flag_boi" type="radio" value="1" >
 						   BOI
 						  <input name="flag_boi" type="radio" value="0" checked> 
-						   ไม่เป็น BOI	
+						   ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ BOI	
 						    <input name="flag_boi" type="radio" value="2" >
 						   BOI Factory 2
 						  <input name="flag_boi" type="radio" value="3"> 
-						   ไม่เป็น BOI Factory 2	
+						   ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ BOI Factory 2	
 							</td>
                       </tr>
                       <tr>
@@ -334,9 +334,9 @@
                         <select name="PayCode" id="PayCode" >
 						<?php	
 								$strSEL = "select payment_name, payment_description from Payment_method where status = 'Y'";
-								$queSEL = @odbc_exec($conn,$strSEL) or die(alert("เกิดข้อผิดพลาด ไม่สามารถประมวลผลข้อมูลในฐานข้อมูลได้ค่ะ"));
+								$queSEL = @odbc_exec($conn,$strSEL) or die(alert("๏ฟฝิด๏ฟฝ๏ฟฝอผิด๏ฟฝ๏ฟฝาด ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรถ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลผลข๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝในฐาน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ"));
 						?>	
-								<option value="none">กรุณาระบุ Payment Term</option> 
+								<option value="none">๏ฟฝ๏ฟฝุณ๏ฟฝ๏ฟฝะบ๏ฟฝ Payment Term</option> 
 						<?php 
 								while(@odbc_fetch_row($queSEL)){
 									$PayCode = @odbc_result($queSEL,"payment_name");
@@ -350,19 +350,19 @@
                       </tr>
                       
                       <tr>
-                        <td class="tdleftwhite">&nbsp;ภาษี 7%</td>
+                        <td class="tdleftwhite">&nbsp;๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ 7%</td>
                         <td colspan="3" class="tdleftwhite">
 						<input name="flag_vat" type="radio" value="1" checked>
-						 คำนวณ VAT
+						 ๏ฟฝำนวณ VAT
 						<input name="flag_vat" type="radio" value="0"> 
-						 ไม่คำนวณ VAT
+						 ๏ฟฝ๏ฟฝ๏ฟฝำนวณ VAT
 						 <input name="flag_vat" type="radio" value="2">
-						ไม่อยู่ในระบบ 
+						๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝะบ๏ฟฝ 
 						<input name="flag_vat" type="radio" value="3">
-						ไม่แสดง						</td>
+						๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝสด๏ฟฝ						</td>
                       </tr>
 						<tr>
-                        <td class="tdleftwhite">&nbsp;รหัสบัญชี </td>
+                        <td class="tdleftwhite">&nbsp;๏ฟฝ๏ฟฝ๏ฟฝสบัญ๏ฟฝ๏ฟฝ </td>
                         <td colspan="3">
 						<textarea name="accid" cols="85" rows="3" onKeyUp="return check_string(document.form_po.accid,200);"><? echo @$accid; ?></textarea><input name="acc_but" type="button" value="&nbsp;...&nbsp;" onClick="lovCodeAccount()">						</td>
                       </tr>					  
@@ -381,7 +381,7 @@
                         <td colspan="3"><textarea name="po_remark" cols="85" rows="3" onKeyUp="return check_string(document.form_po.po_remark,300);"><? echo @$po_remark; ?></textarea></td>
                       </tr>
                       <tr>
-                        <td class="tdleftwhite">&nbsp;<span class="thai_baht">หัวแดง (ปกติ) </span></td>
+                        <td class="tdleftwhite">&nbsp;<span class="thai_baht">๏ฟฝ๏ฟฝ๏ฟฝแดง (๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ) </span></td>
                         <td colspan="3"><input name="redhead" type="text" onKeyUp="return check_string(document.form_po.redhead,100);"   size="70" maxlength="100"></td>
                       </tr>
 					</table>					  
@@ -391,36 +391,36 @@
 				<td>
 				<table width="100%" border="1" align="center" cellpadding="0" cellspacing="0">
                   <tr bgcolor="999999">
-                    <td colspan="11" class="tdleftblack">รายละเอียดสินค้า</td>
+                    <td colspan="11" class="tdleftblack">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยด๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</td>
                   </tr>
                   <tr>
                     <td width="25" rowspan="2" class="tdcenterwhite">Del</td>
                     <td width="25" rowspan="2" class="tdcenterwhite">Edit</td>
-                    <td width="70" rowspan="2" class="tdcenterwhite">ประเภท</td>
-                    <td width="120" rowspan="2" class="tdcenterwhite">รหัสสินค้า</td>
-                    <td width="300" rowspan="2" class="tdcenterwhite">ชื่อรายการ</td>
-                    <td colspan="3" class="tdcenterwhite">รายการที่แสดงบนใบ PO <br>                    </td>
-                    <td colspan="2" class="tdcenterwhite">รายการที่ใช้ในการรับเข้า</td>
+                    <td width="70" rowspan="2" class="tdcenterwhite">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ</td>
+                    <td width="120" rowspan="2" class="tdcenterwhite">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</td>
+                    <td width="300" rowspan="2" class="tdcenterwhite">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ</td>
+                    <td colspan="3" class="tdcenterwhite">๏ฟฝ๏ฟฝยก๏ฟฝรท๏ฟฝ๏ฟฝ๏ฟฝสด๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ PO <br>                    </td>
+                    <td colspan="2" class="tdcenterwhite">๏ฟฝ๏ฟฝยก๏ฟฝรท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝในก๏ฟฝ๏ฟฝ๏ฟฝับ๏ฟฝ๏ฟฝ๏ฟฝ</td>
                   </tr>
                   <tr>
-                    <td width="80" class="tdcenterwhite">จำนวน</td>
-                    <td width="90" class="tdcenterwhite">ราคาต่อหน่วย</td>
-                    <td width="90" class="tdcenterwhite">ราคารวม</td>
-                    <td width="80" class="tdcenterwhite">จำนวน</td>
-                    <td width="90" class="tdcenterwhite">ราคาต่อหน่วย</td>
+                    <td width="80" class="tdcenterwhite">๏ฟฝำนวน</td>
+                    <td width="90" class="tdcenterwhite">๏ฟฝาคาต๏ฟฝ๏ฟฝหน๏ฟฝ๏ฟฝ๏ฟฝ</td>
+                    <td width="90" class="tdcenterwhite">๏ฟฝาค๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ</td>
+                    <td width="80" class="tdcenterwhite">๏ฟฝำนวน</td>
+                    <td width="90" class="tdcenterwhite">๏ฟฝาคาต๏ฟฝ๏ฟฝหน๏ฟฝ๏ฟฝ๏ฟฝ</td>
                   </tr>
 				<tr>
-                    <td colspan="7" > <strong> &nbsp;<span class="thai_baht">ราคาที่ระบุเป็นราคาที่หักส่วนลด(ตามรายการ) </span></strong></td>
+                    <td colspan="7" > <strong> &nbsp;<span class="thai_baht">๏ฟฝาคาท๏ฟฝ๏ฟฝ๏ฟฝะบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝาคาท๏ฟฝ๏ฟฝ๏ฟฝัก๏ฟฝ๏ฟฝวนลด(๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ) </span></strong></td>
                     <td >&nbsp;</td>
                     <td colspan="2" >&nbsp;</td>
                   </tr>				  
                   <tr>
                     <td colspan="11" class="tdleftblack">
                       <div align="right">
-					    <input type="button" name="btnProduct"  value="เพิ่มสินค้าประเภท BOM, Product, Service" style="width:260px; height:27px; "   target="_blank" disabled="disabled">
-<!--                        <input type="button" name="btnSubContact"  value="เพิ่มสินค้าประเภท SubContract" style="width:180px; height:27px; "   target="_blank" disabled="disabled"> -->
-                        <input type="button" name="btnEtc" value="เพิ่มสินค้าประเภท Detail, Etc" style="width:170px; height:27px; "   target="_blank" disabled="disabled">
-						<input type="button" name="btnPR"  value="เพิ่มสินค้าตาม PR (หลายประเภท)" style="width:180px; height:27px; "   target="_blank" disabled="disabled">
+					    <input type="button" name="btnProduct"  value="๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาป๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ BOM, Product, Service" style="width:260px; height:27px; "   target="_blank" disabled="disabled">
+<!--                        <input type="button" name="btnSubContact"  value="๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาป๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ SubContract" style="width:180px; height:27px; "   target="_blank" disabled="disabled"> -->
+                        <input type="button" name="btnEtc" value="๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาป๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ Detail, Etc" style="width:170px; height:27px; "   target="_blank" disabled="disabled">
+						<input type="button" name="btnPR"  value="๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาต๏ฟฝ๏ฟฝ PR (๏ฟฝ๏ฟฝ๏ฟฝยป๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ)" style="width:180px; height:27px; "   target="_blank" disabled="disabled">
 					  </div></td>
                   </tr>
                 </table>
@@ -457,31 +457,31 @@
         <br>
 			<table width="900" cellpadding="0" cellspacing="0">
               <tr>
-                <td colspan="2" class="tdleftwhite">ประเภทของสินค้า</td>
+                <td colspan="2" class="tdleftwhite">๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ</td>
               </tr>
               <tr>
                 <td width="80">- BOM</td>
-                <td>เป็นรายการสินค้าที่ใช้ในการผลิต</td>
+                <td>๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝในก๏ฟฝรผ๏ฟฝิต</td>
               </tr>
               <tr>
                 <td>- SubContact </td>
-                <td>เป็นค่าจ้างทำสินค้าที่ใช้ในการผลิตต้องระบุ Subjob(เพื่อให้ราคาลง JOB) </td>
+                <td>๏ฟฝ็นค๏ฟฝาจ๏ฟฝาง๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝในก๏ฟฝรผ๏ฟฝิต๏ฟฝ๏ฟฝอง๏ฟฝะบ๏ฟฝ Subjob(๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝาค๏ฟฝลง JOB) </td>
               </tr>
               <tr>
                 <td>- Product </td>
-                <td>เป็นรายการสินค้าสำเร็จรูปในบริษัท จับต้องได้ ต้องทำการรับเข้า (เพื่อขาย หรือเป็นของแถม) </td>
+                <td>๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝูปในบ๏ฟฝ๏ฟฝ๏ฟฝัท ๏ฟฝับ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝอง๏ฟฝำก๏ฟฝ๏ฟฝ๏ฟฝับ๏ฟฝ๏ฟฝ๏ฟฝ (๏ฟฝ๏ฟฝ๏ฟฝอข๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ็นของ๏ฟฝ๏ฟฝ) </td>
               </tr>
               <tr>
                 <td>- Service </td>
-                <td>เป็นรายการสินค้าสำเร็จรูปในบริษัท จับต้องได้ ต้องทำการรับเข้า (เพื่อซ่อม หรือเป็นอะไหล่) </td>
+                <td>๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝูปในบ๏ฟฝ๏ฟฝ๏ฟฝัท ๏ฟฝับ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝอง๏ฟฝำก๏ฟฝ๏ฟฝ๏ฟฝับ๏ฟฝ๏ฟฝ๏ฟฝ (๏ฟฝ๏ฟฝ๏ฟฝอซ๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ) </td>
               </tr>
               <tr>
                 <td>- Etc </td>
-                <td>เป็นสินค้าที่ไม่ต้องทำการรับเข้า เช่น ซื้อมาใช้งานในแผนก ฯลฯ </td>
+                <td>๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝำก๏ฟฝ๏ฟฝ๏ฟฝับ๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝาน๏ฟฝแผน๏ฟฝ ๏ฟฝ๏ฟฝ๏ฟฝ </td>
               </tr>
               <tr>
                 <td>- Detail </td>
-                <td>เป็นรายการที่ไม่ต้องนำไปใช้งานต่อ ใช้เพียงเพื่อความสวยงามของ PO เท่านั้น</td>
+                <td>๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยก๏ฟฝรท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝาน๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยง๏ฟฝ๏ฟฝ๏ฟฝอค๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยง๏ฟฝ๏ฟฝ๏ฟฝอง PO ๏ฟฝ๏ฟฝาน๏ฟฝ๏ฟฝ</td>
               </tr>
             </table>
 			</form>		
@@ -496,7 +496,7 @@
 	else{
 			include("index.php");
 			echo '<script language="JavaScript" type="text/JavaScript">';
-			echo 'alert ("ขออภัยค่ะ คุณยังไม่ได้ Login");';
+			echo 'alert ("๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยค๏ฟฝ๏ฟฝ ๏ฟฝุณ๏ฟฝัง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ Login");';
 			echo '</script>';
 	}
 ?>

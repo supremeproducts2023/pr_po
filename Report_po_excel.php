@@ -29,7 +29,7 @@ if(session_is_registered("valid_userprpo")) {
 		$sheet->PageSetup->PrintTitleRows = "$1:$2";
 		$sheet->PageSetup->RightHeader = "&P/&N";
 	// ?????????
-		$cell = $sheet->Cells(1,3);	$cell->activate;	$cell->Font->Bold = true;	$cell->Font->Size = 10;		$cell->value = "รายการสรุปการทำรับเข้า PO เลขที่  $po_no";
+		$cell = $sheet->Cells(1,3);	$cell->activate;	$cell->Font->Bold = true;	$cell->Font->Size = 10;		$cell->value = "๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝุป๏ฟฝ๏ฟฝรท๏ฟฝ๏ฟฝับ๏ฟฝ๏ฟฝ๏ฟฝ PO ๏ฟฝลข๏ฟฝ๏ฟฝ๏ฟฝ  $po_no";
 		$cell->RowHeight = 20;
 		
 		$all = $sheet->Range("A2:I2");
@@ -40,14 +40,14 @@ if(session_is_registered("valid_userprpo")) {
 		$all->Borders->LineStyle = 1;	
 		
 		$cell = $sheet->Cells(2,1);		$cell->activate;			$cell->value = "No.";						$cell->ColumnWidth = 10.00;
-		$cell = $sheet->Cells(2,2);		$cell->activate;			$cell->value = "สินค้า";		    $cell->ColumnWidth = 50.00;
-		$cell = $sheet->Cells(2,3);		$cell->activate;			$cell->value = "วันที่ PO";		    $cell->ColumnWidth = 20.00;
-		$cell = $sheet->Cells(2,4);		$cell->activate;			$cell->value = "จำนวนที่สั่งซื้อ";		$cell->ColumnWidth = 15.00;
-		$cell = $sheet->Cells(2,5);		$cell->activate;			$cell->value = "ชื่อผู้ผลิต";				$cell->ColumnWidth = 35.00;
-		$cell = $sheet->Cells(2,6);		$cell->activate;			$cell->value = "เลขที่ GAR";					$cell->ColumnWidth = 15.00;
-		$cell = $sheet->Cells(2,7);		$cell->activate;			$cell->value = "วันที่รับเข้า";					$cell->ColumnWidth = 20.00;
-		$cell = $sheet->Cells(2,8);		$cell->activate;			$cell->value = "สถานะ GAR";					$cell->ColumnWidth = 40.00;
-		$cell = $sheet->Cells(2,9);		$cell->activate;			$cell->value = "จำนวนที่ทำรับเข้า";					$cell->ColumnWidth = 15.00;
+		$cell = $sheet->Cells(2,2);		$cell->activate;			$cell->value = "๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ";		    $cell->ColumnWidth = 50.00;
+		$cell = $sheet->Cells(2,3);		$cell->activate;			$cell->value = "๏ฟฝัน๏ฟฝ๏ฟฝ๏ฟฝ PO";		    $cell->ColumnWidth = 20.00;
+		$cell = $sheet->Cells(2,4);		$cell->activate;			$cell->value = "๏ฟฝำนวน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ่งซ๏ฟฝ๏ฟฝ๏ฟฝ";		$cell->ColumnWidth = 15.00;
+		$cell = $sheet->Cells(2,5);		$cell->activate;			$cell->value = "๏ฟฝ๏ฟฝ๏ฟฝอผ๏ฟฝ๏ฟฝ๏ฟฝิต";				$cell->ColumnWidth = 35.00;
+		$cell = $sheet->Cells(2,6);		$cell->activate;			$cell->value = "๏ฟฝลข๏ฟฝ๏ฟฝ๏ฟฝ GAR";					$cell->ColumnWidth = 15.00;
+		$cell = $sheet->Cells(2,7);		$cell->activate;			$cell->value = "๏ฟฝัน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝับ๏ฟฝ๏ฟฝ๏ฟฝ";					$cell->ColumnWidth = 20.00;
+		$cell = $sheet->Cells(2,8);		$cell->activate;			$cell->value = "สถาน๏ฟฝ GAR";					$cell->ColumnWidth = 40.00;
+		$cell = $sheet->Cells(2,9);		$cell->activate;			$cell->value = "๏ฟฝำนวน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝับ๏ฟฝ๏ฟฝ๏ฟฝ";					$cell->ColumnWidth = 15.00;
 		$i= 3;		
 	// Query Transection
 		$strQUE= "select b.po_no,a.status,to_char(b.po_date,'DD/MM/YYYY') po_date
@@ -56,7 +56,7 @@ if(session_is_registered("valid_userprpo")) {
 							   ,a.RECEIVE_QTY ,b.company_name
 						from 
 						(
-						select ngar.po_no ,ngar.status, ngar.gar_no ,ngar.gar_date ,nprod.id_prod_po,nprod.prod_no, nvl(stk.QTY,0) RECEIVE_QTY 
+						select ngar.po_no ,ngar.status, ngar.gar_no ,ngar.gar_date ,nprod.id_prod_po,nprod.prod_no, ISNULL(stk.QTY,0) RECEIVE_QTY 
 						from ngar ngar inner join 
 							 ngar_prod nprod on ngar.gar_id = nprod.gar_id left join
 							 ngar_stock_in stk on nprod.gar_id = stk.gar_id and nprod.prod_id = stk.prod_id 
@@ -89,55 +89,55 @@ if(session_is_registered("valid_userprpo")) {
 			
 			$txt_status = "";
 			if($po_status == "00")
-				$txt_status = "สินค้าผ่านการนับจำนวนจากโกดังแล้ว";
+				$txt_status = "๏ฟฝิน๏ฟฝ๏ฟฝาผ๏ฟฝาน๏ฟฝ๏ฟฝรนับ๏ฟฝำนวน๏ฟฝากโกดัง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ";
 			else if($po_status == "04")
-				$txt_status = "QC ปิ่นเกล้าตรวจสอบเอกสารจากโกดังเรียบร้อยแล้ว";
+				$txt_status = "QC ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝาต๏ฟฝวจ๏ฟฝอบ๏ฟฝอก๏ฟฝ๏ฟฝรจากโกดัง๏ฟฝ๏ฟฝ๏ฟฝยบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ";
 			else if($po_status == "05")
-				$txt_status = "QC ปิ่นเกล้าให้ทางโกดัง แก้ไขเอกสาร GAR";
+				$txt_status = "QC ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝางโกดัง ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ GAR";
 			else if($po_status == "06")
-				$txt_status = "โกดัง แก้ไขเอกสารตามที่  QC  ปิ่นเกล้า โรงงานต้องการ";
+				$txt_status = "โกดัง ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอก๏ฟฝ๏ฟฝรต๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ  QC  ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝรง๏ฟฝาน๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ";
 			else if($po_status == "11")
-				$txt_status = "QC โรงงานตรวจสอบเอกสารจากโกดังเรียบร้อยแล้ว";
+				$txt_status = "QC ๏ฟฝรง๏ฟฝาน๏ฟฝ๏ฟฝวจ๏ฟฝอบ๏ฟฝอก๏ฟฝ๏ฟฝรจากโกดัง๏ฟฝ๏ฟฝ๏ฟฝยบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ";
 			else if($po_status == "12")
-				$txt_status = "สินค้าผ่านการตรวจสอบคุณภาพทั้งหมด";
+				$txt_status = "๏ฟฝิน๏ฟฝ๏ฟฝาผ๏ฟฝาน๏ฟฝ๏ฟฝรต๏ฟฝวจ๏ฟฝอบ๏ฟฝุณ๏ฟฝาพ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ";
 			else if($po_status == "13")
-				$txt_status = "สินค้าผ่านการ QC แล้ว รอผู้จัดการพิจารณา";
+				$txt_status = "๏ฟฝิน๏ฟฝ๏ฟฝาผ๏ฟฝาน๏ฟฝ๏ฟฝ๏ฟฝ QC ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝอผ๏ฟฝ๏ฟฝัด๏ฟฝ๏ฟฝรพิจ๏ฟฝรณ๏ฟฝ";
 			else if($po_status == "14")
-				$txt_status = "QC ตรวจสอบเอกสารจากโกดังเรียบร้อยแล้ว";
+				$txt_status = "QC ๏ฟฝ๏ฟฝวจ๏ฟฝอบ๏ฟฝอก๏ฟฝ๏ฟฝรจากโกดัง๏ฟฝ๏ฟฝ๏ฟฝยบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ";
 			else if($po_status == "15")
-				$txt_status = "QC ให้ทางโกดัง แก้ไขเอกสาร GAR";
+				$txt_status = "QC ๏ฟฝ๏ฟฝ๏ฟฝางโกดัง ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ GAR";
 			else if($po_status == "16")
-				$txt_status = "โกดัง แก้ไขเอกสารตามที่ QC โรงงานต้องการ";
+				$txt_status = "โกดัง ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอก๏ฟฝ๏ฟฝรต๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ QC ๏ฟฝรง๏ฟฝาน๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ";
 			else if($po_status == "17")
-				$txt_status = "โกดังบันทึกการส่งสินค้าแล้ว รอสต็อกรับเข้าสินค้า";
+				$txt_status = "โกดัง๏ฟฝัน๏ฟฝึก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝสต๏ฟฝอก๏ฟฝับ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ";
 			else if($po_status == "21")
-				$txt_status = "ผู้จัดการอนุมัติให้สินค้าผ่านเกณฑ์คุณภาพสินค้าที่ิพิจารณาทั้งหมด";
+				$txt_status = "๏ฟฝ๏ฟฝ๏ฟฝัด๏ฟฝ๏ฟฝ๏ฟฝอน๏ฟฝ๏ฟฝัต๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาผ๏ฟฝานเกณ๏ฟฝ๏ฟฝุณ๏ฟฝาพ๏ฟฝิน๏ฟฝ๏ฟฝาท๏ฟฝ๏ฟฝิพิจ๏ฟฝรณาท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ";
 			else if($po_status == "22")
-				$txt_status = "ผู้จัดการมีการส่งคืนสินค้าที่พิจารณาทั้งหมด";
+				$txt_status = "๏ฟฝ๏ฟฝ๏ฟฝัด๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝีก๏ฟฝ๏ฟฝ๏ฟฝ่งคืน๏ฟฝิน๏ฟฝ๏ฟฝาท๏ฟฝ๏ฟฝิจ๏ฟฝรณาท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ";
 			else if($po_status == "23")
-				$txt_status = "ผู้จัดการมีการส่งคืนสินค้าที่พิจารณาบางรายการ";
+				$txt_status = "๏ฟฝ๏ฟฝ๏ฟฝัด๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝีก๏ฟฝ๏ฟฝ๏ฟฝ่งคืน๏ฟฝิน๏ฟฝ๏ฟฝาท๏ฟฝ๏ฟฝิจ๏ฟฝรณาบาง๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ";
 			else if($po_status == "30")
-				$txt_status = "สต๊อกรับเข้าสินค้าบางส่วนแล้ว";
+				$txt_status = "สต๏ฟฝอก๏ฟฝับ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาบาง๏ฟฝ๏ฟฝวน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ";
 			else if($po_status == "31")
-				$txt_status = "สต๊อกทำรับเข้าสินค้าครบแล้ว รอโกดังบันทึกส่งคืนสินค้าที่ไม่ผ่านคุณภาพ";
+				$txt_status = "สต๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝับ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาครบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝโกดัง๏ฟฝัน๏ฟฝึก๏ฟฝ่งคืน๏ฟฝิน๏ฟฝ๏ฟฝาท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝาน๏ฟฝุณ๏ฟฝาพ";
 			else if($po_status == "32")
-				$txt_status = "สต๊อกให้ทางโกดังแก้ไขเอกสาร";
+				$txt_status = "สต๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝางโกดัง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ";
 			else if($po_status == "33")
-				$txt_status = "โกดัง แก้ไขเอกสารให้ตามที่ สต๊อกต้องการ";
+				$txt_status = "โกดัง ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ สต๏ฟฝอก๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ";
 			else if($po_status == "41")
-				$txt_status = "QC ปิ่นเกล้าอนุมัติให้สินค้าผ่านเกณฑ์ที่พิจารณาทั้งหมด";
+				$txt_status = "QC ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอน๏ฟฝ๏ฟฝัต๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝาผ๏ฟฝานเกณ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิจ๏ฟฝรณาท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ";
 			else if($po_status == "42")
-				$txt_status = "QC ปิ่นเกล้ามีการส่งคืนสินค้าที่พิจารณาทั้งหมด";
+				$txt_status = "QC ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝีก๏ฟฝ๏ฟฝ๏ฟฝ่งคืน๏ฟฝิน๏ฟฝ๏ฟฝาท๏ฟฝ๏ฟฝิจ๏ฟฝรณาท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ";
 			else if($po_status == "43")
-				$txt_status = "QC ปิ่นเกล้ามีการส่งคืนสินค้าที่พิจารณาบางรายการ";
+				$txt_status = "QC ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝีก๏ฟฝ๏ฟฝ๏ฟฝ่งคืน๏ฟฝิน๏ฟฝ๏ฟฝาท๏ฟฝ๏ฟฝิจ๏ฟฝรณาบาง๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ";
 			else if($po_status == "98")
-				$txt_status = "GAR ปิดแล้ว [มีการส่งคืนสินค้า]";
+				$txt_status = "GAR ๏ฟฝิด๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ [๏ฟฝีก๏ฟฝ๏ฟฝ๏ฟฝ่งคืน๏ฟฝิน๏ฟฝ๏ฟฝ๏ฟฝ]";
 			else if($po_status == "99")
-				$txt_status = "GAR ปิดแล้ว [เข้า Inventory ทุกรายการ]";
+				$txt_status = "GAR ๏ฟฝิด๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ [๏ฟฝ๏ฟฝ๏ฟฝ Inventory ๏ฟฝุก๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ]";
 			else if($po_status == "XX")
-				$txt_status = "GAR ยกเลิก";
+				$txt_status = "GAR ยก๏ฟฝ๏ฟฝิก";
 			else if($po_status == "SE")
-				$txt_status = "Stock มีการแก้ไขข้อมูล GAR ที่ปิดแล้ว";
+				$txt_status = "Stock ๏ฟฝีก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝไขข๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ GAR ๏ฟฝ๏ฟฝ๏ฟฝิด๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ";
 			$y = 1;
 			
 			if ($v_bomcodeshow != $codeshow)

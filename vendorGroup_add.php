@@ -12,7 +12,7 @@
 										$vendor_no= @$_POST["vendor_no"];
 										$vendor_name=@$_POST["vendor_name"];
                                         
-										$curQUEVendorSup = odbc_exec($conn,"select nvl(count(vendor_no),0) as count_vendor from vendor_group where vendor_no='$vendor_no' ");
+										$curQUEVendorSup = odbc_exec($conn,"select ISNULL(count(vendor_no),0) as count_vendor from vendor_group where vendor_no='$vendor_no' ");
 										$totalVendorNo = @odbc_result($curQUEVendorSup, "count_vendor");	
 										
 										if ($totalVendorNo==0){
@@ -21,7 +21,7 @@
 																				vendor_id,vendor_no,vendor_name,
 																				recuser_id,rec_date,vendor_status
 																			) values(
-																				(select nvl(max(vendor_id),0)+1 vendor_id from  vendor_group),
+																				(select ISNULL(max(vendor_id),0)+1 vendor_id from  vendor_group),
 																				'$vendor_no','$vendor_name','$empno_user',sysdate,'1'
 																			)";
 										$exeSupplierINS = @odbc_exec($conn,$strSupplierINS);
@@ -30,21 +30,21 @@
 													$exeCommit = @odbc_exec($conn,"commit");
 ?>
 													<script language="JavaScript" type="text/JavaScript">
-															alert ("บันทึกข้อมูลเรียบร้อยแล้วค่ะ");
+															alert ("๏ฟฝัน๏ฟฝึก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝยบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝวค๏ฟฝ๏ฟฝ");
 															location.href('vendorGroup_add.php'+''); 
 													</script>						
 <? 										
 										}else{
 ?>
 													<script language="JavaScript" type="text/JavaScript">
-															alert ("ระบบมีปัญหาไม่สามารถบันทึกข้อมูลได้ค่ะ");
+															alert ("๏ฟฝะบ๏ฟฝ๏ฟฝีปัญ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรถ๏ฟฝัน๏ฟฝึก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ");
 													</script>						
 <? 
 										}
 										}else{
 											?>
 													<script language="JavaScript" type="text/JavaScript">
-															alert ("กรุณาป้อนรหัส Vendor ใหม่เนื่องจากรหัส Vendor นี้มีในระบบแล้ว");
+															alert ("๏ฟฝ๏ฟฝุณาป๏ฟฝอน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ Vendor ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝาก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ Vendor ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝะบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ");
 															location.href('vendorGroup_add.php'+''); 
 													</script>				
                                     <?					
@@ -75,12 +75,12 @@
 		 <script language='javascript'>
 				function check_sup(obj){
 							if(obj.vendor_no.value==""){  	
-								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
+								alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ * ๏ฟฝ๏ฟฝ๏ฟฝรบ๏ฟฝ๏ฟฝ๏ฟฝ");
 								obj.vendor_no.focus();
 								return false;
 							}
 							if(obj.vendor_name.value==""){
-								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
+								alert("๏ฟฝ๏ฟฝุณาก๏ฟฝอก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝลท๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ * ๏ฟฝ๏ฟฝ๏ฟฝรบ๏ฟฝ๏ฟฝ๏ฟฝ");
 								obj.vendor_name.focus();
 								return false;
 							}			
@@ -99,7 +99,7 @@
 			<form name="form_sup" action="vendorGroup_add.php" method="post">
 		<table width="600"  border="0" cellpadding="0" cellspacing="0"  bgcolor="E9EAEB">
           <tr>
-            <th> &nbsp;&nbsp;เพิ่มข้อมูล vendor Group</th>
+            <th> &nbsp;&nbsp;๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ vendor Group</th>
           </tr>
           <tr>
             <td colspan="2">
@@ -107,11 +107,11 @@
                 <tr>
                   <td><table width="100%"  border="1" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td width="148" class="tdleftwhite"> &nbsp;เลขที่ vendor Group <span class="style_star">*</span></td>
+                        <td width="148" class="tdleftwhite"> &nbsp;๏ฟฝลข๏ฟฝ๏ฟฝ๏ฟฝ vendor Group <span class="style_star">*</span></td>
                         <td width="438"><input name="vendor_no" type="text"  size="20" ></td>
                       </tr>
 					  <tr>
-					  	<td class="tdleftwhite">&nbsp;ชื่อ Vendor Group <span class="style_star">*</span></td>
+					  	<td class="tdleftwhite">&nbsp;๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ Vendor Group <span class="style_star">*</span></td>
 						<td><input name="vendor_name" type="text" id="vendorno"  size="50" maxlength="150" /></td>
 					  </tr>
                   </table></td>
@@ -119,7 +119,7 @@
                 <tr>
                   <td><table width="100%"  border="1" align="center" cellpadding="0" cellspacing="0">
                     <tr>
-                      <th colspan="3"><div align="right">  <input name="txtCode" type="hidden" value="บันทึก">              
+                      <th colspan="3"><div align="right">  <input name="txtCode" type="hidden" value="๏ฟฝัน๏ฟฝึก">              
 						<a  style="cursor:hand" onClick="check_sup(document.form_sup);"
 						onMousedown="document.images['butsave'].src=save3.src" 
 						onMouseup="document.images['butsave'].src=save1.src"						
