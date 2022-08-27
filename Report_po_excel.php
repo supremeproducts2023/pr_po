@@ -52,7 +52,7 @@ if(session_is_registered("valid_userprpo")) {
 	// Query Transection
 		$strQUE= "select b.po_no,a.status,to_char(b.po_date,'DD/MM/YYYY') po_date
 								,b.codeshow,b.gar_qty order_qty,a.gar_no
-							   ,(substr(a.gar_date,7,2) || '/' || substr(a.gar_date,5,2) || '/' ||substr(a.gar_date,0,4)) gar_date
+							   ,(substr(a.gar_date,7,2) + '/' + substr(a.gar_date,5,2) + '/' +substr(a.gar_date,0,4)) gar_date
 							   ,a.RECEIVE_QTY ,b.company_name
 						from 
 						(
@@ -65,8 +65,8 @@ if(session_is_registered("valid_userprpo")) {
 						)a inner join
 						(
 						   select pm.po_no ,sup.company_name, pm.po_date ,pd.code,pd.id, pd.prod_type,pd.gar_qty ,
-								 case when pd.prod_type = '3' then (select (princ_prodno || ' ' || engname ) from product where prodno = pd.code )
-								 else (select (bom_codeshow || ' ' || bom_desc )   from nbom_description where bom_code = pd.code ) end as codeshow
+								 case when pd.prod_type = '3' then (select (princ_prodno + ' ' + engname ) from product where prodno = pd.code )
+								 else (select (bom_codeshow + ' ' + bom_desc )   from nbom_description where bom_code = pd.code ) end as codeshow
 						   from po_master pm inner join
 								po_details pd on pm.po_no = pd.po_no inner join
 								supplier sup on pm.supplier_id = sup.supplier_id

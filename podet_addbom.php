@@ -19,7 +19,7 @@ if(session_is_registered("valid_userprpo")) {
 									if($keyword != "") $strQUE .= "and (upper(bom_codeshow) like upper('%$keyword%')) or (upper(bom_desc) like upper('%$keyword%'))";
 									$curQUE= odbc_exec($conn,$strQUE." order by bom_type,bom_codeshow");					
 							}else if(($prod_type=='3')||($prod_type=='4')){
-									$strQUE = "select prodno code,princ_prodno prod_no,engname||'('||id_keep||')' prod_name,unittype prod_unit,prod_type type from product where status='1' ";
+									$strQUE = "select prodno code,princ_prodno prod_no,engname +'('+ id_keep +')' prod_name,unittype prod_unit,prod_type type from product where status='1' ";
 									if($keyword != "") $strQUE .= "and (upper(princ_prodno) like upper('%$keyword%')) or (upper(engname) like upper('%$keyword%'))";
 									$curQUE= odbc_exec($conn,$strQUE." order by princ_prodno");					
 							}

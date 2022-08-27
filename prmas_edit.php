@@ -642,7 +642,7 @@
 										$sum_total = $sum_total+$total_price;
 										
 										if($flag_obj=="7"){
-											$strQUEDetailSubjob = "select pd.subjob_show || '=' || sj.qty subjob_show
+											$strQUEDetailSubjob = "select pd.subjob_show + '=' + sj.qty subjob_show
 															from pr_details_subjob sj, mrp_pd pd
 															where sj.subjob=pd.subjob 
 															and pr_no= '$pr_no'
