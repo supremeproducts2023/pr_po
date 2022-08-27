@@ -7,18 +7,18 @@ if(session_is_registered("empno_user")) {
 		//------------------------- mysql : Connect ----------------------------------
 			include("../include_RedThemes/mysql_connect.php");								
 			@require_once("../include_RedThemes/funcShow.php");			
-			
+ 
+	 							
 								
-								
-		//------------------------- Åº¢éÍÁÙÅ ã¹µÒÃÒ§ po_master , po_details ------------------------- 
+		//------------------------- Åºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ã¹µï¿½ï¿½Ò§ po_master , po_details ------------------------- 
 			mysql_query("delete from po_master",$conn_mysql);
 			mysql_query("delete from po_details",$conn_mysql);
 
-		// Select Master ¨Ò¡ Oracle		
+		// Select Master ï¿½Ò¡ Oracle		
 /*			$strPoMaster = "select to_char(p.po_date,'YYYY-MM-DD') po_date,
 						s.company_name suppliername,(s.supplier_address1 || ', ' || s.supplier_address2) supplier_address1,
-						('µÓºÅ' || s.tambol || ' ÍÓàÀÍ' ||  s.district || ' ¨Ñ§ËÇÑ´' || s.province || ' ÃËÑÊä»ÃÉ³ÕÂì ' || s.postcode) supplier_address2,
-						('àºÍÃìâ·ÃÈÑ¾·ì: ' || s.supplier_address3 || ', ' || s.supplier_address3_1 || ' á¿¡«ì : ' || s.fax_number ) supplier_address3,s.supplier_title,
+						('ï¿½Óºï¿½' || s.tambol || ' ï¿½ï¿½ï¿½ï¿½ï¿½' ||  s.district || ' ï¿½Ñ§ï¿½ï¿½Ñ´' || s.province || ' ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É³ï¿½ï¿½ï¿½ ' || s.postcode) supplier_address2,
+						('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½: ' || s.supplier_address3 || ', ' || s.supplier_address3_1 || ' á¿¡ï¿½ï¿½ : ' || s.fax_number ) supplier_address3,s.supplier_title,
 						your_ref,our_ref,despatch_to,delivery_time,payment,
 						discount_percent,discount_baht,flag_vat,
 						p.accid,p.costid,p.for_ref,po_remark,							
@@ -57,10 +57,10 @@ if(session_is_registered("empno_user")) {
 			$po_company = odbc_result($curPoMaster,"po_company");
 			
 			$supplier_address2 = "";
-			if($province=="¡ÃØ§à·¾Ï")
+			if($province=="ï¿½ï¿½Ø§à·¾ï¿½")
 			{
 				if($tambol!="")	{
-					$supplier_address2 .= "á¢Ç§".$tambol;
+					$supplier_address2 .= "ï¿½Ç§".$tambol;
 				}
 				if($district!="") {
 					if($supplier_address2=="")
@@ -69,22 +69,22 @@ if(session_is_registered("empno_user")) {
 				}
 			}else{
 						if($tambol!="")
-							$supplier_address2 .= "µÓºÅ".$tambol;
+							$supplier_address2 .= "ï¿½Óºï¿½".$tambol;
 						if($district!="") {
 							if($supplier_address2=="")
-								$supplier_address2 = "ÍÓàÀÍ".$district;
-							else 	$supplier_address2 .= " ÍÓàÀÍ".$district;
+								$supplier_address2 = "ï¿½ï¿½ï¿½ï¿½ï¿½".$district;
+							else 	$supplier_address2 .= " ï¿½ï¿½ï¿½ï¿½ï¿½".$district;
 						}
 			}	
 			if($province!=""){
 				if($supplier_address2=="")
-					$supplier_address2 = "¨Ñ§ËÇÑ´".$province;					
-				else 	$supplier_address2 .= " ¨Ñ§ËÇÑ´".$province;					
+					$supplier_address2 = "ï¿½Ñ§ï¿½ï¿½Ñ´".$province;					
+				else 	$supplier_address2 .= " ï¿½Ñ§ï¿½ï¿½Ñ´".$province;					
 			}
 			if($postcode!=""){
 				if($supplier_address2=="")
-					$supplier_address2 = "ÃËÑÊä»ÃÉ³ÕÂì ".$postcode;					
-				else 	$supplier_address2 .= " ÃËÑÊä»ÃÉ³ÕÂì ".$postcode;					
+					$supplier_address2 = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É³ï¿½ï¿½ï¿½ ".$postcode;					
+				else 	$supplier_address2 .= " ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É³ï¿½ï¿½ï¿½ ".$postcode;					
 			}
 			if($country!=""){
 				if($supplier_address2=="")
@@ -92,18 +92,18 @@ if(session_is_registered("empno_user")) {
 				else 	$supplier_address2 .= " ".$country;
 			}
 			if($supplier_address3!="")
-				$supplier_address3 = "àºÍÃìâ·ÃÈÑ¾·ì : ".$supplier_address3;
+				$supplier_address3 = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ : ".$supplier_address3;
 			if($supplier_address3_1!="")
 			{	
 				if($supplier_address3 != "")
 					$supplier_address3 .= ", ".$supplier_address3_1;	
-				else	$supplier_address3 = "àºÍÃìâ·ÃÈÑ¾·ì : ".$supplier_address3_1;
+				else	$supplier_address3 = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ : ".$supplier_address3_1;
 			}
 			if($fax_number!="")
 			{
 				if($supplier_address3 != "")
-					$supplier_address3 .= " àºÍÃìá¿¡«ì : ".$fax_number;	
-				else	$supplier_address3 = "àºÍÃìá¿¡«ì : ".$fax_number;
+					$supplier_address3 .= " ï¿½ï¿½ï¿½ï¿½á¿¡ï¿½ï¿½ : ".$fax_number;	
+				else	$supplier_address3 = "ï¿½ï¿½ï¿½ï¿½á¿¡ï¿½ï¿½ : ".$fax_number;
 			}
 			$your_ref=odbc_result($curPoMaster, "your_ref");
 			$our_ref=odbc_result($curPoMaster, "our_ref");
@@ -136,7 +136,7 @@ if(session_is_registered("empno_user")) {
 							".chkINSMySQL($po_status).",".chkINSMySQL($report_type).",".chkINSMySQL($po_company).")";
 //			echo  $strInsPoMaster.'<br>';
 			mysql_query($strInsPoMaster,$conn_mysql);
-		// Select Detail ¨Ò¡ Oracle
+		// Select Detail ï¿½Ò¡ Oracle
 			$strPoDetails = "select id,prod_no,prod_name,prod_type,show_id,
 														prod_qty,prod_price,prod_unit,
 														gar_qty,gar_price,gar_unit,
@@ -185,14 +185,14 @@ if(session_is_registered("empno_user")) {
 			}
 			$price=$sum_price;
 	
-		// ------------------------- ¤Ó¹Ç¹àÃ×èÍ§ ÊèÇ¹Å´ & VAT -------------------------
+		// ------------------------- ï¿½Ó¹Ç¹ï¿½ï¿½ï¿½ï¿½Í§ ï¿½ï¿½Ç¹Å´ & VAT -------------------------
 if($report_type!="2"){	// !=nonprice
 			$i = 2000;
-			if($flag_vat==1){ // ¤Ó¹Ç³ VAT
-				if($discount_baht!=0){  //ÁÕÊèÇ¹Å´
+			if($flag_vat==1){ // ï¿½Ó¹Ç³ VAT
+				if($discount_baht!=0){  //ï¿½ï¿½ï¿½ï¿½Ç¹Å´
 					mysql_query("insert into po_details (po_no,id,prod_price) values('$doc_no','$i',".chkINSMySQL($price).") ",$conn_mysql); 
 					$i = $i+1;		
-					mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','ÊèÇ¹Å´ $discount_percent',".chkINSMySQL($discount_baht).")",$conn_mysql);	 
+					mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','ï¿½ï¿½Ç¹Å´ $discount_percent',".chkINSMySQL($discount_baht).")",$conn_mysql);	 
 					$i = $i+1;			
 					$price = $price-$discount_baht;
 				}
@@ -201,48 +201,48 @@ if($report_type!="2"){	// !=nonprice
 				$i = $i+1;	
 				if($price==0)$vat=0; else $vat = $price*7/100;
 				
-				mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','ÀÒÉÕÁÙÅ¤èÒà¾ÔèÁ 7%',".chkINSMySQL($vat).")",$conn_mysql);	 
+				mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 7%',".chkINSMySQL($vat).")",$conn_mysql);	 
 				$i = $i+1;		
 				$price = $price+$vat;
 				
-				mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','¨Ó¹Ç¹à§Ô¹ÃÇÁ·Ñé§ÊÔé¹',".chkINSMySQL($price).")",$conn_mysql);													
-			}else if($flag_vat==0){ // äÁè¤Ó¹Ç³ VAT
-				if($discount_baht!=0){  //ÁÕÊèÇ¹Å´
+				mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','ï¿½Ó¹Ç¹ï¿½Ô¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',".chkINSMySQL($price).")",$conn_mysql);													
+			}else if($flag_vat==0){ // ï¿½ï¿½ï¿½Ó¹Ç³ VAT
+				if($discount_baht!=0){  //ï¿½ï¿½ï¿½ï¿½Ç¹Å´
 				
 					mysql_query("insert into po_details (po_no,id,prod_price) values('$doc_no','$i',".chkINSMySQL($price).") ",$conn_mysql); 
 					$i = $i+1;		
 
-					mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','ÊèÇ¹Å´ $discount_percent',".chkINSMySQL($discount_baht).")",$conn_mysql);	 
+					mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','ï¿½ï¿½Ç¹Å´ $discount_percent',".chkINSMySQL($discount_baht).")",$conn_mysql);	 
 					$i = $i+1;			
 					$price = $price-$discount_baht;
 				}
-				mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','¨Ó¹Ç¹à§Ô¹ÃÇÁ·Ñé§ÊÔé¹',".chkINSMySQL($price).")",$conn_mysql);	
+				mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','ï¿½Ó¹Ç¹ï¿½Ô¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',".chkINSMySQL($price).")",$conn_mysql);	
 				$i = $i+1;			
-				mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','(ÃÒ¤Ò¹ÕéÃÇÁÀÒÉÕÁÙÅ¤èÒà¾ÔèÁáÅéÇ)',NULL)",$conn_mysql);													
-			}else if($flag_vat==2){ // äÁèÍÂÙèã¹ÃÐºº
-				if($discount_baht!=0){  //ÁÕÊèÇ¹Å´
+				mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','(ï¿½Ò¤Ò¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)',NULL)",$conn_mysql);													
+			}else if($flag_vat==2){ // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðºï¿½
+				if($discount_baht!=0){  //ï¿½ï¿½ï¿½ï¿½Ç¹Å´
 					mysql_query("insert into po_details (po_no,id,prod_price) values('$doc_no','$i',".chkINSMySQL($price).") ",$conn_mysql); 
 					$i = $i+1;		
-					mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','ÊèÇ¹Å´ $discount_percent',".chkINSMySQL($discount_baht).")",$conn_mysql);	 
+					mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','ï¿½ï¿½Ç¹Å´ $discount_percent',".chkINSMySQL($discount_baht).")",$conn_mysql);	 
 					$i = $i+1;			
 					$price = $price-$discount_baht;
 				}
-				mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','¨Ó¹Ç¹à§Ô¹ÃÇÁ·Ñé§ÊÔé¹',".chkINSMySQL($price).")",$conn_mysql);	 
+				mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','ï¿½Ó¹Ç¹ï¿½Ô¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',".chkINSMySQL($price).")",$conn_mysql);	 
 				$i = $i+1;			
-				mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','(äÁèÁÕ VAT à¾ÃÒÐäÁèä´éÍÂÙèã¹ÃÐººÀÒÉÕÁÙÅ¤èÒà¾ÔèÁ)',NULL)",$conn_mysql);													
-			}else if($flag_vat==3){ // äÁèáÊ´§
-				if($discount_baht!=0){  //ÁÕÊèÇ¹Å´
+				mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','(ï¿½ï¿½ï¿½ï¿½ï¿½ VAT ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)',NULL)",$conn_mysql);													
+			}else if($flag_vat==3){ // ï¿½ï¿½ï¿½ï¿½Ê´ï¿½
+				if($discount_baht!=0){  //ï¿½ï¿½ï¿½ï¿½Ç¹Å´
 					mysql_query("insert into po_details (po_no,id,prod_price) values('$doc_no','$i',".chkINSMySQL($price).") ",$conn_mysql); $i = $i+1;		
-					mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','ÊèÇ¹Å´ $discount_percent',".chkINSMySQL($discount_baht).")",$conn_mysql);	 
+					mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','ï¿½ï¿½Ç¹Å´ $discount_percent',".chkINSMySQL($discount_baht).")",$conn_mysql);	 
 					$i = $i+1;			
 					$price = $price-$discount_baht;
 				}
-				mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','¨Ó¹Ç¹à§Ô¹ÃÇÁ·Ñé§ÊÔé¹',".chkINSMySQL($price).")",$conn_mysql);	 
+				mysql_query("insert into po_details (po_no,id,prod_name,prod_price) values('$doc_no','$i','ï¿½Ó¹Ç¹ï¿½Ô¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',".chkINSMySQL($price).")",$conn_mysql);	 
 				$i = $i+1;			
 			}
 }
 		
-		//------------------------- Insert ¢éÍÁÙÅ  acc_id,cost_id,for_ref áÅÐ po_remark -------------------------
+		//------------------------- Insert ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  acc_id,cost_id,for_ref ï¿½ï¿½ï¿½ po_remark -------------------------
 			if(($accid !='')||($costid !='')||($for_ref !='')||($po_remark !='')){
 				$strInsPoDetails ="insert into po_details (po_no,id,prod_name) values('$doc_no','2005','') ";
 				mysql_query($strInsPoDetails,$conn_mysql);	

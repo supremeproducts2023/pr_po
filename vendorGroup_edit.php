@@ -1,4 +1,4 @@
-<?
+<? 
 @session_start();
 if(session_is_registered("valid_userprpo")) {
 		require_once("../include_RedThemes/odbc_connect.php");
