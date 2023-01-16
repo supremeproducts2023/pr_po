@@ -39,7 +39,7 @@
 													
 								$strINS .= "'$v_prod_no','$v_prod_name',
 													'$v_prod_qty','$v_prod_unit','$v_prod_price',
-													'$empno_user',sysdate,'$v_Item')";
+													'$empno_user',getdate(),'$v_Item')";
 									//				echo $strINS;
 								$exeINS = odbc_exec($conn,$strINS);
 								if($exeINS)$ok++;

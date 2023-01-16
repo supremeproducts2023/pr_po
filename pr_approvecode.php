@@ -8,7 +8,7 @@
 		if($flag=="yes"){
 		
 				$pr_no=@$_GET["pr_no"];		
-				$txt_up = "update pr_master set pr_status='4',mng_remark='',approve_date=sysdate,pr_date=sysdate where pr_no='$pr_no'";
+				$txt_up = "update pr_master set pr_status='4',mng_remark='',approve_date=getdate(),pr_date=getdate() where pr_no='$pr_no'";
 				$exe_up = odbc_exec($conn,$txt_up);
 				$exe_commit = odbc_exec($conn,"commit");
 				?>
@@ -21,7 +21,7 @@
 				$pr_no=@$_POST["pr_no"];		
 				$mng_remark=@$_POST["mng_remark"];
 		
-				$txt_up = "update pr_master set pr_status='3',mng_remark='$mng_remark',approve_date=sysdate,pr_date=sysdate where pr_no='$pr_no'";
+				$txt_up = "update pr_master set pr_status='3',mng_remark='$mng_remark',approve_date=getdate(),pr_date=getdate() where pr_no='$pr_no'";
 				$exe_up = odbc_exec($conn,$txt_up);
 				$exe_commit = odbc_exec($conn,"commit");
 ?>				

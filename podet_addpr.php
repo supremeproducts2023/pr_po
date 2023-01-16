@@ -93,7 +93,7 @@ if(session_is_registered("valid_userprpo")) {
 																		'$v_code','$v_prod_no','$v_prod_name',
 																		'$v_prod_qty','$v_prod_price','$v_prod_unit',
 																		'$v_gar_qty','$v_gar_price','$v_gar_unit',
-																		'$empno_user',sysdate)";
+																		'$empno_user',getdate())";
 													$exeINS = odbc_exec($conn,$strINS);
 													break;
 								case '5'	:	// ETC
@@ -107,7 +107,7 @@ if(session_is_registered("valid_userprpo")) {
 																		'$id','$v_po_no','$v_prod_type',
 																		'$v_prod_no','$v_prod_name',
 																		'$v_prod_qty','$v_prod_price','$v_prod_unit',
-																		'$empno_user',sysdate)";
+																		'$empno_user',getdate())";
 													$exeINS = @odbc_exec($conn,$strINS);								
 													break;
 								case '2'	:	// Sub Contact
@@ -124,7 +124,7 @@ if(session_is_registered("valid_userprpo")) {
 																		'$v_code','$v_prod_no','$v_prod_name',
 																		'$v_prod_qty','$v_prod_price','$v_prod_unit',
 																		'$v_gar_qty','$v_gar_price','$v_gar_unit',
-																		'$empno_user',sysdate)";
+																		'$empno_user',getdate())";
 													$exeINS = odbc_exec($conn,$strINS);		
 													
 													$strINSSubjob = "insert into po_details_subjob (po_no,id,subjob,qty,cost) (select '".$v_po_no."','".$id."',subjob,qty,'".$v_gar_price."' from pr_details_subjob where pr_no='".$v_pr_no."' and id='".$v_id."')";

@@ -62,7 +62,7 @@ if(session_is_registered("valid_userprpo")) {
 														SUPPLIER_ADDRESS3_1 = '$supplier_address3_1',
 														SUPPLIER_PAYMENT = '$supplier_payment',
 														LAST_USER = '$empno_user',
-														LAST_DATE = sysdate,
+														LAST_DATE = getdate(),
 														SUPPLIER_TITLE = '$supplier_title',
 														PAYCODE = '$PayCode',
 														TAMBOL = '$tambol',

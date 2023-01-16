@@ -18,7 +18,7 @@
 					$strUpd = "update po_master set 
 					delivery_date = to_date('$delivery_date','dd-MM-yyyy')
 					, LAST_USER = '$user_id'
-					,LAST_DATE = sysdate
+					,LAST_DATE = getdate()
 					where PO_NO = '$po_no' ";
 						if(@odbc_exec($conn,$strUpd))
 						{
@@ -28,7 +28,7 @@
 											) values(
 											(select ISNULL(max(ID)+1,1) from LOG_SENT_AMBU),
 											'$po_no','p',to_date('$delivery_date','dd-MM-yyyy'),'$log_remark',
-											'$user_id',sysdate)";
+											'$user_id',getdate())";
 											if(@odbc_exec($conn,$strINS))
 											{echo '<script language="JavaScript" type="text/JavaScript">
 										alert ("��Ѻ��ا������ Delivery Date ���º�������Ǥ��");';

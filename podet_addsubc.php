@@ -35,7 +35,7 @@ if(session_is_registered("valid_userprpo")) {
 										'$v_prod_no','$v_prod_noshow',
 										'$v_prod_name','$v_gar_unit',
 										'$v_prod_qty','$v_prod_price','$v_prod_unit',
-										'$empno_user',sysdate)";
+										'$empno_user',getdate())";
 					$exeINSMaster = odbc_exec($conn,$strINSMaster);
 					
 					$i=0;

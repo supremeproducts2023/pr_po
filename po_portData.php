@@ -120,7 +120,7 @@
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//		
 		if($port)
 		{	@odbc_exec($MSSQL_connect,$strSQLhead) or die(alert("เกิดข้อผิดพลาด ไม่สามารถประมวลผลข้อมูลในฐานข้อมูลได้ค่ะ"));
-			$strSQL = "update PO_MASTER set PORTSQL = sysdate where PO_NO = '$po_no'";
+			$strSQL = "update PO_MASTER set PORTSQL = getdate() where PO_NO = '$po_no'";
 			@odbc_exec($conn,$strSQL) or die(alert("เกิดข้อผิดพลาด ไม่สามารถประมวลผลข้อมูลในฐานข้อมูลได้ค่ะ"));
 			@odbc_exec($conn,"commit");
 	

@@ -345,7 +345,7 @@
 					}
 			}
 			$strUPD .= "last_user='$empno_user',
-						last_date=sysdate 
+						last_date=getdate() 
 						where pr_no='$pr_no'";
 			$exeUPD = odbc_exec($conn,$strUPD);
 			$exe_commit = odbc_exec($conn,"commit");

@@ -26,7 +26,7 @@
 		
 			
 					if($flag=="from_editpage"){
-							$txt_up = "update pr_master set pr_status='2',approve_date='',last_user='$empno_user',last_date=sysdate where pr_no='$pr_no'";
+							$txt_up = "update pr_master set pr_status='2',approve_date='',last_user='$empno_user',last_date=getdate() where pr_no='$pr_no'";
 							$exe_up = odbc_exec($conn,$txt_up);
 							$exe_commit = odbc_exec($conn,"commit");
 							$_SESSION["sespk_no"] = "";
@@ -39,7 +39,7 @@
 							</script>						
 <?							
 					}else{
-							$txt_up = "update pr_master set pr_status='2',approve_date='',last_user='$empno_user',last_date=sysdate where pr_no='$pr_no'";
+							$txt_up = "update pr_master set pr_status='2',approve_date='',last_user='$empno_user',last_date=getdate() where pr_no='$pr_no'";
 							$exe_up = odbc_exec($conn,$txt_up);
 							$exe_commit = odbc_exec($conn,"commit");
 							include("./pr_search.php");						

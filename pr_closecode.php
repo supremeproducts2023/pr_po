@@ -41,7 +41,7 @@
 						$strDelete = "delete from pr_and_po where pr_no='$pr_no'";
 						$exeDelete = odbc_exec($conn,$strDelete);
 			
-						$txt_up = "update pr_master set pr_status='7',approve_date=sysdate,ms_user='$empno_user' where pr_no='$pr_no'";
+						$txt_up = "update pr_master set pr_status='7',approve_date=getdate(),ms_user='$empno_user' where pr_no='$pr_no'";
 						$exe_up = odbc_exec($conn,$txt_up);
 						$exe_commit = odbc_exec($conn,"commit");
 

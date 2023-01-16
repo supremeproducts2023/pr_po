@@ -40,7 +40,7 @@ if(session_is_registered("valid_userprpo")) {
 								$strQUE = "insert into po_details(PO_NO,ID,PROD_NO,PROD_NAME,PROD_QTY,PROD_UNIT,PROD_PRICE,
 											  GAR_QTY,GAR_UNIT,GAR_PRICE,ITEM_CODE,CODE,PROD_TYPE,SHOW_ID,REC_USER,REC_DATE) 
 											  values('$v_po_no','$checkbox','$prod_no','$prod_name','$prod_qty','$prod_unit','$prod_price',
-											  '$gar_qty','$gar_unit','$gar_price','$item','$code','$prod_type','$show_id','$empno_user',sysdate)";
+											  '$gar_qty','$gar_unit','$gar_price','$item','$code','$prod_type','$show_id','$empno_user',getdate())";
 								@odbc_exec($conn,$strQUE) or die(alert("เกิดข้อผิดพลาด ทำให้ไม่สามารถบันทึกข้อมูลลงในฐานข้อมูลได้ค่ะ"));
 								@odbc_exec($conn,"commit");
 								$k++;
@@ -59,7 +59,7 @@ if(session_is_registered("valid_userprpo")) {
 												  prod_type = '$prod_type',
 												  show_id = '$show_id',
 												  last_user = '$empno_user',
-												  last_date = sysdate
+												  last_date = getdate()
 												  where po_no = '$v_po_no' and id = '$id' ";
 								@odbc_exec($conn,$strQUE) or die(alert("เกิดข้อผิดพลาด ทำให้ไม่สามารถบันทึกข้อมูลลงในฐานข้อมูลได้ค่ะ"));
 								@odbc_exec($conn,"commit");

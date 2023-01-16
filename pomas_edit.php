@@ -281,7 +281,7 @@ if(session_is_registered("valid_userprpo")) {
 				}
 			}
 			$txt_up .= "last_user='$empno_user',
-								last_date=sysdate
+								last_date=getdate()
 								where po_no='$po_no'";	
 			//echo $txt_up;					
 			$exe_up = @odbc_exec($conn,$txt_up) or die(alert("�Դ��ͼԴ��Ҵ��鹡Ѻ�к� ������������ö�Ѿഷ PO �������"));

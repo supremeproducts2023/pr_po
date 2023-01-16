@@ -42,7 +42,7 @@
 				$strSQL =   "insert into pr_master(PR_NO,PR_DATE,DEPTNO,EMPNO,MNGNO,PR_PAYMENT,FLAG_OBJ,OBJ_NAME1,
 									ESTIMATE_DAY,SUPPLIER_ID,PR_REMARK,PR_STATUS,REC_USER,REC_DATE,VAT_INCLUDE,PAYCODE)
 									values('$PR_NO',to_date('$PR_DATE','dd-mm-yyyy'),'$DEPTNO','$EMPNO','$MNGNO','$PR_PAYMENT','$FLAG_OBJ','$OBJ_NAME1',
-									'$ESTIMATE_DAY','$SUPPLIER_ID','$PR_REMARK','$PR_STATUS','$REC_USER',sysdate,'$VAT_INCLUDE','$PAYCODE')";
+									'$ESTIMATE_DAY','$SUPPLIER_ID','$PR_REMARK','$PR_STATUS','$REC_USER',getdate(),'$VAT_INCLUDE','$PAYCODE')";
 				$strResult1 = @odbc_exec($conn,$strSQL);													
 				for($i=1;$i<=$NUMBER;$i++)
 				{
@@ -58,7 +58,7 @@
 					$strSQL =   "insert into pr_details(PR_NO,ID,PROD_NO,PROD_PRICE,discount_percent,discount_baht,
 										PROD_QTY,PROD_UNIT,REC_USER,REC_DATE)
 										values('$PR_NO','$ID','$PROD_NO','$PROD_PRICE','0','0',
-										'$PROD_QTY','$PROD_UNIT','$REC_USER',sysdate)";
+										'$PROD_QTY','$PROD_UNIT','$REC_USER',getdate())";
 					$strResult2 = @odbc_exec($conn,$strSQL);					
 				}
 				if($strResult1 && $strResult2)
@@ -131,7 +131,7 @@ th {
 <div style="width:980px; height:450px;" class="listFindShow">
 <?php
 //  Generate Primary key   PR YY xxxxx //
-	$str_int_year = "select substr(to_char(sysdate,'YYYY')+543,3,2) int_year from dual";			
+	$str_int_year = "select substr(to_char(getdate(),'YYYY')+543,3,2) int_year from dual";			
 	$cur_int_year = @odbc_exec($conn,$str_int_year);
 	$int_year = @odbc_result($cur_int_year, "int_year");
 						

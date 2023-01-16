@@ -73,7 +73,7 @@ if(session_is_registered("valid_userprpo")) {
 												'$v_code','$v_prod_no','$v_prod_name',
 												'$v_prod_qty','$v_prod_price','$v_prod_unit',
 												'$v_gar_qty','$v_gar_price','$v_gar_unit',
-												'$empno_user',sysdate)";
+												'$empno_user',getdate())";
 							$exeINS = odbc_exec($conn,$strINS);
 							
 							if($exeINS){

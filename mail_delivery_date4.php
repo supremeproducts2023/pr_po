@@ -8,7 +8,7 @@ header('Content-type: text/html; charset=tis-620');
 				
 								$sql_sendmail_PO = "Select P.Po_No, To_Char(P.Po_Date,'dd-mm-yyyy') Po_Date, S.Company_Name, P.Paycode, P.Delivery_Time,
 													P.Po_Status, P.Po_File, P.Po_File2, P.Po_File3 ,To_Char(P.Delivery_Date,'dd-mm-yyyy') Delivery_Date 
-													,(To_Date(p.Delivery_Date,'dd-mm-yyyy')-To_Date(sysdate,'dd-mm-yyyy')) as datediff
+													,(To_Date(p.Delivery_Date,'dd-mm-yyyy')-To_Date(getdate(),'dd-mm-yyyy')) as datediff
 													From Po_Master P, Supplier S 
 													Where P.Supplier_Id = S.Supplier_Id (+) 
 													And P.Po_Status In (2,3) 

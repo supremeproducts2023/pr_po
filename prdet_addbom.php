@@ -32,7 +32,7 @@
 													) values(
 														'$id','$pr_no','$prod_no','$prod_noshow','$prod_name','$prod_qty',
 														'$prod_unit','$prod_price','$discount_percent','$discount_baht',
-														'$empno_user',sysdate
+														'$empno_user',getdate()
 													)";
 								$exe_add = odbc_exec($conn,$txt_add);
 								$exe_commit = odbc_exec($conn,"commit");
@@ -50,7 +50,7 @@
 												discount_percent='$discount_percent',
 												discount_baht='$discount_baht',
 												last_user='$empno_user',
-												last_date=sysdate 
+												last_date=getdate() 
 												where id='$id' and pr_no='$pr_no'";
 								$exe_up = odbc_exec($conn,$txt_up);
 								$exe_commit = odbc_exec($conn,"commit");							

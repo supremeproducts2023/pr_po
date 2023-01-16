@@ -38,7 +38,7 @@ if(session_is_registered("valid_userprpo")) {
 											gar_unit='$v_gar_unit',
 											gar_price='$v_gar_price',
 											last_user='$empno_user',
-											last_date=sysdate, 
+											last_date=getdate(), 
 											item_code = '$item_code'
 										where po_no='$v_po_no'
 										and id='$v_id'";

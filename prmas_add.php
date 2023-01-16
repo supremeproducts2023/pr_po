@@ -298,7 +298,7 @@
 						}						
 								
 						//  Generate Primary key   PR YY xxxxx //
-							$str_int_year = "select substr(to_char(sysdate,'YYYY')+543,3,2) int_year from dual";			
+							$str_int_year = "select substr(to_char(getdate(),'YYYY')+543,3,2) int_year from dual";			
 							$cur_int_year = @odbc_exec($conn,$str_int_year);
 							$int_year = @odbc_result($cur_int_year, "int_year");
 						
@@ -346,7 +346,7 @@
 													'$flag_obj','$obj_name1','$obj_name2','$obj_name3',
 													'$estimate_day','$supplier_id','$pr_remark',
 													'1','$vat_include','$filename',
-													'$empno_user',sysdate,'$Jobno'
+													'$empno_user',getdate(),'$Jobno'
 											)";
 						$exeINS = odbc_exec($conn,$strINS);
 						$exeCOMMIT = odbc_exec($conn,"commit");

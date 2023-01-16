@@ -10,7 +10,7 @@ if(session_is_registered("valid_userprpo")) {
 				$strvendorUPD =  "update vendor_group set 
 														vendor_status = '0',
 														lastuser_id = '$empno_user',
-														last_date = sysdate
+														last_date = getdate()
 														where vendor_id='$vendor_id'";
 														
 				$result1=@odbc_exec($conn,$strvendorUPD);			

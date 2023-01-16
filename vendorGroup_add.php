@@ -22,7 +22,7 @@
 																				recuser_id,rec_date,vendor_status
 																			) values(
 																				(select ISNULL(max(vendor_id),0)+1 vendor_id from  vendor_group),
-																				'$vendor_no','$vendor_name','$empno_user',sysdate,'1'
+																				'$vendor_no','$vendor_name','$empno_user',getdate(),'1'
 																			)";
 										$exeSupplierINS = @odbc_exec($conn,$strSupplierINS);
 										if($exeSupplierINS){

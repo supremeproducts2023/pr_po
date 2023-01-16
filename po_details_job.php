@@ -39,7 +39,7 @@ if(session_is_registered("valid_userprpo")) {
 	$strINS = "insert into po_details_job (						
 									detail_id, po_no,id,prod_type,code,qty,jobno,rec_user,rec_date
 								)values(
-									'$mx','$head_po_no','$head_id','$h_prod_type','$h_code','$qty','$for','$empno_user',sysdate)"; 								
+									'$mx','$head_po_no','$head_id','$h_prod_type','$h_code','$qty','$for','$empno_user',getdate())"; 								
 				$exeINS = @odbc_exec($conn,$strINS);
 				//echo $strINS;
 				

@@ -140,7 +140,7 @@ if(session_is_registered("empno_user")) {
 			$strPoDetails = "select id,prod_no,prod_name,prod_type,show_id,
 														prod_qty,prod_price,prod_unit,
 														gar_qty,gar_price,gar_unit,
-														nvl(discount_baht,0) discount_baht_d
+														isnull(discount_baht,0) discount_baht_d
 											from po_details 
 											where po_no='$doc_no' order by id";
 			$curPoDetails = odbc_exec($conn,$strPoDetails);	

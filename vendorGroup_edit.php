@@ -20,7 +20,7 @@ if(session_is_registered("valid_userprpo")) {
 														vendor_no = '$vendor_no',
 														vendor_name = '$vendor_name',
 														lastuser_id = '$empno_user',
-														last_date = sysdate
+														last_date = getdate()
 														where vendor_id='$vendor_id'";
 						$exeSupplierUPD = odbc_exec($conn,$strSupplierUPD);
 						$_SESSION["vendor_no"] = $vendor_no;

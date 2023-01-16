@@ -61,7 +61,7 @@ if(session_is_registered("valid_userprpo")) {
 			if($po_status=="1") $po_status = ",po_status='2'";
 			else $po_status = "";
 			
-			$strUPDemail= "update po_master set e_mail_date=sysdate $po_status where po_no='$doc_no'";
+			$strUPDemail= "update po_master set e_mail_date=getdate() $po_status where po_no='$doc_no'";
 			$exeUPDemail = odbc_exec($conn,$strUPDemail);					
 			
 			if($exeUPDemail){

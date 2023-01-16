@@ -29,7 +29,7 @@
 				$po_c=@$_POST["po_c"];
 				
 				//  Generate Primary key   PO YY xxxxx //
-					$str_int_year = "select substr(to_char(sysdate,'YYYY')+543,3,2) int_year from dual";			
+					$str_int_year = "select substr(to_char(getdate(),'YYYY')+543,3,2) int_year from dual";			
 					$cur_int_year = @odbc_exec($conn,$str_int_year);
 					$int_year = @odbc_result($cur_int_year, "int_year");
 			
@@ -80,7 +80,7 @@
 									'$your_ref','$our_ref','$despatch_to','$delivery_time', '$PayCode', '$payment',
 									'$po_remark','$flag_vat','$accid','$costid',
 									'$redhead',
-									'$for_ref','1','$empno_user',sysdate,'$ref_po_no','$po_company',to_date('$delivery_date','dd-MM-yyyy'),'$boi')";
+									'$for_ref','1','$empno_user',getdate(),'$ref_po_no','$po_company',to_date('$delivery_date','dd-MM-yyyy'),'$boi')";
 									echo $strINS;
 				$exeINS = @odbc_exec($conn,$strINS) or die(alert("�Դ��ͼԴ��Ҵ��鹡Ѻ�к� ������������ö�ѹ�֡������ PO ���ŧ���ҹ����������"));
 				$exeCOMMIT = @odbc_exec($conn,"commit");
