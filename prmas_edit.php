@@ -370,7 +370,7 @@
 		}			
 		
 		$pr_no= $_SESSION["sespk_no"];
-		$txt_pr_master = "select to_char(pr.pr_date,'DD-MM-YYYY') pr_date,pr.deptno,
+		$txt_pr_master = "select format(pr.pr_date,'DD-MM-YYYY') pr_date,pr.deptno,
 						pr.empno,pr.mngno,pr.PayCode,pr.pr_payment,vat_include, 
 						pr.flag_obj,pr.obj_name1,pr.obj_name2,pr.obj_name3,
 						pr.estimate_day,pr.pr_remark,pr.supplier_id,pr.pr_path,

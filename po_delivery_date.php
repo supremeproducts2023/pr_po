@@ -83,7 +83,7 @@
 			<?php $po_company = $_SESSION["po_company"]; ?>
             <input name="po_company" type="hidden" value="<?=$po_company;?>">
 			<?
-			$strQUEGeneral = "select  distinct  to_char(p.delivery_date,'DD-MM-YYYY')  as delivery_date
+			$strQUEGeneral = "select  distinct  format(p.delivery_date,'DD-MM-YYYY')  as delivery_date
 											from po_master p 
 											where p.po_no = '$po_no'";
 			$po_deliv_date = "";

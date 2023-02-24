@@ -19,7 +19,7 @@ if(session_is_registered("valid_userprpo")) {
 	<body  topmargin="0" leftmargin="0">
 <?
 		$po_no=@$_GET["po_no"];	
-		$strQUEGeneral = "select    p.po_no,to_char(p.po_date,'DD-MM-YYYY')  po_date,s.supplier_title,s.company_name,to_char(lg.NEW_DATE,'DD-MM-YYYY')  as NEW_DATE,emp.e_name,ISNULL(lg.remark,'-') as log_remark
+		$strQUEGeneral = "select    p.po_no,format(p.po_date,'dd-MM-yyyy')  po_date,s.supplier_title,s.company_name,format(lg.NEW_DATE,'dd-MM-yyyy')  as NEW_DATE,emp.e_name,ISNULL(lg.remark,'-') as log_remark
 											from po_master p, supplier s, log_sent_ambu lg,emp
 											where p.supplier_id=s.supplier_id(+)
 											and lg.rec_user = emp.empno(+)

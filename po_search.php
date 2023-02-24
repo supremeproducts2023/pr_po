@@ -104,8 +104,8 @@ if(session_is_registered("valid_userprpo")) {
 			 }
 			  $s_stop .= '-'.$v_month.'-'.$v_year;
 		}
-		$strQUEGeneral = "select  distinct  p.po_no,to_char(p.po_date,'DD-MM-YYYY')  po_date,
-												p.po_status,to_char(p.e_mail_date,'DD-MM-YYYY HH:MI') e_mail_date,
+		$strQUEGeneral = "select  distinct  p.po_no,format(p.po_date,'DD-MM-YYYY')  po_date,
+												p.po_status,format(p.e_mail_date,'DD-MM-YYYY HH:MI') e_mail_date,
 												s.supplier_title,s.company_name,p.po_file,p.po_file2,p.po_file3,p.po_company
 											from po_master p, supplier s, po_details pd 
 											where p.supplier_id=s.supplier_id(+) 

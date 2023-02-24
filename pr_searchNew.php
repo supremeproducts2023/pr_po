@@ -88,7 +88,7 @@ if(session_is_registered("valid_userprpo")) {
 		}
 		//================================================
 
-		$strQUEGeneral = "select distinct p.pr_no,to_char(p.pr_date,'DD-MM-YYYY')  pr_date,
+		$strQUEGeneral = "select distinct p.pr_no,format(p.pr_date,'DD-MM-YYYY')  pr_date,
 												p.pr_status,p.obj_name1,p.flag_obj,pp.po_no
 											from pr_master p, pr_details pd,pr_and_po pp 
 											where 1=1 

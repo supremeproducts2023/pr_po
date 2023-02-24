@@ -300,10 +300,10 @@ if(session_is_registered("valid_userprpo")) {
 		}			
 	
 		$po_no= $_SESSION["sespk_no"];
-		$str_po_master = "select to_char(po.po_date,'DD-MM-YYYY') po_date,s.company_name,po.supplier_id,po.for_ref,
+		$str_po_master = "select format(po.po_date,'DD-MM-YYYY') po_date,s.company_name,po.supplier_id,po.for_ref,
 												po.your_ref,po.our_ref,po.despatch_to,po.delivery_time,po.paycode,po.payment,
 												po.discount_percent,po.discount_baht,po.po_remark,flag_vat,accid,costid,
-												po.po_file,po.po_file2,po.po_file3,po.redhead,po.ref_po_no,po.po_company,to_char(po.delivery_date,'DD-MM-YYYY') delivery_date,
+												po.po_file,po.po_file2,po.po_file3,po.redhead,po.ref_po_no,po.po_company,format(po.delivery_date,'DD-MM-YYYY') delivery_date,
 												po.boi_flg
 											from po_master po,supplier s 
 											where po.supplier_id= s.supplier_id(+) 

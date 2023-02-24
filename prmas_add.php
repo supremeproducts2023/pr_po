@@ -298,7 +298,7 @@
 						}						
 								
 						//  Generate Primary key   PR YY xxxxx //
-							$str_int_year = "select substr(to_char(getdate(),'YYYY')+543,3,2) int_year from dual";			
+							$str_int_year = "select substr(format(getdate(),'YYYY')+543,3,2) int_year from dual";			
 							$cur_int_year = @odbc_exec($conn,$str_int_year);
 							$int_year = @odbc_result($cur_int_year, "int_year");
 						

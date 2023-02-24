@@ -27,7 +27,7 @@ if(session_is_registered("empno_user")) {
 						where p.supplier_id=s.supplier_id(+) 
 						and p.po_no='$doc_no'"; */
 
-				$strPoMaster = "select to_char(p.po_date,'YYYY-MM-DD') po_date,
+				$strPoMaster = "select format(p.po_date,'yyyy-MM-dd') po_date,
 						s.company_name suppliername,s.supplier_address1, s.supplier_address2,
 						s.tambol, s.district , s.province, s.postcode, s.country,
 						s.supplier_address3, s.supplier_address3_1, s.fax_number, s.supplier_title,

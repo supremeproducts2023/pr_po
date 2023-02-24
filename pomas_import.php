@@ -133,7 +133,7 @@ if(session_is_registered("valid_userprpo")) {
 							while(@odbc_fetch_row($MSSQL_result))
 							{
 								$po_selected = @odbc_result($MSSQL_result,"po_no");
-								$strSQL = "select p.po_no, to_char(p.po_date,'dd-mm-yyyy') po_date, s.company_name, p.po_status
+								$strSQL = "select p.po_no, format(p.po_date,'dd-mm-yyyy') po_date, s.company_name, p.po_status
 												  from po_master p, supplier s
 												  where p.supplier_id = s.supplier_id
 												  and p.po_no like '$po_selected' ";

@@ -35,8 +35,8 @@ if(session_is_registered("valid_userprpo")) {
 	if($flagValue=="search")
 	{
 		$_SESSION["ses_poCheck"] = $po_no."|-|".$date_start."|-|".$date_stop;
-		$strSQL = "select p.po_no, to_char(p.po_date,'dd-mm-yyyy') po_date, s.company_name, p.paycode, p.delivery_time, p.po_status, p.po_file, p.po_file2, p.po_file3
-						,to_char(p.delivery_date,'dd-mm-yyyy') delivery_date
+		$strSQL = "select p.po_no, format(p.po_date,'dd-mm-yyyy') po_date, s.company_name, p.paycode, p.delivery_time, p.po_status, p.po_file, p.po_file2, p.po_file3
+						,format(p.delivery_date,'dd-mm-yyyy') delivery_date
 						  from po_master p, supplier s
 						  where p.supplier_id = s.supplier_id (+)
 						  and p.po_status in (2,3)";
@@ -186,7 +186,7 @@ if(session_is_registered("valid_userprpo")) {
 						$resultQUE = @odbc_exec($MSSQL_connect,$strQUE) or die(alert("เกิดข้อผิดพลาด ทำให้ไม่สามารถประมวลผลข้อมูลในฐานข้อมูลได้ค่ะ"));	
 						$Day = (int)@odbc_result($resultQUE,"Day");
 						//$Day = '555';
-						$strSEL = "select to_char((to_date(p.po_date,'dd-mm-yyyy')+ $Day),'dd-mm-yyyy') payment_date from po_master p where po_no = '$po_no'";
+						$strSEL = "select format((to_date(p.po_date,'dd-mm-yyyy')+ $Day),'dd-mm-yyyy') payment_date from po_master p where po_no = '$po_no'";
 						$resultSEL = @odbc_exec($conn,$strSEL) or die(alert("เกิดข้อผิดพลาด ทำให้ไม่สามารถประมวลผลข้อมูลในฐานข้อมูลได้ค่ะ"));	
 						$payment_date = @odbc_result($resultSEL,"payment_date");
 						

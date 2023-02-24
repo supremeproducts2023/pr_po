@@ -7,7 +7,7 @@
 		function cvtDate($DATE)
 		{
 			include("../include/odbc_connect.php");	
-			$strSQL = "select to_char(to_date('$DATE','mm/dd/yyyy'),'dd-mm-yyyy') cDATE from dual";
+			$strSQL = "select format(to_date('$DATE','mm/dd/yyyy'),'dd-mm-yyyy') cDATE from dual";
 			$strResult = @odbc_exec($conn,$strSQL) or die(alert("�Դ��ͼԴ��Ҵ��鹡Ѻ�к� ������������ö�����żŢ�����㹰ҹ����������"));
 			return @odbc_result($strResult,"cDATE");																						
 		}
@@ -131,7 +131,7 @@ th {
 <div style="width:980px; height:450px;" class="listFindShow">
 <?php
 //  Generate Primary key   PR YY xxxxx //
-	$str_int_year = "select substr(to_char(getdate(),'YYYY')+543,3,2) int_year from dual";			
+	$str_int_year = "select substr(format(getdate(),'YYYY')+543,3,2) int_year from dual";			
 	$cur_int_year = @odbc_exec($conn,$str_int_year);
 	$int_year = @odbc_result($cur_int_year, "int_year");
 						

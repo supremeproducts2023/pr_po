@@ -50,7 +50,7 @@ if(session_is_registered("valid_userprpo")) {
 		$cell = $sheet->Cells(2,9);		$cell->activate;			$cell->value = "�ӹǹ�����Ѻ���";					$cell->ColumnWidth = 15.00;
 		$i= 3;		
 	// Query Transection
-		$strQUE= "select b.po_no,a.status,to_char(b.po_date,'DD/MM/YYYY') po_date
+		$strQUE= "select b.po_no,a.status,format(b.po_date,'DD/MM/YYYY') po_date
 								,b.codeshow,b.gar_qty order_qty,a.gar_no
 							   ,(substr(a.gar_date,7,2) + '/' + substr(a.gar_date,5,2) + '/' +substr(a.gar_date,0,4)) gar_date
 							   ,a.RECEIVE_QTY ,b.company_name

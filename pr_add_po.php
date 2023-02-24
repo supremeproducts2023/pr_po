@@ -35,7 +35,7 @@
 						$exeCommit = odbc_exec($conn,"commit");
 				}
 
-				$strPoHave = "select  pr.po_no,to_char(po_date,'DD-MM-YYYY') po_date,company_name 
+				$strPoHave = "select  pr.po_no,format(po_date,'DD-MM-YYYY') po_date,company_name 
 											from pr_and_po pr,po_master po,supplier s 
 											where pr.po_no=po.po_no 
 											and po.supplier_id=s.supplier_id(+) 
@@ -50,7 +50,7 @@
 				}
 				$curPoHave = odbc_exec($conn, $strPoHave);
 				
-						$strPoChoice = "select  po_no,to_char(po_date,'DD-MM-YYYY') po_date,company_name 
+						$strPoChoice = "select  po_no,format(po_date,'DD-MM-YYYY') po_date,company_name 
 														from po_master p,supplier s 
 														where p.supplier_id=s.supplier_id(+) ";
 				

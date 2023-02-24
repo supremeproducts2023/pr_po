@@ -16,7 +16,7 @@ if(session_is_registered("empno_user")) {
 				mysql_query($del_pr_master,$conn_mysql);
 				mysql_query($del_pr_detail,$conn_mysql);					
 				// ========= Insert Master ========= 		
-						$str_pr_master = "select to_char(p.pr_date,'YYYY-MM-DD') pr_date, '(' + p.deptno + ') ' + d.deptname deptname,
+						$str_pr_master = "select format(p.pr_date,'YYYY-MM-DD') pr_date, '(' + p.deptno + ') ' + d.deptname deptname,
 													pr_payment,flag_obj,obj_name1,obj_name2,obj_name3,estimate_day,
 													p.supplier_id,s.company_name,pr_remark,vat_include,
 													e1.e_name empname,e2.e_name mngname,mng_remark 

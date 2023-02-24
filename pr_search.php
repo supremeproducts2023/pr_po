@@ -71,8 +71,8 @@ function clearname()
 				$choice_value = 'prrep';
 				//================================================
 				//echo $choice_value;
-				$str_query_pr = "select  p.pr_no,to_char(p.pr_date,'DD-MM-YYYY')  pr_date,p.pr_status,s.company_name,flag_obj,obj_name2,pr_path
-										,to_char(p.approve_date,'dd-MM-yyyy') approve_date
+				$str_query_pr = "select  p.pr_no,format(p.pr_date,'DD-MM-YYYY')  pr_date,p.pr_status,s.company_name,flag_obj,obj_name2,pr_path
+										,format(p.approve_date,'dd-MM-yyyy') approve_date
 											from pr_master p,supplier s 
 											where p.supplier_id=s.supplier_id(+) ";
 				if(@$_SESSION["pr_type"]=="T")
