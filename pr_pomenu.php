@@ -17,7 +17,7 @@
 </object>
 </body>
 </html>
-<?
+<?php
 	//echo $_SESSION["strGloUsername"].'<br>';
 		$dept_str = substr($_SESSION["strGloUsername"], 0, 3);  
 if ($dept_str == 'MKS' || $_SESSION["empno_user"] =='14002')
@@ -25,7 +25,7 @@ if ($dept_str == 'MKS' || $_SESSION["empno_user"] =='14002')
 //echo 'dept--->'.$dept_str ;
 //include("mail_delivery_date2.php");
 //include("mail_delivery_date4.php");
-}
+//}
 	}else{
 		include("../include_RedThemes/SessionTimeOut.php");
 	}
