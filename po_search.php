@@ -111,7 +111,7 @@ if(session_is_registered("valid_userprpo")) {
 											where p.supplier_id=s.supplier_id(+) 
 											and p.po_no=pd.po_no(+) ";
 		if(@$s_po_no != '') $strQUEGeneral .= "and   p.po_no like upper('%$s_po_no%')  ";			
-		if(@$s_start != '') $strQUEGeneral .= "and   to_date(p.po_date,'DD-MM-YYYY') between to_date('$s_start','DD-MM-YYYY') and to_date('$s_stop','DD-MM-YYYY')  ";			
+		if(@$s_start != '') $strQUEGeneral .= "and   format(p.po_date,'DD-MM-YYYY') between format('$s_start','DD-MM-YYYY') and format('$s_stop','DD-MM-YYYY')  ";			
 		if(@$s_supplier!='') $strQUEGeneral .= "and  upper(s.company_name) like upper('%$s_supplier%')  ";
 		if(@$s_for_ref!="") $strQUEGeneral .= "and upper(p.for_ref) like upper('%$s_for_ref%') ";		
 		if(@$s_prod_name!="") $strQUEGeneral .= "and ((upper(pd.prod_name) like upper('%$s_prod_name%')) or (upper(pd.prod_no) like upper('%$s_prod_name%'))) ";	

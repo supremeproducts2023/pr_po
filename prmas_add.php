@@ -342,7 +342,7 @@
 													pr_status,vat_include,pr_path,
 													rec_user,rec_date,jobno
 											) values(
-													'$pr_no',to_date('$pr_date','dd-mm-yyyy'),'$deptno','$empno','$mngno','$PayCode','$pr_payment',
+													'$pr_no',format('$pr_date','dd-mm-yyyy'),'$deptno','$empno','$mngno','$PayCode','$pr_payment',
 													'$flag_obj','$obj_name1','$obj_name2','$obj_name3',
 													'$estimate_day','$supplier_id','$pr_remark',
 													'1','$vat_include','$filename',

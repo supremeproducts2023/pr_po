@@ -95,7 +95,7 @@ if(session_is_registered("valid_userprpo")) {
 											and p.pr_no=pd.pr_no(+)
  											 and p.pr_no=pp.pr_no(+) ";
 		if(@$s_pr_no != '') $strQUEGeneral .= "and   p.pr_no like upper('%$s_pr_no%')  ";			
-		if(@$s_start != '') $strQUEGeneral .= "and   to_date(p.pr_date,'DD-MM-YYYY') between to_date('$s_start','DD-MM-YYYY') and to_date('$s_stop','DD-MM-YYYY')  ";			
+		if(@$s_start != '') $strQUEGeneral .= "and   format(p.pr_date,'DD-MM-YYYY') between format('$s_start','DD-MM-YYYY') and format('$s_stop','DD-MM-YYYY')  ";			
 		
 		if(@$s_for_ref!="") $strQUEGeneral .= "and upper(p.obj_name1) like upper('%$s_for_ref%') ";		
 		//if(@$s_prod_name!="") $strQUEGeneral .= "and ((upper(pd.prod_name) like upper('%$s_prod_name%')) or (upper(pd.prod_no) like upper('%$s_prod_name%'))) ";	

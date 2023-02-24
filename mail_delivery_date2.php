@@ -8,7 +8,7 @@ header('Content-type: text/html; charset=tis-620');
 				
 								$sql_sendmail_PO = "Select P.Po_No, format(P.Po_Date,'dd-mm-yyyy') Po_Date, S.Company_Name, P.Paycode, P.Delivery_Time,
 													P.Po_Status, P.Po_File, P.Po_File2, P.Po_File3 ,format(P.Delivery_Date,'dd-mm-yyyy') Delivery_Date 
-													,(To_Date(p.Delivery_Date,'dd-mm-yyyy')-To_Date(getdate(),'dd-mm-yyyy')) as datediff
+													,(format(p.Delivery_Date,'dd-mm-yyyy')-format(getdate(),'dd-mm-yyyy')) as datediff
 													From Po_Master P, Supplier S 
 													Where P.Supplier_Id = S.Supplier_Id (+) 
 													And P.Po_Status In (2,3) 
@@ -53,7 +53,7 @@ header('Content-type: text/html; charset=tis-620');
 						//$resultQUE = @odbc_exec($MSSQL_connect,$strQUE) or die(alert("เกิดข้อผิดพลาด ทำให้ไม่สามารถประมวลผลข้อมูลในฐานข้อมูลได้ค่ะ"));	
 						//$Day = (int)@odbc_result($resultQUE,"Day");
 						$Day = '555';
-						$strSEL = "select format((to_date(p.po_date,'dd-mm-yyyy')+ $Day),'dd-mm-yyyy') payment_date from po_master p where po_no = '$po_no'";
+						$strSEL = "select format((format(p.po_date,'dd-mm-yyyy')+ $Day),'dd-mm-yyyy') payment_date from po_master p where po_no = '$po_no'";
 						$resultSEL = @odbc_exec($conn,$strSEL) or die(alert("เกิดข้อผิดพลาด ทำให้ไม่สามารถประมวลผลข้อมูลในฐานข้อมูลได้ค่ะ"));	
 						$payment_date = @odbc_result($resultSEL,"payment_date");
 						

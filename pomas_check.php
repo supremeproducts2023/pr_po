@@ -43,9 +43,9 @@ if(session_is_registered("valid_userprpo")) {
 		if($po_no != "")
 			$strSQL .= " and upper(trim(p.po_no)) like upper('%$po_no%')"; 
 		if($date_start != "" && $date_stop != "")
-			$strSQL .= " and (to_date(p.po_date, 'dd-mm-yyyy') between to_date('$date_start','dd-mm-yyyy') and to_date('$date_stop','dd-mm-yyyy'))";
+			$strSQL .= " and (format(p.po_date, 'dd-mm-yyyy') between format('$date_start','dd-mm-yyyy') and format('$date_stop','dd-mm-yyyy'))";
 		if($de_date_start != "" && $de_date_stop != "")
-			$strSQL .= " and (to_date(p.delivery_date, 'dd-mm-yyyy') between to_date('$de_date_start','dd-mm-yyyy') and to_date('$de_date_stop','dd-mm-yyyy'))";
+			$strSQL .= " and (format(p.delivery_date, 'dd-mm-yyyy') between format('$de_date_start','dd-mm-yyyy') and format('$de_date_stop','dd-mm-yyyy'))";
 		$strResult = @odbc_exec($conn,$strSQL) or die(alert("เกิดข้อผิดพลาด ทำให้ไม่สามารถประมวลผลข้อมูลในฐานข้อมูลได้ค่ะ"));
 	//echo $strSQL;
 	}
@@ -186,7 +186,7 @@ if(session_is_registered("valid_userprpo")) {
 						$resultQUE = @odbc_exec($MSSQL_connect,$strQUE) or die(alert("เกิดข้อผิดพลาด ทำให้ไม่สามารถประมวลผลข้อมูลในฐานข้อมูลได้ค่ะ"));	
 						$Day = (int)@odbc_result($resultQUE,"Day");
 						//$Day = '555';
-						$strSEL = "select format((to_date(p.po_date,'dd-mm-yyyy')+ $Day),'dd-mm-yyyy') payment_date from po_master p where po_no = '$po_no'";
+						$strSEL = "select format((format(p.po_date,'dd-mm-yyyy')+ $Day),'dd-mm-yyyy') payment_date from po_master p where po_no = '$po_no'";
 						$resultSEL = @odbc_exec($conn,$strSEL) or die(alert("เกิดข้อผิดพลาด ทำให้ไม่สามารถประมวลผลข้อมูลในฐานข้อมูลได้ค่ะ"));	
 						$payment_date = @odbc_result($resultSEL,"payment_date");
 						

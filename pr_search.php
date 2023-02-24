@@ -80,7 +80,7 @@ function clearname()
 				else if(@$_SESSION["pr_type"]=="S")	$str_query_pr .= " and p.flag_obj not in ('8') ";						
 				if(@$s_pr_no != '') $str_query_pr .= "and   pr_no like upper('%$s_pr_no%')  ";			
 				if(@$s_empno != '') $str_query_pr .= "and   empno like upper('%$s_empno%')  ";			
-				if(@$s_start != '') $str_query_pr .= "and   to_date(pr_date,'DD-MM-YYYY') between to_date('$s_start','DD-MM-YYYY') and to_date('$s_stop','DD-MM-YYYY')  ";			
+				if(@$s_start != '') $str_query_pr .= "and   format(pr_date,'DD-MM-YYYY') between format('$s_start','DD-MM-YYYY') and format('$s_stop','DD-MM-YYYY')  ";			
 				
 				if(($choice_value == 'prup')||($choice_value == 'prdel')){
 						if((@$s_status=="1")||(@$s_status=="3")||(@$s_status=="7")) $str_query_pr .= "and   pr_status = '$s_status'  ";

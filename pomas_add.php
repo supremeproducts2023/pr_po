@@ -76,11 +76,11 @@
 									redhead,
 									for_ref,po_status,rec_user,rec_date,ref_po_no,po_company,delivery_date,boi_flg
 									) values(
-									'$po_no',to_date('$po_date','dd-MM-yyyy'),'$supplier_id',
+									'$po_no',format('$po_date','dd-MM-yyyy'),'$supplier_id',
 									'$your_ref','$our_ref','$despatch_to','$delivery_time', '$PayCode', '$payment',
 									'$po_remark','$flag_vat','$accid','$costid',
 									'$redhead',
-									'$for_ref','1','$empno_user',getdate(),'$ref_po_no','$po_company',to_date('$delivery_date','dd-MM-yyyy'),'$boi')";
+									'$for_ref','1','$empno_user',getdate(),'$ref_po_no','$po_company',format('$delivery_date','dd-MM-yyyy'),'$boi')";
 									echo $strINS;
 				$exeINS = @odbc_exec($conn,$strINS) or die(alert("�Դ��ͼԴ��Ҵ��鹡Ѻ�к� ������������ö�ѹ�֡������ PO ���ŧ���ҹ����������"));
 				$exeCOMMIT = @odbc_exec($conn,"commit");

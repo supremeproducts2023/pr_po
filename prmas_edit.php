@@ -303,7 +303,7 @@
 			$vat_include = @$_POST["vat_include"];
 			$pr_pathold=@$_POST["pr_pathold"];
 			$strUPD = "update pr_master set 
-						pr_date=to_date('$pr_date','dd-mm-yyyy'),
+						pr_date=format('$pr_date','dd-mm-yyyy'),
 						deptno='$deptno',
 						empno='$empno',
 						mngno='$mngno',

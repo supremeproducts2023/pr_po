@@ -211,13 +211,13 @@ if(session_is_registered("valid_userprpo")) {
 			{$boi = '3';} 
 				
 			$txt_up = "update po_master set 
-									po_date=to_date('$po_date','dd-mm-yyyy'),
+									po_date=format('$po_date','dd-mm-yyyy'),
 									supplier_id='$supplier_id',
 									your_ref='$your_ref',
 									our_ref='$our_ref',
 									despatch_to='$despatch_to',
 									delivery_time='$delivery_time',
-									delivery_date=to_date('$delivery_date','dd-MM-yyyy'),
+									delivery_date=format('$delivery_date','dd-MM-yyyy'),
 									PayCode='$PayCode',
 									payment='$payment',
 									discount_percent='$discount_percent',

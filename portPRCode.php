@@ -7,7 +7,7 @@
 		function cvtDate($DATE)
 		{
 			include("../include/odbc_connect.php");	
-			$strSQL = "select format(to_date('$DATE','mm/dd/yyyy'),'dd-mm-yyyy') cDATE from dual";
+			$strSQL = "select format(format('$DATE','mm/dd/yyyy'),'dd-mm-yyyy') cDATE from dual";
 			$strResult = @odbc_exec($conn,$strSQL) or die(alert("�Դ��ͼԴ��Ҵ��鹡Ѻ�к� ������������ö�����żŢ�����㹰ҹ����������"));
 			return @odbc_result($strResult,"cDATE");																						
 		}
@@ -41,7 +41,7 @@
 			{				
 				$strSQL =   "insert into pr_master(PR_NO,PR_DATE,DEPTNO,EMPNO,MNGNO,PR_PAYMENT,FLAG_OBJ,OBJ_NAME1,
 									ESTIMATE_DAY,SUPPLIER_ID,PR_REMARK,PR_STATUS,REC_USER,REC_DATE,VAT_INCLUDE,PAYCODE)
-									values('$PR_NO',to_date('$PR_DATE','dd-mm-yyyy'),'$DEPTNO','$EMPNO','$MNGNO','$PR_PAYMENT','$FLAG_OBJ','$OBJ_NAME1',
+									values('$PR_NO',format('$PR_DATE','dd-mm-yyyy'),'$DEPTNO','$EMPNO','$MNGNO','$PR_PAYMENT','$FLAG_OBJ','$OBJ_NAME1',
 									'$ESTIMATE_DAY','$SUPPLIER_ID','$PR_REMARK','$PR_STATUS','$REC_USER',getdate(),'$VAT_INCLUDE','$PAYCODE')";
 				$strResult1 = @odbc_exec($conn,$strSQL);													
 				for($i=1;$i<=$NUMBER;$i++)

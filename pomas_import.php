@@ -138,7 +138,7 @@ if(session_is_registered("valid_userprpo")) {
 												  where p.supplier_id = s.supplier_id
 												  and p.po_no like '$po_selected' ";
 								if($date_start != "" && $date_stop != "")
-									$strSQL .= " and to_date(p.po_date,'dd-mm-yyyy') between to_date('$date_start','dd-mm-yyyy') and to_date('$date_stop','dd-mm-yyyy')";
+									$strSQL .= " and format(p.po_date,'dd-mm-yyyy') between format('$date_start','dd-mm-yyyy') and format('$date_stop','dd-mm-yyyy')";
 								$strResult = @odbc_exec($conn,$strSQL) or die(alert("เกิดข้อผิดพลาด ทำให้ไม่สามารถประมวลผลข้อมูลในฐานข้อมูลได้ค่ะ"));
 					if(@odbc_result($strResult,"po_no")!="")
 					{

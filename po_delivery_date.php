@@ -16,7 +16,7 @@
 					$delivery_date=@$_POST["delivery_date"];
 					$user_id = $_SESSION['empno_user'];
 					$strUpd = "update po_master set 
-					delivery_date = to_date('$delivery_date','dd-MM-yyyy')
+					delivery_date = format('$delivery_date','dd-MM-yyyy')
 					, LAST_USER = '$user_id'
 					,LAST_DATE = getdate()
 					where PO_NO = '$po_no' ";
@@ -27,7 +27,7 @@
 											NEW_DATE,REMARK,REC_USER,REC_DATE
 											) values(
 											(select ISNULL(max(ID)+1,1) from LOG_SENT_AMBU),
-											'$po_no','p',to_date('$delivery_date','dd-MM-yyyy'),'$log_remark',
+											'$po_no','p',format('$delivery_date','dd-MM-yyyy'),'$log_remark',
 											'$user_id',getdate())";
 											if(@odbc_exec($conn,$strINS))
 											{echo '<script language="JavaScript" type="text/JavaScript">
