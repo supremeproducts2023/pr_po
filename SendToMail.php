@@ -35,9 +35,9 @@ if(session_is_registered("valid_userprpo")) {
 		require("../phpmailer/class.phpmailer.php");
 		// Subject ของ PO
 			$strPoMaster = "select s.company_name
-						from po_master p,supplier s 
-						where p.supplier_id=s.supplier_id(+) 
-						and p.po_no='$doc_no'";
+						from po_master p
+						left join supplier s on p.supplier_id=s.supplier_id
+						where  p.po_no='$doc_no'";
 			$curPoMaster = odbc_exec($conn,$strPoMaster);	
 			$company_name=odbc_result($curPoMaster, "company_name");
 			$txtSubject = "PO เลขที่ $doc_no จากบริษัท $company_name ส่งถึงคุณค่ะ";

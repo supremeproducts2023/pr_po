@@ -305,9 +305,9 @@ if(session_is_registered("valid_userprpo")) {
 												po.discount_percent,po.discount_baht,po.po_remark,flag_vat,accid,costid,
 												po.po_file,po.po_file2,po.po_file3,po.redhead,po.ref_po_no,po.po_company,format(po.delivery_date,'DD-MM-YYYY') delivery_date,
 												po.boi_flg
-											from po_master po,supplier s 
-											where po.supplier_id= s.supplier_id(+) 
-											and po_no= '$po_no'";
+											from po_master po
+											left join supplier s on po.supplier_id= s.supplier_id
+											where po_no= '$po_no'";
 		$cur_po_master = odbc_exec($conn, $str_po_master );
 		$po_date =odbc_result($cur_po_master,"po_date");		
 		$supplier_show =odbc_result($cur_po_master,"company_name");		

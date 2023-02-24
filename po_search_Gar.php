@@ -68,9 +68,10 @@ if(session_is_registered("valid_userprpo")) {
 		$strQUEGeneral = "select  distinct  p.po_no,format(p.po_date,'dd-MM-yyyy')  po_date,
 												p.po_status,format(p.e_mail_date,'dd-MM-yyyy HH:MI') e_mail_date,
 												s.supplier_title,s.company_name,p.po_file,p.po_file2,p.po_file3,p.po_company
-											from po_master p, supplier s, po_details pd 
-											where p.supplier_id=s.supplier_id(+) 
-											and p.po_no=pd.po_no(+) ";
+											from po_master p
+											left jon supplier s on p.supplier_id=s.supplier_id
+											left join po_details pd on p.po_no=pd.po_no
+											where 1 = 1";
 		if(@$s_po_no != '') $strQUEGeneral .= "and   p.po_no like upper('%$s_po_no%')  ";			
 		$strQUEGeneral .="order by  po_no desc";
 	?>

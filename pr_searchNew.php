@@ -90,10 +90,10 @@ if(session_is_registered("valid_userprpo")) {
 
 		$strQUEGeneral = "select distinct p.pr_no,format(p.pr_date,'DD-MM-YYYY')  pr_date,
 												p.pr_status,p.obj_name1,p.flag_obj,pp.po_no
-											from pr_master p, pr_details pd,pr_and_po pp 
-											where 1=1 
-											and p.pr_no=pd.pr_no(+)
- 											 and p.pr_no=pp.pr_no(+) ";
+											from pr_master p
+											left join pr_details pd on p.pr_no=pd.pr_no
+											left join pr_and_po pp on p.pr_no=pp.pr_no
+											where 1=1  ";
 		if(@$s_pr_no != '') $strQUEGeneral .= "and   p.pr_no like upper('%$s_pr_no%')  ";			
 		if(@$s_start != '') $strQUEGeneral .= "and   format(p.pr_date,'DD-MM-YYYY') between format('$s_start','DD-MM-YYYY') and format('$s_stop','DD-MM-YYYY')  ";			
 		

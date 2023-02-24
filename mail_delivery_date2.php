@@ -9,9 +9,9 @@ header('Content-type: text/html; charset=tis-620');
 								$sql_sendmail_PO = "Select P.Po_No, format(P.Po_Date,'dd-mm-yyyy') Po_Date, S.Company_Name, P.Paycode, P.Delivery_Time,
 													P.Po_Status, P.Po_File, P.Po_File2, P.Po_File3 ,format(P.Delivery_Date,'dd-mm-yyyy') Delivery_Date 
 													,(format(p.Delivery_Date,'dd-mm-yyyy')-format(getdate(),'dd-mm-yyyy')) as datediff
-													From Po_Master P, Supplier S 
-													Where P.Supplier_Id = S.Supplier_Id (+) 
-													And P.Po_Status In (2,3) 
+													From Po_Master P
+													left join Supplier S on P.Supplier_Id = S.Supplier_Id
+													Where P.Po_Status In (2,3) 
 													and Delivery_Date is not null order by P.Po_No";
 								$strResult = @odbc_exec($conn,$sql_sendmail_PO)	;
 									$message = '';

@@ -12,8 +12,9 @@
 					$strSupplierQUE = "select  supplier_id,company_name,supplier_address1,supplier_title,
 															supplier_address2,supplier_address3,supplier_address3_1,
 															tambol,district,province,postcode,supplier_payment,fax_number,c.country 
-													from supplier s,cushos_country c
-													where s.country = c.id (+) ";
+													from supplier s
+													left join cushos_country c on s.country = c.id
+													where 1 = 1 ";
 					if(@$strCompany_name != '') $strSupplierQUE .= " and upper(company_name) like upper('%$strCompany_name%')  ";			
 					$strSupplierQUE .= "order by  company_name";
 				}else{

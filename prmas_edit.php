@@ -375,11 +375,11 @@
 						pr.flag_obj,pr.obj_name1,pr.obj_name2,pr.obj_name3,
 						pr.estimate_day,pr.pr_remark,pr.supplier_id,pr.pr_path,
 						e.e_name empno_show,d.deptname deptno_show,s.company_name ,pr.jobno
-					from pr_master pr,emp e,dept d,supplier s 
-					where pr.deptno= d.deptno(+) 
-					and pr.empno= e.empno(+) 
-					and pr.supplier_id= s.supplier_id(+) 
-					and pr_no= '$pr_no'";
+					from pr_master pr
+					left join emp e on pr.empno= e.empno
+					left join dept d on pr.deptno= d.deptno
+					left join supplier s on pr.supplier_id= s.supplier_id
+					where pr_no= '$pr_no'";
 		$cur_pr_master = odbc_exec($conn, $txt_pr_master );
 		$pr_date =odbc_result($cur_pr_master,"pr_date");		
 		$deptno =odbc_result($cur_pr_master,"deptno");		

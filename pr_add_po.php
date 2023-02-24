@@ -36,9 +36,9 @@
 				}
 
 				$strPoHave = "select  pr.po_no,format(po_date,'DD-MM-YYYY') po_date,company_name 
-											from pr_and_po pr,po_master po,supplier s 
+											from pr_and_po pr,po_master po
+											left join supplier s on  po.supplier_id=s.supplier_id
 											where pr.po_no=po.po_no 
-											and po.supplier_id=s.supplier_id(+) 
 											and pr.pr_no ='$pr_no'
 											order by pr.po_no";
 				$curPoHave = odbc_exec($conn, $strPoHave);
@@ -51,8 +51,9 @@
 				$curPoHave = odbc_exec($conn, $strPoHave);
 				
 						$strPoChoice = "select  po_no,format(po_date,'DD-MM-YYYY') po_date,company_name 
-														from po_master p,supplier s 
-														where p.supplier_id=s.supplier_id(+) ";
+														from po_master p
+														left join supplier s on p.supplier_id=s.supplier_id
+														where 1 = 1 ";
 				
 						if($dateKeySearch!="") $strPoChoice .= "and po_date='$dateKeySearch' ";
 						if($strPoHaveList!="") $strPoChoice .= "and po_no not in(".$strPoHaveList.") ";

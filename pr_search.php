@@ -73,8 +73,9 @@ function clearname()
 				//echo $choice_value;
 				$str_query_pr = "select  p.pr_no,format(p.pr_date,'DD-MM-YYYY')  pr_date,p.pr_status,s.company_name,flag_obj,obj_name2,pr_path
 										,format(p.approve_date,'dd-MM-yyyy') approve_date
-											from pr_master p,supplier s 
-											where p.supplier_id=s.supplier_id(+) ";
+											from pr_master p
+											left join supplier s on p.supplier_id=s.supplier_id
+											where 1 = 1 ";
 				if(@$_SESSION["pr_type"]=="T")
 					$str_query_pr .= " and p.flag_obj = '8' ";
 				else if(@$_SESSION["pr_type"]=="S")	$str_query_pr .= " and p.flag_obj not in ('8') ";						

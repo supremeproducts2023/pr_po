@@ -20,12 +20,12 @@ if(session_is_registered("empno_user")) {
 													pr_payment,flag_obj,obj_name1,obj_name2,obj_name3,estimate_day,
 													p.supplier_id,s.company_name,pr_remark,vat_include,
 													e1.e_name empname,e2.e_name mngname,mng_remark 
-													from pr_master p,supplier s,dept d,emp e1,emp e2
-													where p.deptno=d.deptno(+) 
-													and p.empno=e1.empno(+) 
-													and p.mngno=e2.empno(+) 
-													and p.supplier_id=s.supplier_id(+) 
-													and p.pr_no='$pr_no'";
+													from pr_master p
+													left join supplier s on p.supplier_id=s.supplier_id
+													left join dept d on p.deptno=d.deptno
+													left join emp e1 on p.empno=e1.empno
+													left join emp e2 on p.mngno=e2.empno
+													where p.pr_no='$pr_no'";
 						$cur_pr_master = odbc_exec($conn,$str_pr_master);	
 							
 						$pr_date=odbc_result($cur_pr_master, "pr_date");

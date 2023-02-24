@@ -35,9 +35,9 @@ if(session_is_registered("empno_user")) {
 						discount_percent,discount_baht,flag_vat,
 						p.accid,p.costid,p.for_ref,po_remark,							
 						p.redhead,p.po_status,p.po_company
-						from po_master p,supplier s 
-						where p.supplier_id=s.supplier_id(+) 
-						and p.po_no='$doc_no'";
+						from po_master p
+						left join supplier s on p.supplier_id=s.supplier_id
+						where p.po_no='$doc_no'";
 												
 			$curPoMaster = odbc_exec($conn,$strPoMaster);	
 	
