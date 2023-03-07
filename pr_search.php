@@ -71,7 +71,7 @@ function clearname()
 				$choice_value = 'prrep';
 				//================================================
 				//echo $choice_value;
-				$str_query_pr = "select  p.pr_no,format(p.pr_date,'DD-MM-YYYY')  pr_date,p.pr_status,s.company_name,flag_obj,obj_name2,pr_path
+				$str_query_pr = "select  p.pr_no,format(p.pr_date,'dd-MM-yyyy')  pr_date,p.pr_status,s.company_name,flag_obj,obj_name2,pr_path
 										,format(p.approve_date,'dd-MM-yyyy') approve_date
 											from pr_master p
 											left join supplier s on p.supplier_id=s.supplier_id
@@ -81,7 +81,7 @@ function clearname()
 				else if(@$_SESSION["pr_type"]=="S")	$str_query_pr .= " and p.flag_obj not in ('8') ";						
 				if(@$s_pr_no != '') $str_query_pr .= "and   pr_no like upper('%$s_pr_no%')  ";			
 				if(@$s_empno != '') $str_query_pr .= "and   empno like upper('%$s_empno%')  ";			
-				if(@$s_start != '') $str_query_pr .= "and   format(pr_date,'DD-MM-YYYY') between format('$s_start','DD-MM-YYYY') and format('$s_stop','DD-MM-YYYY')  ";			
+				if(@$s_start != '') $str_query_pr .= "and   format(pr_date,'dd-MM-yyyy') between format('$s_start','dd-MM-yyyy') and format('$s_stop','dd-MM-yyyy')  ";			
 				
 				if(($choice_value == 'prup')||($choice_value == 'prdel')){
 						if((@$s_status=="1")||(@$s_status=="3")||(@$s_status=="7")) $str_query_pr .= "and   pr_status = '$s_status'  ";
@@ -157,7 +157,7 @@ function clearname()
 				  
 				  ถึง
 				  <input name="s_stop" type="text" id="s_stop" value="<?php  echo @$s_stop; ?>" size="10" maxlength="10"  onKeyDown="if(event.keyCode==13){ testdate(document.pr_search.s_stop); document.pr_search.submit(); }"> 
-				  (รูปแบบ DD-MM-YYYY) </td>
+				  (รูปแบบ dd-MM-yyyy) </td>
 				
                 </tr>
                 <tr>
