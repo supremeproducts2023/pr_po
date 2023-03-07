@@ -27,10 +27,10 @@ function clearname()
 		document.getElementById("empno_show").value = '';
 }
 </script>
-<?
+<?php
   	@session_start();
-	if(session_is_registered("valid_userprpo")) {
-				require_once("../include_RedThemes/odbc_connect.php");				
+	if(isset($_SESSION["valid_userprpo"])) {
+				require_once("../include_RedThemes/MSSQLServer_connect_2.php");				
 				$empno_user=$_SESSION["empno_user"];		
 				$http_host = '172.10.0.16';
 				$choice_value= $_SESSION["choice_value"];	
@@ -38,7 +38,7 @@ function clearname()
 	include "../include_RedThemes/wait.php";
 	flush();
 				$s_empno = "";
-				//========== ‡√◊ËÕß°“√ Search ·≈È«§È“ß keyword ==================
+				//========== ‡πÄ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏Å‡∏≤‡∏£ Search ‡πÅ‡∏•‡πâ‡∏ß‡∏Ñ‡πâ‡∏≤‡∏á keyword ==================
 				if (@$_GET["flagAction"] != "")
 					$flagAction = @$_GET["flagAction"];
 				else
@@ -112,7 +112,7 @@ function clearname()
 ?>
 <html>
 <head>
-		<title>**Search „∫ PR **</title>
+		<title>**Search ‡πÉ‡∏ö PR **</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-874">
 		
 		<link href="../include/style1.css" rel="stylesheet" type="text/css">
@@ -132,7 +132,7 @@ function clearname()
 <input name="flagAction" type="hidden" value="PushSearch">
   <table width="980"  border="0" cellpadding="0" cellspacing="0" bgcolor="E9EAEB">
     <tr>
-      <th width="750">&nbsp;&nbsp;§ÈπÀ“ PR <?php if(@$_SESSION["pr_type"]=="T") echo "Transtek"; else echo "Supreme"; ?></th>
+      <th width="750">&nbsp;&nbsp;‡∏Ñ‡πâ‡∏ô‡∏´‡∏≤ PR <?php  if(@$_SESSION["pr_type"]=="T") echo "Transtek"; else echo "Supreme"; ?></th>
     </tr>
     <tr >
       <td>
@@ -143,79 +143,79 @@ function clearname()
                 <tr>
                   <td width="175" class="tdleftwhite"><div align="right">                &nbsp;&nbsp;&nbsp;
                     </div></td>
-                  <td width="166" class="tdleftwhite">‡≈¢∑’Ë PR </td>
+                  <td width="166" class="tdleftwhite">‡πÄ‡∏•‡∏Ç‡∏ó‡∏µ‡πà PR </td>
                   <td width="403">
-				  <input name="s_pr_no" type="text" value="<?  echo @$s_pr_no; ?>"   onKeyDown="if(event.keyCode==13) document.pr_search.submit();">					</td>
+				  <input name="s_pr_no" type="text" value="<?php  echo @$s_pr_no; ?>"   onKeyDown="if(event.keyCode==13) document.pr_search.submit();">					</td>
                 </tr>
                 <tr>
                   <td class="tdleftwhite"><div align="right">                    &nbsp;&nbsp;&nbsp;
                   </div></td>
-                  <td class="tdleftwhite">«—π∑’Ë‡ª‘¥ PR </td>
+                  <td class="tdleftwhite">‡∏ß‡∏±‡∏ô‡∏ó‡∏µ‡πà‡πÄ‡∏õ‡∏¥‡∏î PR </td>
 
                   <td>
-				  <input name="s_start" type="text" id="s_start"  value="<?  echo @$s_start; ?>" size="10" maxlength="10" onBlur="return testdate(document.pr_search.s_start);"   onKeyDown="if(event.keyCode==13) event.keyCode=9;"> 
+				  <input name="s_start" type="text" id="s_start"  value="<?php  echo @$s_start; ?>" size="10" maxlength="10" onBlur="return testdate(document.pr_search.s_start);"   onKeyDown="if(event.keyCode==13) event.keyCode=9;"> 
 				  
-				  ∂÷ß
-				  <input name="s_stop" type="text" id="s_stop" value="<?  echo @$s_stop; ?>" size="10" maxlength="10"  onKeyDown="if(event.keyCode==13){ testdate(document.pr_search.s_stop); document.pr_search.submit(); }"> 
-				  (√Ÿª·∫∫ DD-MM-YYYY) </td>
+				  ‡∏ñ‡∏∂‡∏á
+				  <input name="s_stop" type="text" id="s_stop" value="<?php  echo @$s_stop; ?>" size="10" maxlength="10"  onKeyDown="if(event.keyCode==13){ testdate(document.pr_search.s_stop); document.pr_search.submit(); }"> 
+				  (‡∏£‡∏π‡∏õ‡πÅ‡∏ö‡∏ö DD-MM-YYYY) </td>
 				
                 </tr>
                 <tr>
                   <td class="tdleftwhite"><div align="right">                    &nbsp;&nbsp;&nbsp;
                   </div></td>
-                  <td class="tdleftwhite">ºŸÈ¢Õ‡ª‘¥ PR </td>
+                  <td class="tdleftwhite">‡∏ú‡∏π‡πâ‡∏Ç‡∏≠‡πÄ‡∏õ‡∏¥‡∏î PR </td>
                   <td>
-                  <?
+                  <?php
                   		$str = "select e_name from emp where empno = '".$s_empno."'";
 						$cur_query = odbc_exec($conn,$str);
 						$empno_show = odbc_result($cur_query, "e_name");
 				  ?>
-                  		<input name="empno" id="empno" type="text" value="<?  echo @$s_empno; ?>"   size="10" maxlength="15" class="style_readonly" readonly="">
-						<input name="empno_show" id="empno_show" type="text" value="<?  echo $empno_show ?>"   size="50"  class="style_readonly" readonly="">
+                  		<input name="empno" id="empno" type="text" value="<?php  echo @$s_empno; ?>"   size="10" maxlength="15" class="style_readonly" readonly="">
+						<input name="empno_show" id="empno_show" type="text" value="<?php  echo $empno_show ?>"   size="50"  class="style_readonly" readonly="">
                         <img src="../include/images/emp_icon.gif" width="20" height="19" onClick="lovEmp();">
                         <img src="include/images/close.png" width="20" height="19" onClick="clearname();">
                   </td>
                 </tr>
                 <tr>
                   <td class="tdleftwhite">&nbsp;</td>
-                  <td class="tdleftwhite"> ∂“π–„∫ PR </td>
+                  <td class="tdleftwhite">‡∏™‡∏ñ‡∏≤‡∏ô‡∏∞‡πÉ‡∏ö PR </td>
                   <td>
-<?				
+<?php				
 				if(($choice_value == 'prup')||($choice_value == 'prdel')){
 ?>				
-						<input name="s_status" type="radio" value="1" <? if((@$s_status=="1")||(@$s_status=="")||(@$s_status=="2")||(@$s_status=="4")||(@$s_status=="5")||(@$s_status=="6")) echo "checked"; ?>>ºŸÈ·∑πæ‘¡æÏ„∫¢Õ´◊ÈÕ(¬—ß‰¡Ë Ëß)
-						<input name="s_status" type="radio" value="3" <? if(@$s_status=="3") echo "checked"; ?>>ºŸÈ®—¥°“√‰¡ËÕπÿ¡—µ‘„∫¢Õ´◊ÈÕ √Õ·°È‰¢
-						<input name="s_status" type="radio" value="7" <? if(@$s_status=="7") echo "checked"; ?>>MS µ’°≈—∫„∫¢Õ´◊ÈÕ
-						<input name="s_status" type="radio" value="all" <? if(@$s_status=="all") echo "checked"; ?>>∑—ÈßÀ¡¥
-<?
+						<input name="s_status" type="radio" value="1" <?php if((@$s_status=="1")||(@$s_status=="")||(@$s_status=="2")||(@$s_status=="4")||(@$s_status=="5")||(@$s_status=="6")) echo "checked"; ?>>‡∏ú‡∏π‡πâ‡πÅ‡∏ó‡∏ô‡∏û‡∏¥‡∏°‡∏û‡πå‡πÉ‡∏ö‡∏Ç‡∏≠‡∏ã‡∏∑‡πâ‡∏≠(‡∏¢‡∏±‡∏á‡πÑ‡∏°‡πà‡∏™‡πà‡∏á)
+						<input name="s_status" type="radio" value="3" <?php if(@$s_status=="3") echo "checked"; ?>>‡∏ú‡∏π‡πâ‡∏à‡∏±‡∏î‡∏Å‡∏≤‡∏£‡πÑ‡∏°‡πà‡∏≠‡∏ô‡∏∏‡∏°‡∏±‡∏ï‡∏¥‡πÉ‡∏ö‡∏Ç‡∏≠‡∏ã‡∏∑‡πâ‡∏≠ ‡∏£‡∏≠‡πÅ‡∏Å‡πâ‡πÑ‡∏Ç
+						<input name="s_status" type="radio" value="7" <?php if(@$s_status=="7") echo "checked"; ?>>MS ‡∏ï‡∏µ‡∏Å‡∏•‡∏±‡∏ö‡πÉ‡∏ö‡∏Ç‡∏≠‡∏ã‡∏∑‡πâ‡∏≠
+						<input name="s_status" type="radio" value="all" <?php if(@$s_status=="all") echo "checked"; ?>>‡∏ó‡∏±‡πâ‡∏á‡∏´‡∏°‡∏î
+<?php
 				}else if($choice_value == 'prcom'){
 ?>
-						<input name="s_status" type="radio" value="1" <? if((@$s_status=="1")||(@$s_status=="")) echo "checked"; ?>>ºŸÈ·∑πæ‘¡æÏ„∫¢Õ´◊ÈÕ(¬—ß‰¡Ë Ëß)
-						<input name="s_status" type="radio" value="2" <? if(@$s_status=="2") echo "checked"; ?>>√ÕÕπÿ¡—µ‘®“°ºŸÈ®—¥°“√
-						<input name="s_status" type="radio" value="3" <? if(@$s_status=="3") echo "checked"; ?>>ºŸÈ®—¥°“√‰¡ËÕπÿ¡—µ‘„∫¢Õ´◊ÈÕ √Õ·°È‰¢<br>
-						<input name="s_status" type="radio" value="4" <? if(@$s_status=="4") echo "checked"; ?>>√Õ MS ÕÕ° PO 
-						<input name="s_status" type="radio" value="5" <? if(@$s_status=="5") echo "checked"; ?>>MS ÕÕ° PO ‡√’¬∫√ÈÕ¬·≈È« 
-						<input name="s_status" type="radio" value="6" <? if(@$s_status=="6") echo "checked"; ?>>√—∫ ‘π§È“‰¥È·≈È«<br>
-						<input name="s_status" type="radio" value="7" <? if(@$s_status=="7") echo "checked"; ?>>MS µ’°≈—∫„∫¢Õ´◊ÈÕ
-						<input name="s_status" type="radio" value="all" <? if(@$s_status=="all") echo "checked"; ?>>∑—ÈßÀ¡¥
-<?
+						<input name="s_status" type="radio" value="1" <?php if((@$s_status=="1")||(@$s_status=="")) echo "checked"; ?>>‡∏ú‡∏π‡πâ‡πÅ‡∏ó‡∏ô‡∏û‡∏¥‡∏°‡∏û‡πå‡πÉ‡∏ö‡∏Ç‡∏≠‡∏ã‡∏∑‡πâ‡∏≠(‡∏¢‡∏±‡∏á‡πÑ‡∏°‡πà‡∏™‡πà‡∏á)
+						<input name="s_status" type="radio" value="2" <?php if(@$s_status=="2") echo "checked"; ?>>‡∏£‡∏≠‡∏≠‡∏ô‡∏∏‡∏°‡∏±‡∏ï‡∏¥‡∏à‡∏≤‡∏Å‡∏ú‡∏π‡πâ‡∏à‡∏±‡∏î‡∏Å‡∏≤‡∏£
+						<input name="s_status" type="radio" value="3" <?php if(@$s_status=="3") echo "checked"; ?>>‡∏ú‡∏π‡πâ‡∏à‡∏±‡∏î‡∏Å‡∏≤‡∏£‡πÑ‡∏°‡πà‡∏≠‡∏ô‡∏∏‡∏°‡∏±‡∏ï‡∏¥‡πÉ‡∏ö‡∏Ç‡∏≠‡∏ã‡∏∑‡πâ‡∏≠ ‡∏£‡∏≠‡πÅ‡∏Å‡πâ‡πÑ‡∏Ç<br>
+						<input name="s_status" type="radio" value="4" <?php if(@$s_status=="4") echo "checked"; ?>>‡∏£‡∏≠ MS ‡∏≠‡∏≠‡∏Å PO 
+						<input name="s_status" type="radio" value="5" <?php if(@$s_status=="5") echo "checked"; ?>>MS ‡∏≠‡∏≠‡∏Å PO ‡πÄ‡∏£‡∏µ‡∏¢‡∏ö‡∏£‡πâ‡∏≠‡∏¢‡πÅ‡∏•‡πâ‡∏ß 
+						<input name="s_status" type="radio" value="6" <?php if(@$s_status=="6") echo "checked"; ?>>‡∏£‡∏±‡∏ö‡∏™‡∏¥‡∏ô‡∏Ñ‡πâ‡∏≤‡πÑ‡∏î‡πâ‡πÅ‡∏•‡πâ‡∏ß<br>
+						<input name="s_status" type="radio" value="7" <?php if(@$s_status=="7") echo "checked"; ?>>MS ‡∏ï‡∏µ‡∏Å‡∏•‡∏±‡∏ö‡πÉ‡∏ö‡∏Ç‡∏≠‡∏ã‡∏∑‡πâ‡∏≠
+						<input name="s_status" type="radio" value="all" <?php if(@$s_status=="all") echo "checked"; ?>>‡∏ó‡∏±‡πâ‡∏á‡∏´‡∏°‡∏î
+<?php
 				}else if($choice_value == 'prapp'){
 ?>
-						<input name="s_status" type="radio" value="2" <? if((@$s_status=="2")||(@$s_status=="")||(@$s_status=="1")) echo "checked"; ?>>√ÕÕπÿ¡—µ‘®“°ºŸÈ®—¥°“√
-						<input name="s_status" type="radio" value="3" <? if(@$s_status=="3") echo "checked"; ?>>ºŸÈ®—¥°“√‰¡ËÕπÿ¡—µ‘„∫¢Õ´◊ÈÕ √Õ·°È‰¢<br>
-						<input name="s_status" type="radio" value="4" <? if(@$s_status=="4") echo "checked"; ?>>√Õ MS ÕÕ° PO 
-						<input name="s_status" type="radio" value="5" <? if(@$s_status=="5") echo "checked"; ?>>MS ÕÕ° PO ‡√’¬∫√ÈÕ¬·≈È« 
-						<input name="s_status" type="radio" value="6" <? if(@$s_status=="6") echo "checked"; ?>>√—∫ ‘π§È“‰¥È·≈È«<br>
-						<input name="s_status" type="radio" value="7" <? if(@$s_status=="7") echo "checked"; ?>>MS µ’°≈—∫„∫¢Õ´◊ÈÕ
-						<input name="s_status" type="radio" value="all" <? if(@$s_status=="all") echo "checked"; ?>>∑—ÈßÀ¡¥
-<?				
+						<input name="s_status" type="radio" value="2" <?php if((@$s_status=="2")||(@$s_status=="")||(@$s_status=="1")) echo "checked"; ?>>‡∏£‡∏≠‡∏≠‡∏ô‡∏∏‡∏°‡∏±‡∏ï‡∏¥‡∏à‡∏≤‡∏Å‡∏ú‡∏π‡πâ‡∏à‡∏±‡∏î‡∏Å‡∏≤‡∏£
+						<input name="s_status" type="radio" value="3" <?php if(@$s_status=="3") echo "checked"; ?>>‡∏ú‡∏π‡πâ‡∏à‡∏±‡∏î‡∏Å‡∏≤‡∏£‡πÑ‡∏°‡πà‡∏≠‡∏ô‡∏∏‡∏°‡∏±‡∏ï‡∏¥‡πÉ‡∏ö‡∏Ç‡∏≠‡∏ã‡∏∑‡πâ‡∏≠ ‡∏£‡∏≠‡πÅ‡∏Å‡πâ‡πÑ‡∏Ç<br>
+						<input name="s_status" type="radio" value="4" <?php if(@$s_status=="4") echo "checked"; ?>>‡∏£‡∏≠ MS ‡∏≠‡∏≠‡∏Å PO 
+						<input name="s_status" type="radio" value="5" <?php if(@$s_status=="5") echo "checked"; ?>>MS ‡∏≠‡∏≠‡∏Å PO ‡πÄ‡∏£‡∏µ‡∏¢‡∏ö‡∏£‡πâ‡∏≠‡∏¢‡πÅ‡∏•‡πâ‡∏ß 
+						<input name="s_status" type="radio" value="6" <?php if(@$s_status=="6") echo "checked"; ?>>‡∏£‡∏±‡∏ö‡∏™‡∏¥‡∏ô‡∏Ñ‡πâ‡∏≤‡πÑ‡∏î‡πâ‡πÅ‡∏•‡πâ‡∏ß<br>
+						<input name="s_status" type="radio" value="7" <?php if(@$s_status=="7") echo "checked"; ?>>MS ‡∏ï‡∏µ‡∏Å‡∏•‡∏±‡∏ö‡πÉ‡∏ö‡∏Ç‡∏≠‡∏ã‡∏∑‡πâ‡∏≠
+						<input name="s_status" type="radio" value="all" <?php if(@$s_status=="all") echo "checked"; ?>>‡∏ó‡∏±‡πâ‡∏á‡∏´‡∏°‡∏î
+<?php				
 				}else if($choice_value == 'prrep'){
 ?>
-						<input name="s_status" type="radio" value="4" <? if((@$s_status=="4")||(@$s_status=="")||(@$s_status=="1")||(@$s_status=="2")||(@$s_status=="3")||(@$s_status=="7")) echo "checked"; ?>>√Õ MS ÕÕ° PO 
-						<input name="s_status" type="radio" value="5" <? if(@$s_status=="5") echo "checked"; ?>>MS ÕÕ° PO ‡√’¬∫√ÈÕ¬·≈È« 
-						<input name="s_status" type="radio" value="6" <? if(@$s_status=="6") echo "checked"; ?>>√—∫ ‘π§È“‰¥È·≈È«
-						<input name="s_status" type="radio" value="all" <? if(@$s_status=="all") echo "checked"; ?>>∑—ÈßÀ¡¥
-<?				
+						<input name="s_status" type="radio" value="4" <?php if((@$s_status=="4")||(@$s_status=="")||(@$s_status=="1")||(@$s_status=="2")||(@$s_status=="3")||(@$s_status=="7")) echo "checked"; ?>>‡∏£‡∏≠ MS ‡∏≠‡∏≠‡∏Å PO 
+						<input name="s_status" type="radio" value="5" <?php if(@$s_status=="5") echo "checked"; ?>>MS ‡∏≠‡∏≠‡∏Å PO ‡πÄ‡∏£‡∏µ‡∏¢‡∏ö‡∏£‡πâ‡∏≠‡∏¢‡πÅ‡∏•‡πâ‡∏ß 
+						<input name="s_status" type="radio" value="6" <?php if(@$s_status=="6") echo "checked"; ?>>‡∏£‡∏±‡∏ö‡∏™‡∏¥‡∏ô‡∏Ñ‡πâ‡∏≤‡πÑ‡∏î‡πâ‡πÅ‡∏•‡πâ‡∏ß
+						<input name="s_status" type="radio" value="all" <?php if(@$s_status=="all") echo "checked"; ?>>‡∏ó‡∏±‡πâ‡∏á‡∏´‡∏°‡∏î
+<?php				
 				}
 ?>					</td>	
                 </tr>
@@ -242,7 +242,7 @@ function clearname()
 </form>
 <table width="980"  border="0" cellpadding="0" cellspacing="0" bgcolor="E9EAEB">
   <tr>
-    <th width="750">&nbsp;&nbsp;º≈°“√§ÈπÀ“</th>
+    <th width="750">&nbsp;&nbsp;‡∏ú‡∏•‡∏Å‡∏≤‡∏£‡∏Ñ‡πâ‡∏ô‡∏´‡∏≤</th>
   </tr>
   <tr >
     <td>
@@ -252,27 +252,27 @@ function clearname()
             <table width="100%"  border="1" cellspacing="0" cellpadding="0" >
               <tr>
 					<td width="50" class="tdcenterblack">
-							<? if($choice_value == "prup") echo "Edit"; else  if($choice_value == "prdel") echo "Del"; else echo "Report"; ?>
+							<?php if($choice_value == "prup") echo "Edit"; else  if($choice_value == "prdel") echo "Del"; else echo "Report"; ?>
 					</td>
-					<? if($choice_value == "prcom" || $empno_user=='20044' ) { ?>
-								<td width="100" class="tdcenterblack"> Ëß¢ÈÕ¡Ÿ≈„ÀÈ<br>ºŸÈ®—¥°“√ Approve</td>
-					<? }else if($choice_value=="prapp"){ ?>
+					<?php if($choice_value == "prcom" || $empno_user=='20044' ) { ?>
+								<td width="100" class="tdcenterblack">‡∏™‡πà‡∏á‡∏Ç‡πâ‡∏≠‡∏°‡∏π‡∏•‡πÉ‡∏´‡πâ<br>‡∏ú‡∏π‡πâ‡∏à‡∏±‡∏î‡∏Å‡∏≤‡∏£ Approve</td>
+					<?php }else if($choice_value=="prapp"){ ?>
 								<td width="50" class="tdcenterblack">Approve</td>
-					<? }else if($choice_value=="prrep"){ ?>
-								<td width="100" class="tdcenterblack">PO ∑’Ë —Ëß´◊ÈÕ</td>
-								<td width="50" class="tdcenterblack">µ’°≈—∫<br>„∫¢Õ´◊ÈÕ</td>				
-								<td width="70" class="tdcenterblack">ª√—∫ ∂“π–</td>
-					<? } ?>
-					<td width="70" align="center"   class="tdcenterblack"><p>‡≈¢∑’Ë PR </p></td>
-					<td width="65" align="center"   class="tdcenterblack">«—π∑’Ë‡ª‘¥ PR </td>
+					<?php }else if($choice_value=="prrep"){ ?>
+								<td width="100" class="tdcenterblack">PO ‡∏ó‡∏µ‡πà‡∏™‡∏±‡πà‡∏á‡∏ã‡∏∑‡πâ‡∏≠</td>
+								<td width="50" class="tdcenterblack">‡∏ï‡∏µ‡∏Å‡∏•‡∏±‡∏ö<br>‡πÉ‡∏ö‡∏Ç‡∏≠‡∏ã‡∏∑‡πâ‡∏≠</td>				
+								<td width="70" class="tdcenterblack">‡∏õ‡∏£‡∏±‡∏ö‡∏™‡∏ñ‡∏≤‡∏ô‡∏∞</td>
+					<?php } ?>
+					<td width="70" align="center"   class="tdcenterblack"><p>‡πÄ‡∏•‡∏Ç‡∏ó‡∏µ‡πà PR </p></td>
+					<td width="65" align="center"   class="tdcenterblack">‡∏ß‡∏±‡∏ô‡∏ó‡∏µ‡πà‡πÄ‡∏õ‡∏¥‡∏î PR </td>
 					<td   class="tdcenterblack"><p>Supplier</p></td>
-					<td width="150"   class="tdcenterblack"><p class="tdcenterblack"> ∂“π–</p></td>
+					<td width="150"   class="tdcenterblack"><p class="tdcenterblack">‡∏™‡∏ñ‡∏≤‡∏ô‡∏∞</p></td>
 					<td width="50"   class="tdcenterblack">Reqno.</td>
-					<td width="80"   class="tdcenterblack">PO ∑’Ë„™È —Ëß´◊ÈÕ</td>
-					<td width="65" align="center"   class="tdcenterblack">«—π∑’ËÕπÿ¡—µ‘ PR </td>
+					<td width="80"   class="tdcenterblack">PO ‡∏ó‡∏µ‡πà‡πÉ‡∏ä‡πâ‡∏™‡∏±‡πà‡∏á‡∏ã‡∏∑‡πâ‡∏≠</td>
+					<td width="65" align="center"   class="tdcenterblack">‡∏ß‡∏±‡∏ô‡∏ó‡∏µ‡πà‡∏≠‡∏ô‡∏∏‡∏°‡∏±‡∏ï‡∏¥ PR </td>
 					
               </tr>
- <?
+ <?php
    if($flagAction == 'PushSearch'){
 		while(odbc_fetch_row($cur_query_pr)){
 			$pr_no = odbc_result($cur_query_pr, "pr_no");
@@ -287,89 +287,89 @@ function clearname()
 			  <tr>
 					<td>
 						<div align="center">
-									<? if($choice_value == 'prup') {	?>
-														<a href="./prmas_edit.php?pr_no=<? echo $pr_no; ?>&flag=edit"  title="¥Ÿ√“¬≈–‡Õ’¬¥">
+									<?php if($choice_value == 'prup') {	?>
+														<a href="./prmas_edit.php?pr_no=<?php echo $pr_no; ?>&flag=edit"  title="‡∏î‡∏π‡∏£‡∏≤‡∏¢‡∏•‡∏∞‡πÄ‡∏≠‡∏µ‡∏¢‡∏î">
 																<img src="../include/images/edit_icon.png" border="0">
 														</a>
-									<? }else if($choice_value == 'prdel') { ?>
-														<a onClick="remote_del('prmas_delcode.php?pr_no=<? echo $pr_no; ?>&flag=del&flag_obj=<?=$flag_obj;?>');"   style="cursor:hand">
+									<?php }else if($choice_value == 'prdel') { ?>
+														<a onClick="remote_del('prmas_delcode.php?pr_no=<?php echo $pr_no; ?>&flag=del&flag_obj=<?=$flag_obj;?>');"   style="cursor:hand">
 																<img src="../include/images/del_icon.png" border="0">
 														</a>
-									<? }else if(($choice_value == 'prcom')||($choice_value == 'prrep')||($choice_value == 'prapp')) { ?>
-														<a href="./prmas_reportcode.php?pr_no=<? echo $pr_no; ?>"   style="cursor:hand" target="_blank"  title="„∫ PR">
+									<?php }else if(($choice_value == 'prcom')||($choice_value == 'prrep')||($choice_value == 'prapp')) { ?>
+														<a href="./prmas_reportcode.php?pr_no=<?php echo $pr_no; ?>"   style="cursor:hand" target="_blank"  title="‡πÉ‡∏ö PR">
 																<img src="../include/images/report_icon.png" border="0">
 														</a>
-														<? if($pr_path != ""){ ?>
-																<a onClick="window.open('\\\\<?= $http_host; ?>\\iso\\pr_thai\\<?= $pr_path; ?>');"  target="_blank"  style="cursor:hand"  title="„∫°√√¡«‘∏’µ√«®√—∫ ‘π§È“">
+														<?php if($pr_path != ""){ ?>
+																<a onClick="window.open('\\\\<?= $http_host; ?>\\iso\\pr_thai\\<?= $pr_path; ?>');"  target="_blank"  style="cursor:hand"  title="‡πÉ‡∏ö‡∏Å‡∏£‡∏£‡∏°‡∏ß‡∏¥‡∏ò‡∏µ‡∏ï‡∏£‡∏ß‡∏à‡∏£‡∏±‡∏ö‡∏™‡∏¥‡∏ô‡∏Ñ‡πâ‡∏≤">
 																	<img src="../include/images/report_ico.gif" border="0">
 																</a>
-														<? } ?>
-									<? } ?> 				
+														<?php } ?>
+									<?php } ?> 				
 						</div>
 					</td>
-					<? if($choice_value == "prcom" || $empno_user=='20044'){ ?>
+					<?php if($choice_value == "prcom" || $empno_user=='20044'){ ?>
 								<td>
-										<? if($pr_status == '1'){ 	?>
+										<?php if($pr_status == '1'){ 	?>
 												<div align="center">
-													<a onClick="remote_confirm('pr_commitcode.php?pr_no=<? echo $pr_no; ?>');"   style="cursor:hand"><img src="../include/images/confirm_icon.png" border="0"></a>
+													<a onClick="remote_confirm('pr_commitcode.php?pr_no=<?php echo $pr_no; ?>');"   style="cursor:hand"><img src="../include/images/confirm_icon.png" border="0"></a>
 												</div>
-										<? }else echo "&nbsp;"; ?>
+										<?php }else echo "&nbsp;"; ?>
 								</td>
-					<? }else if($choice_value=="prapp"){	?>
+					<?php }else if($choice_value=="prapp"){	?>
 								<td>
-										<? if($pr_status == '2'){ ?>
+										<?php if($pr_status == '2'){ ?>
 												<div align="center">
-													<a onClick="remote_approve('pr_approvecode.php?pr_no=<? echo $pr_no; ?>&flag=yes');"   style="cursor:hand"><img src="../include/images/confirm_icon.png" border="0"></a>
-													<a onClick="remote_add('pr_approve.php?pr_no=<? echo $pr_no; ?>&flag=no',450,200);"   style="cursor:hand"><img src="../include/images/cancel_icon.png" border="0"></a>
+													<a onClick="remote_approve('pr_approvecode.php?pr_no=<?php echo $pr_no; ?>&flag=yes');"   style="cursor:hand"><img src="../include/images/confirm_icon.png" border="0"></a>
+													<a onClick="remote_add('pr_approve.php?pr_no=<?php echo $pr_no; ?>&flag=no',450,200);"   style="cursor:hand"><img src="../include/images/cancel_icon.png" border="0"></a>
 												</div>												
-										<? }else echo "&nbsp;"; ?>
+										<?php }else echo "&nbsp;"; ?>
 								</td>
-					<? }else if($choice_value=="prrep"){ ?>
+					<?php }else if($choice_value=="prrep"){ ?>
 								<td>
 										<div align="center">
-											<a onClick="remote_addscroll('pr_add_po.php?pr_no=<? echo $pr_no; ?>&flag=open',500,400);"   style="cursor:hand"><font color="red">√–∫ÿ PO <br>∑’Ë —Ëß´◊ÈÕ ‘π§È“„ÀÈ</font></a>
+											<a onClick="remote_addscroll('pr_add_po.php?pr_no=<?php echo $pr_no; ?>&flag=open',500,400);"   style="cursor:hand"><font color="red">‡∏£‡∏∞‡∏ö‡∏∏ PO <br>‡∏ó‡∏µ‡πà‡∏™‡∏±‡πà‡∏á‡∏ã‡∏∑‡πâ‡∏≠‡∏™‡∏¥‡∏ô‡∏Ñ‡πâ‡∏≤‡πÉ‡∏´‡πâ</font></a>
 										</div>
 								</td>
-								<? if($pr_status=='4'){ ?>											
+								<?php if($pr_status=='4'){ ?>											
 										<td>
 											<div align="center">
-														<a onClick="remote_do('pr_closecode.php?pr_no=<? echo $pr_no; ?>&flag_status=7');"   style="cursor:hand"><font color="red">µ’°≈—∫<br>
-														„∫¢Õ´◊ÈÕ</font></a>
+														<a onClick="remote_do('pr_closecode.php?pr_no=<?php echo $pr_no; ?>&flag_status=7');"   style="cursor:hand"><font color="red">‡∏ï‡∏µ‡∏Å‡∏•‡∏±‡∏ö<br>
+														‡πÉ‡∏ö‡∏Ç‡∏≠‡∏ã‡∏∑‡πâ‡∏≠</font></a>
 											</div>
 										</td>														
 										<td>
 											<div align="center">
-														<a onClick="remote_do('pr_closecode.php?pr_no=<? echo $pr_no; ?>&flag_status=5');"   style="cursor:hand"><font color="red">ÕÕ° PO <br>‡√’¬∫√ÈÕ¬·≈È«</font></a>
+														<a onClick="remote_do('pr_closecode.php?pr_no=<?php echo $pr_no; ?>&flag_status=5');"   style="cursor:hand"><font color="red">‡∏≠‡∏≠‡∏Å PO <br>‡πÄ‡∏£‡∏µ‡∏¢‡∏ö‡∏£‡πâ‡∏≠‡∏¢‡πÅ‡∏•‡πâ‡∏ß</font></a>
 											</div>
 										</td>														
-								<? }else if($pr_status=='5'){ ?>											
+								<?php }else if($pr_status=='5'){ ?>											
 										<td>
 											<div align="center">&nbsp;</div>
 										</td>														
 										<td>
 											<div align="center">
-														<a onClick="remote_do('pr_closecode.php?pr_no=<? echo $pr_no; ?>&flag_status=6');"   style="cursor:hand"><font color="red">√—∫ ‘π§È“‰¥È·≈È«</font></a>
+														<a onClick="remote_do('pr_closecode.php?pr_no=<?php echo $pr_no; ?>&flag_status=6');"   style="cursor:hand"><font color="red">‡∏£‡∏±‡∏ö‡∏™‡∏¥‡∏ô‡∏Ñ‡πâ‡∏≤‡πÑ‡∏î‡πâ‡πÅ‡∏•‡πâ‡∏ß</font></a>
 											</div>
 										</td>
-								<? }else{ ?>		
+								<?php }else{ ?>		
 										<td>&nbsp;</td><td>&nbsp;</td>										
-								<? } ?>												
-					<? } ?>
-					<td><div align="center">&nbsp;<? echo $pr_no;?></div></td>
-					<td><div align="center">&nbsp;<? echo $pr_date;?></div></td>
-					<td>&nbsp;<? echo $company_name;?></td>
+								<?php } ?>												
+					<?php } ?>
+					<td><div align="center">&nbsp;<?php echo $pr_no;?></div></td>
+					<td><div align="center">&nbsp;<?php echo $pr_date;?></div></td>
+					<td>&nbsp;<?php echo $company_name;?></td>
 					<td>&nbsp;<?
-							if($pr_status=="1")echo "ºŸÈ·∑πæ‘¡æÏ„∫¢Õ´◊ÈÕ(¬—ß‰¡Ë Ëß)";
-							else if($pr_status=="2")echo "√ÕÕπÿ¡—µ‘®“°ºŸÈ®—¥°“√";
-							else if($pr_status=="3")echo "<font color=red>ºŸÈ®—¥°“√‰¡ËÕπÿ¡—µ‘„∫¢Õ´◊ÈÕ √Õ·°È‰¢</font>";						
-							else if($pr_status=="4")echo "√Õ MS ÕÕ° PO";										
-							else if($pr_status=="5")echo "MS ÕÕ° PO ‡√’¬∫√ÈÕ¬·≈È«";										
-							else if($pr_status=="6")echo "√—∫ ‘π§È“‰¥È·≈È«";										
-							else if($pr_status=="7")echo "<font color=red>MS µ’°≈—∫„∫¢Õ´◊ÈÕ</font>";										
+							if($pr_status=="1")echo "‡∏ú‡∏π‡πâ‡πÅ‡∏ó‡∏ô‡∏û‡∏¥‡∏°‡∏û‡πå‡πÉ‡∏ö‡∏Ç‡∏≠‡∏ã‡∏∑‡πâ‡∏≠(‡∏¢‡∏±‡∏á‡πÑ‡∏°‡πà‡∏™‡πà‡∏á)";
+							else if($pr_status=="2")echo "‡∏£‡∏≠‡∏≠‡∏ô‡∏∏‡∏°‡∏±‡∏ï‡∏¥‡∏à‡∏≤‡∏Å‡∏ú‡∏π‡πâ‡∏à‡∏±‡∏î‡∏Å‡∏≤‡∏£";
+							else if($pr_status=="3")echo "<font color=red>‡∏ú‡∏π‡πâ‡∏à‡∏±‡∏î‡∏Å‡∏≤‡∏£‡πÑ‡∏°‡πà‡∏≠‡∏ô‡∏∏‡∏°‡∏±‡∏ï‡∏¥‡πÉ‡∏ö‡∏Ç‡∏≠‡∏ã‡∏∑‡πâ‡∏≠ ‡∏£‡∏≠‡πÅ‡∏Å‡πâ‡πÑ‡∏Ç</font>";						
+							else if($pr_status=="4")echo "‡∏£‡∏≠ MS ‡∏≠‡∏≠‡∏Å PO";										
+							else if($pr_status=="5")echo "MS ‡∏≠‡∏≠‡∏Å PO ‡πÄ‡∏£‡∏µ‡∏¢‡∏ö‡∏£‡πâ‡∏≠‡∏¢‡πÅ‡∏•‡πâ‡∏ß";										
+							else if($pr_status=="6")echo "‡∏£‡∏±‡∏ö‡∏™‡∏¥‡∏ô‡∏Ñ‡πâ‡∏≤‡πÑ‡∏î‡πâ‡πÅ‡∏•‡πâ‡∏ß";										
+							else if($pr_status=="7")echo "<font color=red>MS ‡∏ï‡∏µ‡∏Å‡∏•‡∏±‡∏ö‡πÉ‡∏ö‡∏Ç‡∏≠‡∏ã‡∏∑‡πâ‡∏≠</font>";										
 					?></td>
 					<td>
 						<div align="center">
-								<? if($flag_obj == "1"){
+								<?php if($flag_obj == "1"){
 												$arrReqno = explode(",",$obj_name2);
 												for($i=0;$i<count($arrReqno); $i++){
 													echo "<a href='../include_report/requisition_supreme.php?reqno=".$arrReqno[$i]."' target='blank'>".$arrReqno[$i]."</a>,";
@@ -377,7 +377,7 @@ function clearname()
 									  }else echo "&nbsp;"; ?>				
 						</div>
 					</td>
-					<td><?
+					<td><?php
 							$po_noshow = '';
 							$strPoHave = "select  po_no from pr_and_po where pr_no='$pr_no' ";
 							$curPoHave = odbc_exec($conn,$strPoHave);	
@@ -387,23 +387,23 @@ function clearname()
 							if($empno_user=='04544')
 									{
 									?>
-									<a onClick="remote_add('pomas_reportcode.php?doc_no=<? echo $po_noshow; ?>&doc_type=all');" style="cursor:hand"><font color="red"><?=$po_noshow; ?></font></a><br>
-									<?
+									<a onClick="remote_add('pomas_reportcode.php?doc_no=<?php echo $po_noshow; ?>&doc_type=all');" style="cursor:hand"><font color="red"><?=$po_noshow; ?></font></a><br>
+									<?php
 									}
 									else
 									{
 									?>
-									<a onClick="remote_add('pomas_reportcode.php?doc_no=<? echo $po_noshow; ?>&doc_type=nonprice');" style="cursor:hand"><font color="red"><?=$po_noshow; ?></font></a><br>
-									<?
+									<a onClick="remote_add('pomas_reportcode.php?doc_no=<?php echo $po_noshow; ?>&doc_type=nonprice');" style="cursor:hand"><font color="red"><?=$po_noshow; ?></font></a><br>
+									<?php
 									}
 							}
 							if($po_noshow =='')  echo "&nbsp;"; 
 							?>
 					</td>	
-					<td><div align="center">&nbsp;<? echo $approve_date;?></div></td>					
+					<td><div align="center">&nbsp;<?php echo $approve_date;?></div></td>					
 			  </tr>
 
- <?
+ <?php
 		}
 		}
 ?>
@@ -423,22 +423,22 @@ function clearname()
 </table>
 			<table  border="0" cellspacing="0" cellpadding="0">
               <tr>
-                <td colspan="3" ><strong>À¡“¬‡Àµÿ -  ∂“π–¢Õß PR ∑—ÈßÀ¡¥ </strong></td>
+                <td colspan="3" ><strong>‡∏´‡∏°‡∏≤‡∏¢‡πÄ‡∏´‡∏ï‡∏∏ - ‡∏™‡∏ñ‡∏≤‡∏ô‡∏∞‡∏Ç‡∏≠‡∏á PR ‡∏ó‡∏±‡πâ‡∏á‡∏´‡∏°‡∏î </strong></td>
               </tr>
               <tr>
                 <td width="300">
 							<table width="100%">
 											<tr>
 											<td width="20">1</td>
-											<td> ºŸÈ·∑πæ‘¡æÏ„∫¢Õ´◊ÈÕ(¬—ß‰¡Ë Ëß)</td>
+											<td> ‡∏ú‡∏π‡πâ‡πÅ‡∏ó‡∏ô‡∏û‡∏¥‡∏°‡∏û‡πå‡πÉ‡∏ö‡∏Ç‡∏≠‡∏ã‡∏∑‡πâ‡∏≠(‡∏¢‡∏±‡∏á‡πÑ‡∏°‡πà‡∏™‡πà‡∏á)</td>
 										  </tr>
 										  <tr>
 											<td>2</td>
-											<td>√ÕÕπÿ¡—µ‘®“°ºŸÈ®—¥°“√</td>
+											<td>‡∏£‡∏≠‡∏≠‡∏ô‡∏∏‡∏°‡∏±‡∏ï‡∏¥‡∏à‡∏≤‡∏Å‡∏ú‡∏π‡πâ‡∏à‡∏±‡∏î‡∏Å‡∏≤‡∏£</td>
 										  </tr>
 										  <tr>
 											<td width="20">3</td>
-											<td>ºŸÈ®—¥°“√‰¡ËÕπÿ¡—µ‘„∫¢Õ´◊ÈÕ √Õ·°È‰¢</td>
+											<td>‡∏ú‡∏π‡πâ‡∏à‡∏±‡∏î‡∏Å‡∏≤‡∏£‡πÑ‡∏°‡πà‡∏≠‡∏ô‡∏∏‡∏°‡∏±‡∏ï‡∏¥‡πÉ‡∏ö‡∏Ç‡∏≠‡∏ã‡∏∑‡πâ‡∏≠ ‡∏£‡∏≠‡πÅ‡∏Å‡πâ‡πÑ‡∏Ç</td>
 										  </tr>										  
 				  </table>				
 				</td>
@@ -446,15 +446,15 @@ function clearname()
 							<table width="100%">
 										  <tr>
 											<td>4</td>
-											<td>√Õ MS ÕÕ° PO</td>
+											<td>‡∏£‡∏≠ MS ‡∏≠‡∏≠‡∏Å PO</td>
 										  </tr>							
 										  <tr>
 											<td width="20">5</td>
-											<td>MS ÕÕ° PO ‡√’¬∫√ÈÕ¬·≈È«</td>
+											<td>MS ‡∏≠‡∏≠‡∏Å PO ‡πÄ‡∏£‡∏µ‡∏¢‡∏ö‡∏£‡πâ‡∏≠‡∏¢‡πÅ‡∏•‡πâ‡∏ß</td>
 										  </tr>
 										  <tr>
 											<td>6</td>
-											<td>√—∫ ‘π§È“‰¥È·≈È«</td>
+											<td>‡∏£‡∏±‡∏ö‡∏™‡∏¥‡∏ô‡∏Ñ‡πâ‡∏≤‡πÑ‡∏î‡πâ‡πÅ‡∏•‡πâ‡∏ß</td>
 							  </tr>															  
 				  </table>				
 				</td>
@@ -462,7 +462,7 @@ function clearname()
 							<table width="100%">
 										  <tr>
 											<td>7</td>
-											<td>MS µ’°≈—∫„∫¢Õ´◊ÈÕ</td>
+											<td>MS ‡∏ï‡∏µ‡∏Å‡∏•‡∏±‡∏ö‡πÉ‡∏ö‡∏Ç‡∏≠‡∏ã‡∏∑‡πâ‡∏≠</td>
 							  </tr>															  
 				  </table>								
 				</td>
@@ -474,18 +474,18 @@ function clearname()
 </center>
 </body>
 </html>
-<?
+<?php
 	sleep(0);
 	echo '<script>';
 	echo 'document.all.welcome.style.display = "none";';
 	echo '</script>';
 ?>			
 
-<?
+<?php
 	}else{
 			include("index.php");
 			echo '<script language="JavaScript" type="text/JavaScript">';
-			echo 'alert ("¢ÕÕ¿—¬§Ë– §ÿ≥¬—ß‰¡Ë‰¥È Login");';
+			echo 'alert ("‡∏Ç‡∏≠‡∏≠‡∏†‡∏±‡∏¢‡∏Ñ‡πà‡∏∞ ‡∏Ñ‡∏∏‡∏ì‡∏¢‡∏±‡∏á‡πÑ‡∏°‡πà‡πÑ‡∏î‡πâ Login");';
 			echo '</script>';
 	}
 ?>
