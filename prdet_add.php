@@ -38,7 +38,7 @@ if (isset($_SESSION["valid_userprpo"])) {
 													)";
 
 			$exe_add = odbc_exec($conn, $txt_add);
-			//$exe_commit = odbc_exec($conn, "commit");
+			$exe_commit = @odbc_exec($conn, "commit");
 		} else {  //if($flagAction=="UpCode"){
 			$id = @$_POST["id"];
 			$txt_up = "update pr_details set 
@@ -56,11 +56,11 @@ if (isset($_SESSION["valid_userprpo"])) {
 													and pr_no='$pr_no'";
 
 			$exe_up = odbc_exec($conn, $txt_up);
-			//$exe_commit = odbc_exec($conn, "commit");
+			$exe_commit = @odbc_exec($conn, "commit");
 		}
 		$txt_up = "update pr_master set pr_status='1',mng_remark='' where pr_no='$pr_no'";
 		$exe_up = odbc_exec($conn, $txt_up);
-		//$exe_commit = odbc_exec($conn, "commit");
+		$exe_commit = @odbc_exec($conn, "commit");
 
 		echo '<script language="JavaScript" type="text/JavaScript">';
 		echo 'window.opener.location.reload("./prmas_edit.php");';

@@ -10,7 +10,7 @@ if (isset($_SESSION["valid_userprpo"])) {
 		$result = odbc_exec($conn, "delete from pr_details_subjob where id='$id' and pr_no='$pr_no'");
 	}
 	$result = odbc_exec($conn, "delete from pr_details where id='$id' and pr_no='$pr_no'");
-	// $result2 = odbc_exec($conn, "commit");
+   $result2 = @odbc_exec($conn, "commit");
 
 	include("./prmas_edit.php");
 } else {

@@ -383,7 +383,7 @@ if (isset($_SESSION["valid_userprpo"])) {
 						last_date=getdate() 
 						where pr_no='$pr_no'";
 			$exeUPD = odbc_exec($conn, $strUPD);
-			// $exe_commit = odbc_exec($conn,"commit");
+			$exe_commit = @odbc_exec($conn,"commit");
 
 			if ($uploadResult) {
 				echo '<script language="JavaScript" type="text/JavaScript">';
