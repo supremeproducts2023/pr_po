@@ -1,7 +1,7 @@
-<?
-  	@session_start();
-	if(session_is_registered("valid_userprpo")) {
-			require_once("../include_RedThemes/odbc_connect.php");
+<?php
+  	// @session_start();
+	if(isset($_SESSION["valid_userprpo"])) {
+			require_once("../include_RedThemes/MSSQLServer_connect_2.php");
 			//require_once("../include_RedThemes/MSSQLServer_connect.php");	
 			require_once("../include/alert.php");
 			$empno_user = $_SESSION["empno_user"];
@@ -29,12 +29,12 @@
 				$po_c=@$_POST["po_c"];
 				
 				//  Generate Primary key   PO YY xxxxx //
-					$str_int_year = "select substr(format(getdate(),'YYYY')+543,3,2) int_year from dual";			
+					$str_int_year = "select substr(to_char(sysdate,'YYYY')+543,3,2) int_year from dual";			
 					$cur_int_year = @odbc_exec($conn,$str_int_year);
 					$int_year = @odbc_result($cur_int_year, "int_year");
 			
 					if($po_c == 's'){
-					$str_mx = "select ISNULL(max(substr(po_no,6,5))+1,1) int_mx from po_master ";
+					$str_mx = "select nvl(max(substr(po_no,6,5))+1,1) int_mx from po_master ";
 					$str_mx = $str_mx."where substr(po_no,3,1) = '1' and substr(po_no,4,2) = '".$int_year."' and  length(po_no) = 10";
 					$cur_mx = @odbc_exec($conn,$str_mx);
 					$int_mx = @odbc_result($cur_mx, "int_mx");
@@ -48,7 +48,7 @@
 						$po_no = "PO1" . $int_year . $str_middle . $int_mx;
 					}
 					else{
-						$str_mx = "select ISNULL(max(substr(po_no,6,5))+1,1) int_mx from po_master ";
+						$str_mx = "select nvl(max(substr(po_no,6,5))+1,1) int_mx from po_master ";
 						$str_mx = $str_mx."where substr(po_no,3,1) = '3' and substr(po_no,4,2) = '".$int_year."' and  length(po_no) = 10";
 						$cur_mx = @odbc_exec($conn,$str_mx);
 						$int_mx = @odbc_result($cur_mx, "int_mx");
@@ -76,18 +76,18 @@
 									redhead,
 									for_ref,po_status,rec_user,rec_date,ref_po_no,po_company,delivery_date,boi_flg
 									) values(
-									'$po_no',format('$po_date','dd-MM-yyyy'),'$supplier_id',
+									'$po_no',to_date('$po_date','dd-MM-yyyy'),'$supplier_id',
 									'$your_ref','$our_ref','$despatch_to','$delivery_time', '$PayCode', '$payment',
 									'$po_remark','$flag_vat','$accid','$costid',
 									'$redhead',
-									'$for_ref','1','$empno_user',getdate(),'$ref_po_no','$po_company',format('$delivery_date','dd-MM-yyyy'),'$boi')";
+									'$for_ref','1','$empno_user',sysdate,'$ref_po_no','$po_company',to_date('$delivery_date','dd-MM-yyyy'),'$boi')";
 									echo $strINS;
-				$exeINS = @odbc_exec($conn,$strINS) or die(alert("�Դ��ͼԴ��Ҵ��鹡Ѻ�к� ������������ö�ѹ�֡������ PO ���ŧ���ҹ����������"));
+				$exeINS = @odbc_exec($conn,$strINS) or die(alert("เกิดข้อผิดพลาดขึ้นกับระบบ ทำให้ไม่สามารถบันทึกข้อมูล PO นี้ลงบนฐานข้อมูลได้ค่ะ"));
 				$exeCOMMIT = @odbc_exec($conn,"commit");
 				
 				$_SESSION["sespk_no"] = $po_no;			
 				echo '<script language="JavaScript" type="text/JavaScript">
-								alert ("�ѹ�֡��������ǹ��Ǣͧ PO ���º�������� ��س������������´�Թ��ҷ���ͧ�����觫��ͤ��");
+								alert ("บันทึกข้อมูลส่วนหัวของ PO เรียบร้อยแล้ว กรุณาใส่รายละเอียดสินค้าที่ต้องการสั่งซื้อค่ะ");
 								parent.main_frame.location.href = "./pomas_edit.php";
 						</script>';
 			}			
@@ -106,17 +106,17 @@
 		 <script language='javascript'>
 				function check_po(obj){
 							if(obj.po_date.value==""){  	
-								alert("��سҡ�͡�����ŷ��������ͧ���� * ���ú���");
+								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
 								obj.po_date.focus();
 								return false;
 							}			
 							if(obj.supplier_id.value==""){  	
-								alert("��سҡ�͡�����ŷ��������ͧ���� * ���ú���");
+								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
 								obj.supplier_but.focus();
 								return false;
 							}			
 							if(obj.PayCode.value == "none"){
-								alert("��سҡ�͡�����ŷ��������ͧ���� * ���ú���");
+								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
 								obj.PayCode.focus();
 								return false;
 							}
@@ -141,34 +141,34 @@
 		<!-- Calculate -->
 		<script language="javascript">
 				function cal_descpatch_to(descpatch_to){
-							if(descpatch_to.value=="����ѷ �ؾ��� �ôѡ�� �ӡѴ"){
-									descpatch_to.value='����ѷ ��ҹ�෤ �ӡѴ';
-							}else if(descpatch_to.value=="����ѷ ��ҹ�෤ �ӡѴ"){
-									descpatch_to.value='�ç�ҹ��ɯ�����';
-							}else if(descpatch_to.value=="�ç�ҹ��ɯ�����"){
-									descpatch_to.value='��ҧ��Ѻ�Թ���';
-							}else if(descpatch_to.value=="��ҧ��Ѻ�Թ���"){
-									descpatch_to.value='⡴ѧ��Ѻ�Թ���';
-							}else if(descpatch_to.value=="⡴ѧ��Ѻ�Թ���"){
-									descpatch_to.value='þ.��ا෾ (�֡�Թ��������Թ)';
-							}else if(descpatch_to.value=="þ.��ا෾ (�֡�Թ��������Թ)"){
+							if(descpatch_to.value=="บริษัท สุพรีม โพรดักส์ จำกัด"){
+									descpatch_to.value='บริษัท ทรานสเทค จำกัด';
+							}else if(descpatch_to.value=="บริษัท ทรานสเทค จำกัด"){
+									descpatch_to.value='โรงงานราษฏร์นิยม';
+							}else if(descpatch_to.value=="โรงงานราษฏร์นิยม"){
+									descpatch_to.value='ช่างไปรับสินค้า';
+							}else if(descpatch_to.value=="ช่างไปรับสินค้า"){
+									descpatch_to.value='โกดังไปรับสินค้า';
+							}else if(descpatch_to.value=="โกดังไปรับสินค้า"){
+									descpatch_to.value='รพ.กรุงเทพ (ตึกอินเตอร์ชั้นใต้ดิน)';
+							}else if(descpatch_to.value=="รพ.กรุงเทพ (ตึกอินเตอร์ชั้นใต้ดิน)"){
 									descpatch_to.value='';
 							}else{
-									descpatch_to.value='����ѷ �ؾ��� �ôѡ�� �ӡѴ';
+									descpatch_to.value='บริษัท สุพรีม โพรดักส์ จำกัด';
 							}
 				}
 				
 				function cal_delivery_time(delivery_time){
-							if(delivery_time.value=="���Ѻ�Թ�������"){
-									delivery_time.value='����    �ѹ';
-							}else if(delivery_time.value=="����    �ѹ"){
-									delivery_time.value='�����ѹ���';
-							}else if(delivery_time.value=="�����ѹ���"){
-									delivery_time.value='���Թ�������';
-							}else if(delivery_time.value=="���Թ�������"){
+							if(delivery_time.value=="ได้รับสินค้าแล้ว"){
+									delivery_time.value='ภายใน    วัน';
+							}else if(delivery_time.value=="ภายใน    วัน"){
+									delivery_time.value='ภายในวันที่';
+							}else if(delivery_time.value=="ภายในวันที่"){
+									delivery_time.value='ดำเนินการแล้ว';
+							}else if(delivery_time.value=="ดำเนินการแล้ว"){
 									delivery_time.value='';
 							}else{
-									delivery_time.value='���Ѻ�Թ�������';
+									delivery_time.value='ได้รับสินค้าแล้ว';
 							}
 				}
 		</script>		
@@ -229,7 +229,7 @@
 				if (returnvalue != null){ 
 					var txtReturn='';
 					var values =  returnvalue.split("|-|");
-						if(document.getElementById("accid").value =="") txtReturn = '���ʺѭ�� '+values[0]+' '+values[1];
+						if(document.getElementById("accid").value =="") txtReturn = 'รหัสบัญชี '+values[0]+' '+values[1];
 						else txtReturn = document.getElementById("accid").value+'\n'+values[0]+' '+values[1];
 						document.getElementById("accid").value = txtReturn.substring(0,200);				 
 				 }
@@ -247,7 +247,7 @@
             <input name="po_company" type="hidden" value="<?=$po_company;?>">
 		<table width="950"  border="0" cellpadding="0" cellspacing="0"  bgcolor="E9EAEB">
           <tr>
-            <th> &nbsp;&nbsp;���� PO <?php if($po_company=="T") $po_company = "Transtek"; else $po_company = "Supreme";
+            <th> &nbsp;&nbsp;เพิ่ม PO <?php if($po_company=="T") $po_company = "Transtek"; else $po_company = "Supreme";
 																echo $po_company; ?> </th>
             <th><div align="right">&nbsp;</div></th>
           </tr>
@@ -257,16 +257,16 @@
                 <tr>
                   <td><table width="100%"  border="1" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td width="120" class="tdleftwhite"> &nbsp;�Ţ��� PO <span class="style_star">*</span> </td>                       
+                        <td width="120" class="tdleftwhite"> &nbsp;เลขที่ PO <span class="style_star">*</span> </td>                       
 						<?php if($po_company=="Supreme") { ?>
-						 <td width="363"><input name="po_no" type="text"  class="style_readonly" value="�к��� Generate ��� ��ѧ�ҡ Save ���" size="31" readonly="">
+						 <td width="363"><input name="po_no" type="text"  class="style_readonly" value="ระบบจะ Generate ให้ หลังจาก Save ค่ะ" size="31" readonly="">
 						 <input name="po_c" type="hidden" value="s">
 						 </td>
-                        <td width="102">��ҧ�ԧ PO ����Ţ���</td>
+                        <td width="102">อ้างอิง PO เก่าเลขที่</td>
                         <td width="347"><input name="ref_po_no" type="text"  class="style_readonly" id="ref_po_no" value="" size="31" readonly="">
                         <input name='btn_select' type='button' value='...' onClick='lov_PO_CAN("<?php if($po_company=="Supreme") echo "S"; else echo "T"; ?>");' style=' width:40; cursor:pointer'></td>
 						<?php }else{ ?>						
-						<td colspan="3"><input name="po_no" type="text"  class="style_readonly" value="�к��� Generate ��� ��ѧ�ҡ Save ���" size="31" readonly="">
+						<td colspan="3"><input name="po_no" type="text"  class="style_readonly" value="ระบบจะ Generate ให้ หลังจาก Save ค่ะ" size="31" readonly="">
 						<input name="po_c" type="hidden" value="t">
 						</td>
 						<?php } ?>
@@ -274,7 +274,7 @@
                       <tr>
                         <td class="tdleftwhite">&nbsp;Date <span class="style_star">*</span> </td>
                         <td colspan="3" class="tdleftwhite">
-              			<input name="po_date" type="text"  class="style_readonly"value="<? echo date("d-m-Y"); ?>" size="8" readonly="" >	
+              			<input name="po_date" type="text"  class="style_readonly"value="<?php echo date("d-m-Y"); ?>" size="8" readonly="" >	
                         <script language='javascript'>
 											<!-- 
 											  if (!document.layers) {
@@ -286,33 +286,33 @@
 						  <input name="flag_boi" type="radio" value="1" >
 						   BOI
 						  <input name="flag_boi" type="radio" value="0" checked> 
-						   ����� BOI	
+						   ไม่เป็น BOI	
 						    <input name="flag_boi" type="radio" value="2" >
 						   BOI Factory 2
 						  <input name="flag_boi" type="radio" value="3"> 
-						   ����� BOI Factory 2	
+						   ไม่เป็น BOI Factory 2	
 							</td>
                       </tr>
                       <tr>
                         <td class="tdleftwhite">&nbsp;To Messers <span class="style_star"> *</span> </td>
-                        <td colspan="3"><input name="supplier_id" type="text" value="<? echo @$supplier_id; ?>"  size="10" class="style_readonly" readonly=""><input name="supplier_show" type="text" value="<? echo @$supplier_show; ?>"  size="70" class="style_readonly" readonly=""><input name="supplier_but" type="button" value="&nbsp;...&nbsp;" onClick="lovSupplier();"></td>
+                        <td colspan="3"><input name="supplier_id" type="text" value="<?php echo @$supplier_id; ?>"  size="10" class="style_readonly" readonly=""><input name="supplier_show" type="text" value="<?php echo @$supplier_show; ?>"  size="70" class="style_readonly" readonly=""><input name="supplier_but" type="button" value="&nbsp;...&nbsp;" onClick="lovSupplier();"></td>
                       </tr>
                       <tr>
                         <td class="tdleftwhite">&nbsp;Your Ref. </td>
-                        <td colspan="3"><input name="your_ref" type="text" onKeyUp="return check_string(document.form_po.your_ref,50);" value="<? echo @$your_ref; ?>"  size="70" maxlength="50"></td>
+                        <td colspan="3"><input name="your_ref" type="text" onKeyUp="return check_string(document.form_po.your_ref,50);" value="<?php echo @$your_ref; ?>"  size="70" maxlength="50"></td>
                       </tr>
                       <tr>
                         <td class="tdleftwhite">&nbsp;Our Ref. </td>
-                        <td colspan="3"><input name="our_ref" type="text" onKeyUp="return check_string(document.form_po.our_ref,50);" value="<? echo @$our_ref; ?>"  size="70" maxlength="50"></td>
+                        <td colspan="3"><input name="our_ref" type="text" onKeyUp="return check_string(document.form_po.our_ref,50);" value="<?php echo @$our_ref; ?>"  size="70" maxlength="50"></td>
                       </tr>
                       <tr>
                         <td class="tdleftwhite">&nbsp;Despatch to </td>
-                        <td colspan="3"><input name="despatch_to" type="text" onKeyUp="return check_string(document.form_po.despatch_to,50);" value="<? echo @$despatch_to; ?>"  size="70" maxlength="50"><input type="button" name="despatch_tobut" value="&nbsp;...&nbsp;" onClick="return cal_descpatch_to(document.form_po.despatch_to);"></td>
+                        <td colspan="3"><input name="despatch_to" type="text" onKeyUp="return check_string(document.form_po.despatch_to,50);" value="<?php echo @$despatch_to; ?>"  size="70" maxlength="50"><input type="button" name="despatch_tobut" value="&nbsp;...&nbsp;" onClick="return cal_descpatch_to(document.form_po.despatch_to);"></td>
                       </tr>
                       <tr class="tdleftwhite">
                         <td class="tdleftwhite">&nbsp;Delivery Time</td>
-                        <td colspan="3"><input name="delivery_time" type="text" onKeyUp="return check_string(document.form_po.delivery_time,50);" value="<? echo @$delivery_time; ?>"  size="70" maxlength="50"><input type="button" name="delivery_timebut" value="&nbsp;...&nbsp;" onClick="return cal_delivery_time(document.form_po.delivery_time);">
-						&nbsp;Delivery Date&nbsp;<input name="delivery_date" type="text"  class="style_readonly"value="<? echo date("d-m-Y"); ?>" size="8" readonly="" >						  
+                        <td colspan="3"><input name="delivery_time" type="text" onKeyUp="return check_string(document.form_po.delivery_time,50);" value="<?php echo @$delivery_time; ?>"  size="70" maxlength="50"><input type="button" name="delivery_timebut" value="&nbsp;...&nbsp;" onClick="return cal_delivery_time(document.form_po.delivery_time);">
+						&nbsp;Delivery Date&nbsp;<input name="delivery_date" type="text"  class="style_readonly"value="<?php echo date("d-m-Y"); ?>" size="8" readonly="" >						  
                         <script language='javascript'>
 											<!-- 
 											  if (!document.layers) {
@@ -334,9 +334,9 @@
                         <select name="PayCode" id="PayCode" >
 						<?php	
 								$strSEL = "select payment_name, payment_description from Payment_method where status = 'Y'";
-								$queSEL = @odbc_exec($conn,$strSEL) or die(alert("�Դ��ͼԴ��Ҵ �������ö�����żŢ�����㹰ҹ����������"));
+								$queSEL = @odbc_exec($conn,$strSEL) or die(alert("เกิดข้อผิดพลาด ไม่สามารถประมวลผลข้อมูลในฐานข้อมูลได้ค่ะ"));
 						?>	
-								<option value="none">��س��к� Payment Term</option> 
+								<option value="none">กรุณาระบุ Payment Term</option> 
 						<?php 
 								while(@odbc_fetch_row($queSEL)){
 									$PayCode = @odbc_result($queSEL,"payment_name");
@@ -350,38 +350,38 @@
                       </tr>
                       
                       <tr>
-                        <td class="tdleftwhite">&nbsp;���� 7%</td>
+                        <td class="tdleftwhite">&nbsp;ภาษี 7%</td>
                         <td colspan="3" class="tdleftwhite">
 						<input name="flag_vat" type="radio" value="1" checked>
-						 �ӹǳ VAT
+						 คำนวณ VAT
 						<input name="flag_vat" type="radio" value="0"> 
-						 ���ӹǳ VAT
+						 ไม่คำนวณ VAT
 						 <input name="flag_vat" type="radio" value="2">
-						���������к� 
+						ไม่อยู่ในระบบ 
 						<input name="flag_vat" type="radio" value="3">
-						����ʴ�						</td>
+						ไม่แสดง						</td>
                       </tr>
 						<tr>
-                        <td class="tdleftwhite">&nbsp;���ʺѭ�� </td>
+                        <td class="tdleftwhite">&nbsp;รหัสบัญชี </td>
                         <td colspan="3">
-						<textarea name="accid" cols="85" rows="3" onKeyUp="return check_string(document.form_po.accid,200);"><? echo @$accid; ?></textarea><input name="acc_but" type="button" value="&nbsp;...&nbsp;" onClick="lovCodeAccount()">						</td>
+						<textarea name="accid" cols="85" rows="3" onKeyUp="return check_string(document.form_po.accid,200);"><?php echo @$accid; ?></textarea><input name="acc_but" type="button" value="&nbsp;...&nbsp;" onClick="lovCodeAccount()">						</td>
                       </tr>					  
 						<tr>
                         <td class="tdleftwhite">&nbsp;COST CENTER </td>
                         <td colspan="3">
-						<textarea name="costid" cols="85" rows="3" onKeyUp="return check_string(document.form_po.costid,200);"><? echo @$costid; ?></textarea><input name="cost_but" type="button" value="&nbsp;...&nbsp;" onClick="lovCostCenter()">						</td>
+						<textarea name="costid" cols="85" rows="3" onKeyUp="return check_string(document.form_po.costid,200);"><?php echo @$costid; ?></textarea><input name="cost_but" type="button" value="&nbsp;...&nbsp;" onClick="lovCostCenter()">						</td>
                       </tr>					  
                         <tr>
                           <td class="tdleftwhite"> &nbsp;For</td>
                           <td colspan="3">
-                          <textarea name="for_ref" cols="85" rows="3" onKeyUp="return check_string(document.form_po.for_ref,500);"><? echo @$for_ref; ?></textarea>						  </td>
+                          <textarea name="for_ref" cols="85" rows="3" onKeyUp="return check_string(document.form_po.for_ref,500);"><?php echo @$for_ref; ?></textarea>						  </td>
                         </tr>
                       <tr>
                         <td class="tdleftwhite">&nbsp;Remark</td>
-                        <td colspan="3"><textarea name="po_remark" cols="85" rows="3" onKeyUp="return check_string(document.form_po.po_remark,300);"><? echo @$po_remark; ?></textarea></td>
+                        <td colspan="3"><textarea name="po_remark" cols="85" rows="3" onKeyUp="return check_string(document.form_po.po_remark,300);"><?php echo @$po_remark; ?></textarea></td>
                       </tr>
                       <tr>
-                        <td class="tdleftwhite">&nbsp;<span class="thai_baht">���ᴧ (����) </span></td>
+                        <td class="tdleftwhite">&nbsp;<span class="thai_baht">หัวแดง (ปกติ) </span></td>
                         <td colspan="3"><input name="redhead" type="text" onKeyUp="return check_string(document.form_po.redhead,100);"   size="70" maxlength="100"></td>
                       </tr>
 					</table>					  
@@ -391,36 +391,36 @@
 				<td>
 				<table width="100%" border="1" align="center" cellpadding="0" cellspacing="0">
                   <tr bgcolor="999999">
-                    <td colspan="11" class="tdleftblack">��������´�Թ���</td>
+                    <td colspan="11" class="tdleftblack">รายละเอียดสินค้า</td>
                   </tr>
                   <tr>
                     <td width="25" rowspan="2" class="tdcenterwhite">Del</td>
                     <td width="25" rowspan="2" class="tdcenterwhite">Edit</td>
-                    <td width="70" rowspan="2" class="tdcenterwhite">������</td>
-                    <td width="120" rowspan="2" class="tdcenterwhite">�����Թ���</td>
-                    <td width="300" rowspan="2" class="tdcenterwhite">������¡��</td>
-                    <td colspan="3" class="tdcenterwhite">��¡�÷���ʴ���� PO <br>                    </td>
-                    <td colspan="2" class="tdcenterwhite">��¡�÷����㹡���Ѻ���</td>
+                    <td width="70" rowspan="2" class="tdcenterwhite">ประเภท</td>
+                    <td width="120" rowspan="2" class="tdcenterwhite">รหัสสินค้า</td>
+                    <td width="300" rowspan="2" class="tdcenterwhite">ชื่อรายการ</td>
+                    <td colspan="3" class="tdcenterwhite">รายการที่แสดงบนใบ PO <br>                    </td>
+                    <td colspan="2" class="tdcenterwhite">รายการที่ใช้ในการรับเข้า</td>
                   </tr>
                   <tr>
-                    <td width="80" class="tdcenterwhite">�ӹǹ</td>
-                    <td width="90" class="tdcenterwhite">�Ҥҵ��˹���</td>
-                    <td width="90" class="tdcenterwhite">�Ҥ����</td>
-                    <td width="80" class="tdcenterwhite">�ӹǹ</td>
-                    <td width="90" class="tdcenterwhite">�Ҥҵ��˹���</td>
+                    <td width="80" class="tdcenterwhite">จำนวน</td>
+                    <td width="90" class="tdcenterwhite">ราคาต่อหน่วย</td>
+                    <td width="90" class="tdcenterwhite">ราคารวม</td>
+                    <td width="80" class="tdcenterwhite">จำนวน</td>
+                    <td width="90" class="tdcenterwhite">ราคาต่อหน่วย</td>
                   </tr>
 				<tr>
-                    <td colspan="7" > <strong> &nbsp;<span class="thai_baht">�Ҥҷ���к����Ҥҷ���ѡ��ǹŴ(�����¡��) </span></strong></td>
+                    <td colspan="7" > <strong> &nbsp;<span class="thai_baht">ราคาที่ระบุเป็นราคาที่หักส่วนลด(ตามรายการ) </span></strong></td>
                     <td >&nbsp;</td>
                     <td colspan="2" >&nbsp;</td>
                   </tr>				  
                   <tr>
                     <td colspan="11" class="tdleftblack">
                       <div align="right">
-					    <input type="button" name="btnProduct"  value="�����Թ��һ����� BOM, Product, Service" style="width:260px; height:27px; "   target="_blank" disabled="disabled">
-<!--                        <input type="button" name="btnSubContact"  value="�����Թ��һ����� SubContract" style="width:180px; height:27px; "   target="_blank" disabled="disabled"> -->
-                        <input type="button" name="btnEtc" value="�����Թ��һ����� Detail, Etc" style="width:170px; height:27px; "   target="_blank" disabled="disabled">
-						<input type="button" name="btnPR"  value="�����Թ��ҵ�� PR (���»�����)" style="width:180px; height:27px; "   target="_blank" disabled="disabled">
+					    <input type="button" name="btnProduct"  value="เพิ่มสินค้าประเภท BOM, Product, Service" style="width:260px; height:27px; "   target="_blank" disabled="disabled">
+<!--                        <input type="button" name="btnSubContact"  value="เพิ่มสินค้าประเภท SubContract" style="width:180px; height:27px; "   target="_blank" disabled="disabled"> -->
+                        <input type="button" name="btnEtc" value="เพิ่มสินค้าประเภท Detail, Etc" style="width:170px; height:27px; "   target="_blank" disabled="disabled">
+						<input type="button" name="btnPR"  value="เพิ่มสินค้าตาม PR (หลายประเภท)" style="width:180px; height:27px; "   target="_blank" disabled="disabled">
 					  </div></td>
                   </tr>
                 </table>
@@ -457,31 +457,31 @@
         <br>
 			<table width="900" cellpadding="0" cellspacing="0">
               <tr>
-                <td colspan="2" class="tdleftwhite">�������ͧ�Թ���</td>
+                <td colspan="2" class="tdleftwhite">ประเภทของสินค้า</td>
               </tr>
               <tr>
                 <td width="80">- BOM</td>
-                <td>����¡���Թ��ҷ����㹡�ü�Ե</td>
+                <td>เป็นรายการสินค้าที่ใช้ในการผลิต</td>
               </tr>
               <tr>
                 <td>- SubContact </td>
-                <td>�繤�Ҩ�ҧ���Թ��ҷ����㹡�ü�Ե��ͧ�к� Subjob(��������Ҥ�ŧ JOB) </td>
+                <td>เป็นค่าจ้างทำสินค้าที่ใช้ในการผลิตต้องระบุ Subjob(เพื่อให้ราคาลง JOB) </td>
               </tr>
               <tr>
                 <td>- Product </td>
-                <td>����¡���Թ���������ٻ㹺���ѷ �Ѻ��ͧ�� ��ͧ�ӡ���Ѻ��� (���͢�� �����繢ͧ��) </td>
+                <td>เป็นรายการสินค้าสำเร็จรูปในบริษัท จับต้องได้ ต้องทำการรับเข้า (เพื่อขาย หรือเป็นของแถม) </td>
               </tr>
               <tr>
                 <td>- Service </td>
-                <td>����¡���Թ���������ٻ㹺���ѷ �Ѻ��ͧ�� ��ͧ�ӡ���Ѻ��� (���ͫ��� ������������) </td>
+                <td>เป็นรายการสินค้าสำเร็จรูปในบริษัท จับต้องได้ ต้องทำการรับเข้า (เพื่อซ่อม หรือเป็นอะไหล่) </td>
               </tr>
               <tr>
                 <td>- Etc </td>
-                <td>���Թ��ҷ������ͧ�ӡ���Ѻ��� �� ��������ҹ�Ἱ� ��� </td>
+                <td>เป็นสินค้าที่ไม่ต้องทำการรับเข้า เช่น ซื้อมาใช้งานในแผนก ฯลฯ </td>
               </tr>
               <tr>
                 <td>- Detail </td>
-                <td>����¡�÷������ͧ�����ҹ��� ����§���ͤ�����§���ͧ PO ��ҹ��</td>
+                <td>เป็นรายการที่ไม่ต้องนำไปใช้งานต่อ ใช้เพียงเพื่อความสวยงามของ PO เท่านั้น</td>
               </tr>
             </table>
 			</form>		
@@ -491,12 +491,12 @@
 			</script>
 </body>
 </html>
-<?
+<?php
 	}
 	else{
 			include("index.php");
 			echo '<script language="JavaScript" type="text/JavaScript">';
-			echo 'alert ("�����¤�� �س�ѧ����� Login");';
+			echo 'alert ("ขออภัยค่ะ คุณยังไม่ได้ Login");';
 			echo '</script>';
 	}
 ?>
