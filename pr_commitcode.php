@@ -1,7 +1,6 @@
-<?
-  	@session_start();
-	if(session_is_registered("valid_userprpo")) {	
-		require_once("../include_RedThemes/odbc_connect.php");				
+<?php
+	if(isset($_SESSION["valid_userprpo"])) {	
+		require_once("../include_RedThemes/MSSQLServer_connect_2.php");				
 		$empno_user = $_SESSION["empno_user"];
 	
 		$pr_no=@$_GET["pr_no"];
@@ -14,12 +13,12 @@
 			if($flag=="from_editpage"){
 					echo '<script language="JavaScript" type="text/JavaScript">';
 					echo 'location.href="./prmas_edit.php?pr_no='.$pr_no.'&flag=edit";';
-					echo 'alert ("ไม่สามารถส่งต่อได้ค่ะ เนื่องจากคุณยังไม่ได้ใส่รายละเอียด PR");';
+					echo 'alert ("เนเธกเนเธชเธฒเธกเธฒเธฃเธ–เธชเนเธเธ•เนเธญเนเธ”เนเธเนเธฐ เน€เธเธทเนเธญเธเธเธฒเธเธเธธเธ“เธขเธฑเธเนเธกเนเนเธ”เนเนเธชเนเธฃเธฒเธขเธฅเธฐเน€เธญเธตเธขเธ” PR");';
 					echo '</script>';
 			}else{
 					include("./pr_search.php");						
 					echo '<script language="JavaScript" type="text/JavaScript">';
-					echo 'alert ("ไม่สามารถส่งต่อได้ค่ะ เนื่องจากคุณยังไม่ได้ใส่รายละเอียด PR");';
+					echo 'alert ("เนเธกเนเธชเธฒเธกเธฒเธฃเธ–เธชเนเธเธ•เนเธญเนเธ”เนเธเนเธฐ เน€เธเธทเนเธญเธเธเธฒเธเธเธธเธ“เธขเธฑเธเนเธกเนเนเธ”เนเนเธชเนเธฃเธฒเธขเธฅเธฐเน€เธญเธตเธขเธ” PR");';
 					echo '</script>';					
 			}
 		}else{		
@@ -32,12 +31,12 @@
 							$_SESSION["sespk_no"] = "";
 ?>
 							<script language="JavaScript" type="text/JavaScript">
-								alert ("ส่งข้อมูลเรียบร้อยแล้วค่ะ");
+								alert ("เธชเนเธเธเนเธญเธกเธนเธฅเน€เธฃเธตเธขเธเธฃเนเธญเธขเนเธฅเนเธงเธเนเธฐ");
 								win = top;
 								win.opener = top;
 								win.close ();
 							</script>						
-<?							
+<?php							
 					}else{
 							$txt_up = "update pr_master set pr_status='2',approve_date='',last_user='$empno_user',last_date=getdate() where pr_no='$pr_no'";
 							$exe_up = odbc_exec($conn,$txt_up);
@@ -45,9 +44,9 @@
 							include("./pr_search.php");						
 ?>
 							<script language="JavaScript" type="text/JavaScript">
-									alert ("ส่งข้อมูลเรียบร้อยแล้วค่ะ");
+									alert ("เธชเนเธเธเนเธญเธกเธนเธฅเน€เธฃเธตเธขเธเธฃเนเธญเธขเนเธฅเนเธงเธเนเธฐ");
 							</script>						
-<?
+<?php
 					
 					}
 					
