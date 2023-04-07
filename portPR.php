@@ -1,6 +1,6 @@
-<?php
-	@session_start();
-	if (session_is_registered("valid_userprpo")) {
+<?php 
+	// @session_start();
+	if(isset($_SESSION["valid_userprpo"])) {
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -15,18 +15,18 @@
 -->
 </style>
 </head>
-<?php
+<?php 
 	include("../include/alert.php");
 	$target_path = "C:\\WebServ\\webroot\\temp_report\\";
 	$file_name = "excel_PRtranstek.xls";
 	if(isset($_FILES["fileUpload"])){		
 		if($_FILES["fileUpload"]["name"]!=""){
 			if($_FILES["fileUpload"]["error"]){
-				alert("�Դ��ͼԴ��Ҵ��鹡Ѻ�к� ������������ö Upload ����͡�������");
+				alert("เกิดข้อผิดพลาดขึ้นกับระบบ ทำให้ไม่สามารถ Upload ไฟล์เอกสารได้ค่ะ");
 			}else{												
 						if(substr($_FILES["fileUpload"]["name"],-4,4) == ".xls"){
 							if(@!move_uploaded_file($_FILES["fileUpload"]["tmp_name"],$target_path.$file_name)){
-								alert("�Դ��ͼԴ��Ҵ��鹡Ѻ�к� ������������ö Upload ����͡�������");
+								alert("เกิดข้อผิดพลาดขึ้นกับระบบ ทำให้ไม่สามารถ Upload ไฟล์เอกสารได้ค่ะ");
 							}else{									
 										$ExcelApp = new COM("Excel.Application");
 										$ExcelWorkBook = $ExcelApp->Workbooks->Open($target_path.$file_name);
@@ -38,21 +38,21 @@
 													window.location.reload("portPRCode.php");
 												</script>'; 
 											}	else {
-												alert("��س�Ṻ����͡��÷��١��ͧ���¤��");
+												alert("กรุณาแนบไฟล์เอกสารที่ถูกต้องด้วยค่ะ");
 											}
 										}else{
-											alert("��س�Ṻ����͡��÷��١��ͧ���¤��");
+											alert("กรุณาแนบไฟล์เอกสารที่ถูกต้องด้วยค่ะ");
 										}
 										$ExcelWorkBook->Close();
 									    $ExcelApp->Quit();
 										unset($ExcelApp,$ExcelWorkBook); 
 							}
 						}else{
-									alert("��س�Ṻ����͡��÷��١��ͧ���¤��");
+									alert("กรุณาแนบไฟล์เอกสารที่ถูกต้องด้วยค่ะ");
 						}								
 			}
 		}else{
-					alert("��س�Ṻ�����¤��");
+					alert("กรุณาแนบไฟล์ด้วยค่ะ");
 		}	
 	}
 ?>
@@ -61,24 +61,24 @@
 	<br /><br />
     <table align="center">
 	<tr><td>
-      <span class="style3"><a href="include/PR_Transtek.xls" title="��� Excel �鹩�Ѻ" target="_blank">��ǹ���Ŵ����͡��õ�Ẻ</a></span></p>
+      <span class="style3"><a href="include/PR_Transtek.xls" title="ไฟล์ Excel ต้นฉบับ" target="_blank">ดาวน์โหลดไฟล์เอกสารต้นแบบ</a></span></p>
 	  </td></td>
 	  <tr><td>&nbsp;</td></tr>
 	  <tr><td>
-    <p><span class="style5">Upload ����͡��� </span>
+    <p><span class="style5">Upload ไฟล์เอกสาร </span>
       <input type="file" name="fileUpload" size="40" />  
       </p>
 	  </td></tr>
 	  <tr><td>
     <p align="center">
-	<a class="style6" onclick="document.form1.submit();" style="cursor:pointer"><u>��������͡������ͧ��� Upload ����������ԡ�������</u></a>
+	<a class="style6" onclick="document.form1.submit();" style="cursor:pointer"><u>เมื่อเลือกไฟล์ที่ต้องการ Upload ได้แล้วให้คลิกที่นี่ค่ะ</u></a>
     </p>
     </td></tr>
 	</table>
 </form>
 </body>
 </html>
-<?php
+<?php 
 	}else {
 		include("../include_RedThemes/SessionTimeOut.php");
 	}
