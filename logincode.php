@@ -24,7 +24,7 @@
 				echo "login=0";
 		}else
 		{
-			$sup_username = 'rd_20002';
+			//$sup_username = 'rd_20002';
 				$txt_empno = "select s.empno,ISNULL(r.program_role,'Sales') roles_user,e.deptno
 											from sup_user s
 											left join (select * from program_role r where program_name='pr_po') r on s.empno=r.empno,
@@ -39,25 +39,25 @@
 
 				if($empno  == ""){
 						echo "login=0";
-				}else{				
-						// session_register("valid_userprpo");
+				}else{			
 						isset($_SESSION["valid_userprpo"]);
-						$_SESSION["valid_userprpo"] = $sup_username;								
-						// session_register("empno_user");
+						$_SESSION["valid_userprpo"] = $sup_username;		
+
 						isset($_SESSION["empno_user"]);
 						$_SESSION["empno_user"] = $empno;
-						// session_register("ses_deptno");
+
 						isset($_SESSION["ses_deptno"]);
 						$_SESSION["ses_deptno"] = $deptno;
-						// session_register("roles_user");
-						// session_register("ses_Search");
-						// session_register("ses_poCheck");
-						// session_register("ses_poImport");
+
 						isset($_SESSION["roles_user"]);
 						isset($_SESSION["ses_Search"]);
-						isset($_SESSION["ses_poCheck"]);
-						isset($_SESSION["ses_poImport"]);
+						$_SESSION["ses_Search"] = "";
 
+						isset($_SESSION["ses_poCheck"]);
+						$_SESSION["ses_poCheck"] = "";
+
+						isset($_SESSION["ses_poImport"]);
+						$_SESSION["ses_poImport"] = "";
 
 					 $_SESSION["roles_user"] = $roles_user;
 						
@@ -68,7 +68,7 @@
 						// session_register("menuchoice");
 						isset($_SESSION["menuchoice"]);
 						$_SESSION["menuchoice"] = '';						
-						echo "login=1";
+					 	echo "login=1";
 				}
 		 }
 		
