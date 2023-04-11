@@ -1,7 +1,7 @@
-<?
-@session_start();
-if(session_is_registered("valid_userprpo")) {
-		require_once("../include_RedThemes/odbc_connect.php");
+<?php
+// @session_start();
+if(isset($_SESSION["valid_userprpo"])) {
+		require_once("../include_RedThemes/MSSQLServer_connect_2.php");
 		//require_once("../include_RedThemes/MSSQLServer_connect.php");	
 		require_once("../include/alert.php");
 		$empno_user = $_SESSION["empno_user"];		
@@ -25,17 +25,17 @@ if(session_is_registered("valid_userprpo")) {
 		 <script language='javascript'>
 				function check_po(obj){
 							if(obj.po_date.value==""){  	
-								alert("��سҡ�͡�����ŷ��������ͧ���� * ���ú���");
+								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
 								obj.po_date.focus();
 								return false;
 							}			
 							if(obj.supplier_id.value==""){  	
-								alert("��سҡ�͡�����ŷ��������ͧ���� * ���ú���");
+								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
 								obj.supplier_but.focus();
 								return false;
 							}			
 							if(obj.PayCode.value == "none"){
-								alert("��سҡ�͡�����ŷ��������ͧ���� * ���ú���");
+								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
 								obj.PayCode.focus();
 								return false;
 							}
@@ -68,41 +68,41 @@ if(session_is_registered("valid_userprpo")) {
 						}else if((flo_price!="")&&(discount_baht!="")){
 								document.getElementById("discount_percent").value = round((discount_baht*100)/flo_price,2);								
 						}else if(flo_price==""){
-									alert("��辺�ҤҢͧ�Թ��� �֧�������ö�ӹǳ��ǹŴ����");
+									alert("ไม่พบราคาของสินค้า จึงไม่สามารถคำนวณส่วนลดได้ค่ะ");
 						}else{
-									alert("��辺��ǹŴ �֧�������ö�ӹǳ ����");
+									alert("ไม่พบส่วนลด จึงไม่สามารถคำนวณ ได้ค่ะ");
 						}
 				}
 
 				function cal_descpatch_to(descpatch_to){
-							if(descpatch_to.value=="����ѷ �ؾ��� �ôѡ�� �ӡѴ"){
-									descpatch_to.value='����ѷ ��ҹ�෤ �ӡѴ';
-							}else if(descpatch_to.value=="����ѷ ��ҹ�෤ �ӡѴ"){
-									descpatch_to.value='�ç�ҹ��ɯ�����';
-							}else if(descpatch_to.value=="�ç�ҹ��ɯ�����"){
-									descpatch_to.value='��ҧ��Ѻ�Թ���';
-							}else if(descpatch_to.value=="��ҧ��Ѻ�Թ���"){
-									descpatch_to.value='⡴ѧ��Ѻ�Թ���';
-							}else if(descpatch_to.value=="⡴ѧ��Ѻ�Թ���"){
-									descpatch_to.value='þ.��ا෾ (�֡�Թ��������Թ)';
-							}else if(descpatch_to.value=="þ.��ا෾ (�֡�Թ��������Թ)"){
+							if(descpatch_to.value=="บริษัท สุพรีม โพรดักส์ จำกัด"){
+									descpatch_to.value='บริษัท ทรานสเทค จำกัด';
+							}else if(descpatch_to.value=="บริษัท ทรานสเทค จำกัด"){
+									descpatch_to.value='โรงงานราษฏร์นิยม';
+							}else if(descpatch_to.value=="โรงงานราษฏร์นิยม"){
+									descpatch_to.value='ช่างไปรับสินค้า';
+							}else if(descpatch_to.value=="ช่างไปรับสินค้า"){
+									descpatch_to.value='โกดังไปรับสินค้า';
+							}else if(descpatch_to.value=="โกดังไปรับสินค้า"){
+									descpatch_to.value='รพ.กรุงเทพ (ตึกอินเตอร์ชั้นใต้ดิน)';
+							}else if(descpatch_to.value=="รพ.กรุงเทพ (ตึกอินเตอร์ชั้นใต้ดิน)"){
 									descpatch_to.value='';
 							}else{
-									descpatch_to.value='����ѷ �ؾ��� �ôѡ�� �ӡѴ';
+									descpatch_to.value='บริษัท สุพรีม โพรดักส์ จำกัด';
 							}
 				}
 				
 				function cal_delivery_time(delivery_time){
-							if(delivery_time.value=="���Ѻ�Թ�������"){
-									delivery_time.value='����    �ѹ';
-							}else if(delivery_time.value=="����    �ѹ"){
-									delivery_time.value='�����ѹ���';
-							}else if(delivery_time.value=="�����ѹ���"){
-									delivery_time.value='���Թ�������';
-							}else if(delivery_time.value=="���Թ�������"){
+							if(delivery_time.value=="ได้รับสินค้าแล้ว"){
+									delivery_time.value='ภายใน    วัน';
+							}else if(delivery_time.value=="ภายใน    วัน"){
+									delivery_time.value='ภายในวันที่';
+							}else if(delivery_time.value=="ภายในวันที่"){
+									delivery_time.value='ดำเนินการแล้ว';
+							}else if(delivery_time.value=="ดำเนินการแล้ว"){
 									delivery_time.value='';
 							}else{
-									delivery_time.value='���Ѻ�Թ�������';
+									delivery_time.value='ได้รับสินค้าแล้ว';
 							}
 				}
 		</script>		
@@ -163,7 +163,7 @@ if(session_is_registered("valid_userprpo")) {
 				if (returnvalue != null){ 
 					var txtReturn='';
 					var values =  returnvalue.split("|-|");
-						if(document.getElementById("accid").value =="") txtReturn = '���ʺѭ�� '+values[0]+' '+values[1];
+						if(document.getElementById("accid").value =="") txtReturn = 'รหัสบัญชี '+values[0]+' '+values[1];
 						else txtReturn = document.getElementById("accid").value+'\n'+values[0]+' '+values[1];
 						document.getElementById("accid").value = txtReturn.substring(0,200);				 
 				 }
@@ -171,7 +171,7 @@ if(session_is_registered("valid_userprpo")) {
 		</script>
 	</head>
 	<body topmargin="0" leftmargin="0">
-	<?
+	<?php
 	
 		$flagAction = @$_POST["flagAction"];
 		if(@$flagAction =='UpCode'){
@@ -211,13 +211,13 @@ if(session_is_registered("valid_userprpo")) {
 			{$boi = '3';} 
 				
 			$txt_up = "update po_master set 
-									po_date=format('$po_date','dd-mm-yyyy'),
+									po_date=convert(varchar, '$po_date', 103),
 									supplier_id='$supplier_id',
 									your_ref='$your_ref',
 									our_ref='$our_ref',
 									despatch_to='$despatch_to',
 									delivery_time='$delivery_time',
-									delivery_date=format('$delivery_date','dd-MM-yyyy'),
+									delivery_date=convert(varchar,'$delivery_date', 103),
 									PayCode='$PayCode',
 									payment='$payment',
 									discount_percent='$discount_percent',
@@ -232,6 +232,7 @@ if(session_is_registered("valid_userprpo")) {
 									redhead='$redhead',
 									redheadspecial='',
 									approve_date='', ";
+
 			if(is_uploaded_file($_FILES['po_file']['tmp_name'])){     
 				$path_file = $PathtoUploadFile."po_thai";
 				if($po_fileold != ""){
@@ -242,7 +243,7 @@ if(session_is_registered("valid_userprpo")) {
 				
 				if(!move_uploaded_file($_FILES['po_file']['tmp_name'],"$path_file\\$filename")){
 						echo '<script language="JavaScript" type="text/JavaScript">';
-						echo 'alert ("���ѭ���������ö Attach ��� po(�ʴ���¡�÷�����) ����");';
+						echo 'alert ("พบปัญหาไม่สามารถ Attach ไฟล์ po(แสดงรายการทั้งหมด) ได้ค่ะ");';
 						echo '</script>';
 				}else{
 						$txt_up .="po_file='$filename',";									
@@ -258,7 +259,7 @@ if(session_is_registered("valid_userprpo")) {
 				
 				if(!move_uploaded_file($_FILES['po_file2']['tmp_name'],"$path_file2\\$filename2")){				
 						echo '<script language="JavaScript" type="text/JavaScript">';
-						echo 'alert ("���ѭ���������ö Attach ��� po(�Դ�Ҥ�) ����");';
+						echo 'alert ("พบปัญหาไม่สามารถ Attach ไฟล์ po(ปิดราคา) ได้ค่ะ");';
 						echo '</script>';
 				}else{
 						$txt_up .="po_file2='$filename2',";									
@@ -274,7 +275,7 @@ if(session_is_registered("valid_userprpo")) {
 				
 				if(!move_uploaded_file($_FILES['po_file3']['tmp_name'],"$path_file3\\$filename3")){				
 						echo '<script language="JavaScript" type="text/JavaScript">';
-						echo 'alert ("���ѭ���������ö Attach ��� po(�Դ����) ����");';
+						echo 'alert ("พบปัญหาไม่สามารถ Attach ไฟล์ po(ปิดท้าย) ได้ค่ะ");';
 						echo '</script>';
 				}else{
 						$txt_up .="po_file3='$filename3',";									
@@ -283,11 +284,11 @@ if(session_is_registered("valid_userprpo")) {
 			$txt_up .= "last_user='$empno_user',
 								last_date=getdate()
 								where po_no='$po_no'";	
-			//echo $txt_up;					
-			$exe_up = @odbc_exec($conn,$txt_up) or die(alert("�Դ��ͼԴ��Ҵ��鹡Ѻ�к� ������������ö�Ѿഷ PO �������"));
+			// echo $txt_up;					
+			$exe_up = @odbc_exec($conn,$txt_up) or die(alert("เกิดข้อผิดพลาดขึ้นกับระบบ ทำให้ไม่สามารถอัพเดท PO นี้ได้ค่ะ"));
 			$exe_commit = @odbc_exec($conn,"commit");
 		    echo '<script language="JavaScript" type="text/JavaScript">';
-			echo 'alert ("�ѹ�֡���������º�������Ǥ��");';
+			echo 'alert ("บันทึกข้อมูลเรียบร้อยแล้วค่ะ");';
 			echo '</script>';				
 		}			
 		
@@ -300,10 +301,10 @@ if(session_is_registered("valid_userprpo")) {
 		}			
 	
 		$po_no= $_SESSION["sespk_no"];
-		$str_po_master = "select format(po.po_date,'DD-MM-YYYY') po_date,s.company_name,po.supplier_id,po.for_ref,
+		$str_po_master = "select format(po.po_date,'dd-MM-yyyy') po_date,s.company_name,po.supplier_id,po.for_ref,
 												po.your_ref,po.our_ref,po.despatch_to,po.delivery_time,po.paycode,po.payment,
 												po.discount_percent,po.discount_baht,po.po_remark,flag_vat,accid,costid,
-												po.po_file,po.po_file2,po.po_file3,po.redhead,po.ref_po_no,po.po_company,format(po.delivery_date,'DD-MM-YYYY') delivery_date,
+												po.po_file,po.po_file2,po.po_file3,po.redhead,po.ref_po_no,po.po_company,format(po.delivery_date,'dd-MM-yyyy') delivery_date,
 												po.boi_flg
 											from po_master po
 											left join supplier s on po.supplier_id= s.supplier_id
@@ -334,22 +335,22 @@ if(session_is_registered("valid_userprpo")) {
 		$ref_po_no =odbc_result($cur_po_master,"ref_po_no");
         $po_company = odbc_result($cur_po_master,"po_company");
 		
-		$str_sum_po_detail = "select sum((prod_qty*prod_price)-ISNULL(discount_baht,0)) flo_price 
+		$str_sum_po_detail = "select sum((prod_qty*prod_price)-isnull(discount_baht,0)) flo_price 
 						from po_details 
 						where po_no= '$po_no' ";
 		$cur_sum_po_detail = odbc_exec($conn, $str_sum_po_detail );
 		$flo_price = odbc_result($cur_sum_po_detail,"flo_price");		
 	
 		$str_query_podet = "select id,prod_no,prod_name,prod_qty,
-													prod_unit,prod_price,ISNULL(discount_baht,0) discount_baht ,
+													prod_unit,prod_price,isnull(discount_baht,0) discount_baht ,
 													code,prod_type,item_code,gar_qty,gar_unit,gar_price
 												from po_details 
 												where po_no='$po_no' order by id";
 		$cur_query_podet = odbc_exec($conn,$str_query_podet);	
 		
-		$strCOU = "select count(*) from po_details where po_no='$po_no'";
+		$strCOU = "select count(*) c from po_details where po_no='$po_no'";
 		$curCOU = odbc_exec($conn,$strCOU);	
-		$numrow = odbc_result($curCOU, "count(*)");				
+		$numrow = odbc_result($curCOU, "c");				
 	?>
 		<br>
 		<center>
@@ -357,7 +358,7 @@ if(session_is_registered("valid_userprpo")) {
 				<input name="flagAction" type="hidden" value="UpCode">						
 				<table width="975"  border="0" cellpadding="0" cellspacing="0"  bgcolor="E9EAEB">
 				<tr>
-					<th> &nbsp;&nbsp;��Ѻ��ا PO <?php if($po_company=="T") echo "Transtek"; else echo "Supreme"; ?></th>
+					<th> &nbsp;&nbsp;ปรับปรุง PO <?php if($po_company=="T") echo "Transtek"; else echo "Supreme"; ?></th>
 					<th><div align="right">&nbsp;</div></th>
 				</tr>
 				<tr>
@@ -367,54 +368,54 @@ if(session_is_registered("valid_userprpo")) {
 							<td>
 								<table width="100%"  border="1" cellpadding="0" cellspacing="0">								
 								<tr>
-									<td width="124" class="tdleftwhite"> &nbsp;�Ţ��� PO <span class="style_star">*</span> </td>
+									<td width="124" class="tdleftwhite"> &nbsp;เลขที่ PO <span class="style_star">*</span> </td>
 								<?php if($po_company=="S") { ?>
-									<td width="353"><input name="po_no" type="text"  class="style_readonly" value="<? echo $po_no; ?>" size="31" readonly=""></td>
-								    <td width="105">&nbsp;��ҧ�ԧ PO ����Ţ��� </td>
-								    <td width="350"><input name="ref_po_no" type="text"  class="style_readonly" id="ref_po_no" value="<? echo $ref_po_no; ?>" size="31" readonly=""></td>
+									<td width="353"><input name="po_no" type="text"  class="style_readonly" value="<?php echo $po_no; ?>" size="31" readonly=""></td>
+								    <td width="105">&nbsp;อ้างอิง PO เก่าเลขที่ </td>
+								    <td width="350"><input name="ref_po_no" type="text"  class="style_readonly" id="ref_po_no" value="<?php echo $ref_po_no; ?>" size="31" readonly=""></td>
 								<?php }else{ ?>			
-									<td colspan="3"><input name="po_no" type="text"  class="style_readonly" value="<? echo $po_no; ?>" size="31" readonly=""></td>
+									<td colspan="3"><input name="po_no" type="text"  class="style_readonly" value="<?php echo $po_no; ?>" size="31" readonly=""></td>
 								<?php } ?>
 								</tr>
 	
 								<tr>
 									<td class="tdleftwhite">&nbsp;Date <span class="style_star">*</span> </td>
 									<td colspan="3" class="tdleftwhite">
-										<input name="po_date" type="text"  class="style_readonly"value="<? echo @$po_date; ?>" size="8" readonly="" >						  
+										<input name="po_date" type="text"  class="style_readonly"value="<?php echo @$po_date; ?>" size="8" readonly="" >						  
 										<script language='javascript'>
 											if (!document.layers) {
 												document.write("<img src=\"../include/images/date_icon.gif\" name=\"butdate\" border=\"0\"   onclick='popUpCalendar(this, form_po.po_date, \"dd-mm-yyyy\")'>");
 											}
 										</script>
-										<input name="flag_boi" type="radio" value="1" <? if($boi_flg=="B") echo "checked"; ?>>BOI
-										<input name="flag_boi" type="radio" value="0" <? if($boi_flg=="") echo "checked"; ?>> ����� BOI	
-										<input name="flag_boi" type="radio" value="2" <? if($boi_flg=="2") echo "checked"; ?>>BOI Factory 2
-										<input name="flag_boi" type="radio" value="3" <? if($boi_flg=="3") echo "checked"; ?>> ����� BOI Factory 2	
+										<input name="flag_boi" type="radio" value="1" <?php if($boi_flg=="B") echo "checked"; ?>>BOI
+										<input name="flag_boi" type="radio" value="0" <?php if($boi_flg=="") echo "checked"; ?>> ไม่เป็น BOI	
+										<input name="flag_boi" type="radio" value="2" <?php if($boi_flg=="2") echo "checked"; ?>>BOI Factory 2
+										<input name="flag_boi" type="radio" value="3" <?php if($boi_flg=="3") echo "checked"; ?>> ไม่เป็น BOI Factory 2	
 										</td>
 								</tr>
 								<tr>
 									<td class="tdleftwhite">&nbsp;To Messers <span class="style_star"> *</span> </td>
 									<td colspan="3">
-										<input name="supplier_id" type="text" value="<? echo @$supplier_id; ?>"  size="10" class="style_readonly" readonly=""><input name="supplier_show" type="text" value="<? echo @$supplier_show; ?>"  size="70" class="style_readonly" readonly=""><input name="supplier_but" type="button" value="&nbsp;...&nbsp;" onClick="lovSupplier();">									</td>
+										<input name="supplier_id" type="text" value="<?php echo @$supplier_id; ?>"  size="10" class="style_readonly" readonly=""><input name="supplier_show" type="text" value="<?php echo @$supplier_show; ?>"  size="70" class="style_readonly" readonly=""><input name="supplier_but" type="button" value="&nbsp;...&nbsp;" onClick="lovSupplier();">									</td>
 								</tr>
 								<tr>
 									<td class="tdleftwhite">&nbsp;Your Ref. </td>
-									<td colspan="3"><input name="your_ref" type="text" onKeyUp="return check_string(document.form_po.your_ref,50);" value="<? echo @$your_ref; ?>"  size="70" maxlength="50"></td>
+									<td colspan="3"><input name="your_ref" type="text" onKeyUp="return check_string(document.form_po.your_ref,50);" value="<?php echo @$your_ref; ?>"  size="70" maxlength="50"></td>
 								</tr>
 								<tr>
 									<td class="tdleftwhite">&nbsp;Our Ref. </td>
-									<td colspan="3"><input name="our_ref" type="text" onKeyUp="return check_string(document.form_po.our_ref,50);" value="<? echo @$our_ref; ?>"  size="70" maxlength="50"></td>
+									<td colspan="3"><input name="our_ref" type="text" onKeyUp="return check_string(document.form_po.our_ref,50);" value="<?php echo @$our_ref; ?>"  size="70" maxlength="50"></td>
 								</tr>
 								<tr>
 									<td class="tdleftwhite">&nbsp;Despatch to </td>
 									<td colspan="3">
-										<input name="despatch_to" type="text" onKeyUp="return check_string(document.form_po.despatch_to,50);" value="<? echo @$despatch_to; ?>"  size="70" maxlength="50"><input type="button" name="despatch_tobut" value="&nbsp;...&nbsp;" onClick="return cal_descpatch_to(document.form_po.despatch_to);">									</td>
+										<input name="despatch_to" type="text" onKeyUp="return check_string(document.form_po.despatch_to,50);" value="<?php echo @$despatch_to; ?>"  size="70" maxlength="50"><input type="button" name="despatch_tobut" value="&nbsp;...&nbsp;" onClick="return cal_descpatch_to(document.form_po.despatch_to);">									</td>
 								</tr>
 								<tr>
 									<td class="tdleftwhite">&nbsp;Delivery Time</td>
 									<td colspan="3">
-										<input name="delivery_time" type="text" onKeyUp="return check_string(document.form_po.delivery_time,50);" value="<? echo @$delivery_time; ?>"  size="70" maxlength="50"><input type="button" name="delivery_timebut" value="&nbsp;...&nbsp;" onClick="return cal_delivery_time(document.form_po.delivery_time);">									
-										&nbsp;Delivery Date&nbsp;<input name="delivery_date" type="text"  class="style_readonly"value="<?  echo @$delivery_date; ?>" size="8" readonly="" >						  
+										<input name="delivery_time" type="text" onKeyUp="return check_string(document.form_po.delivery_time,50);" value="<?php echo @$delivery_time; ?>"  size="70" maxlength="50"><input type="button" name="delivery_timebut" value="&nbsp;...&nbsp;" onClick="return cal_delivery_time(document.form_po.delivery_time);">									
+										&nbsp;Delivery Date&nbsp;<input name="delivery_date" type="text"  class="style_readonly"value="<?php  echo @$delivery_date; ?>" size="8" readonly="" >						  
 										<script language='javascript'>
 															<!-- 
 															  if (!document.layers) {
@@ -436,9 +437,9 @@ if(session_is_registered("valid_userprpo")) {
 									<select name="PayCode" id="PayCode"  >
 									<?php	
 											$strSEL = "select payment_name, payment_description from Payment_method where status = 'Y'";
-											$queSEL = @odbc_exec($conn,$strSEL) or die(alert("�Դ��ͼԴ��Ҵ �������ö�����żŢ�����㹰ҹ����������"));
+											$queSEL = @odbc_exec($conn,$strSEL) or die(alert("เกิดข้อผิดพลาด ไม่สามารถประมวลผลข้อมูลในฐานข้อมูลได้ค่ะ"));
 									?>	
-											<option value="none">��س��к� Payment Term</option> 
+											<option value="none">กรุณาระบุ Payment Term</option> 
 									<?php 
 											while(@odbc_fetch_row($queSEL)){
 												$PayCode = @odbc_result($queSEL,"payment_name");
@@ -453,76 +454,76 @@ if(session_is_registered("valid_userprpo")) {
 								<tr>
 									<td class="tdleftwhite">&nbsp;Dicount</td>
 									<td colspan="3">
-										<span class="tdleftwhite">�繨ӹǹ(%) 
-											<input name="discount_percent" type="text"  onKeyDown="return check_number();" value="<? echo @$discount_percent; ?>" size="10" maxlength="20" > �Դ���Թ(�ҷ)
-											<input name="discount_baht" type="text"  onKeyDown="return check_number();" value="<? echo @$discount_baht; ?>" size="16" maxlength="15" > 
+										<span class="tdleftwhite">เป็นจำนวน(%) 
+											<input name="discount_percent" type="text"  onKeyDown="return check_number();" value="<?php echo @$discount_percent; ?>" size="10" maxlength="20" > คิดเป็นเงิน(บาท)
+											<input name="discount_baht" type="text"  onKeyDown="return check_number();" value="<?php echo @$discount_baht; ?>" size="16" maxlength="15" > 
 										</span>
 										<input name="but_cal" type="button" value="Calculate" onClick="cal_pomas();">
-										<input name="flo_price" type="hidden" size="5"  value="<? echo $flo_price;?>">									</td>
+										<input name="flo_price" type="hidden" size="5"  value="<?php echo $flo_price;?>">									</td>
 								</tr>
 								<tr>
-									<td class="tdleftwhite">&nbsp;���� 7%</td>
+									<td class="tdleftwhite">&nbsp;ภาษี 7%</td>
 									<td colspan="3" class="tdleftwhite">
-										<input name="flag_vat" type="radio" value="1" <? if($flag_vat=="1") echo "checked"; ?>>�ӹǳ VAT
-										<input name="flag_vat" type="radio" value="0" <? if($flag_vat=="0") echo "checked"; ?>> ���ӹǳ VAT
-										<input name="flag_vat" type="radio" value="2" <? if($flag_vat=="2") echo "checked"; ?>>���������к� 
-										<input name="flag_vat" type="radio" value="3" <? if($flag_vat=="3") echo "checked"; ?>>����ʴ�									</td>
+										<input name="flag_vat" type="radio" value="1" <?php if($flag_vat=="1") echo "checked"; ?>>คำนวณ VAT
+										<input name="flag_vat" type="radio" value="0" <?php if($flag_vat=="0") echo "checked"; ?>> ไม่คำนวณ VAT
+										<input name="flag_vat" type="radio" value="2" <?php if($flag_vat=="2") echo "checked"; ?>>ไม่อยู่ในระบบ 
+										<input name="flag_vat" type="radio" value="3" <?php if($flag_vat=="3") echo "checked"; ?>>ไม่แสดง									</td>
 								</tr>
 								<tr>
-									<td class="tdleftwhite">&nbsp;���ʺѭ�� </td>
+									<td class="tdleftwhite">&nbsp;รหัสบัญชี </td>
 									<td colspan="3">
-										<textarea name="accid" cols="85" rows="3" onKeyUp="return check_string(document.form_po.accid,200);"><? echo @$accid; ?></textarea><input name="acc_but" type="button" value="&nbsp;...&nbsp;" onClick="lovCodeAccount()">									</td>
+										<textarea name="accid" cols="85" rows="3" onKeyUp="return check_string(document.form_po.accid,200);"><?php echo @$accid; ?></textarea><input name="acc_but" type="button" value="&nbsp;...&nbsp;" onClick="lovCodeAccount()">									</td>
 								</tr>					  
 								<tr>
 									<td class="tdleftwhite">&nbsp;COST CENTER </td>
 									<td colspan="3">
-										<textarea name="costid" cols="85" rows="3" onKeyUp="return check_string(document.form_po.costid,200);"><? echo @$costid; ?></textarea><input name="cost_but" type="button" value="&nbsp;...&nbsp;" onClick="lovCostCenter()">									</td>
+										<textarea name="costid" cols="85" rows="3" onKeyUp="return check_string(document.form_po.costid,200);"><?php echo @$costid; ?></textarea><input name="cost_but" type="button" value="&nbsp;...&nbsp;" onClick="lovCostCenter()">									</td>
 								</tr>					  
 								<tr>
 									<td class="tdleftwhite">&nbsp;For </td>
-									<td colspan="3"><textarea name="for_ref" cols="85" rows="3" onKeyUp="return check_string(document.form_po.for_ref,500);"><? echo @$for_ref; ?></textarea></td>
+									<td colspan="3"><textarea name="for_ref" cols="85" rows="3" onKeyUp="return check_string(document.form_po.for_ref,500);"><?php echo @$for_ref; ?></textarea></td>
 								</tr>
 								<tr>
 									<td class="tdleftwhite">&nbsp;Remark</td>
-									<td colspan="3"><textarea name="po_remark" cols="85" rows="3" onKeyUp="return check_string(document.form_po.po_remark,300);"><? echo @$po_remark; ?></textarea></td>
+									<td colspan="3"><textarea name="po_remark" cols="85" rows="3" onKeyUp="return check_string(document.form_po.po_remark,300);"><?php echo @$po_remark; ?></textarea></td>
 								</tr>
 								<tr>
-									<td class="tdleftwhite">&nbsp;<span class="thai_baht">���ᴧ (����) </spa_n></td>
-									<td colspan="3"><input name="redhead" type="text" onKeyUp="return checkstring(document.form_po.redhead,100);" value="<? echo @$redhead; ?>"  size="70" maxlength="100"></td>
+									<td class="tdleftwhite">&nbsp;<span class="thai_baht">หัวแดง (ปกติ) </spa_n></td>
+									<td colspan="3"><input name="redhead" type="text" onKeyUp="return checkstring(document.form_po.redhead,100);" value="<?php echo @$redhead; ?>"  size="70" maxlength="100"></td>
 								</tr>									  
 								<tr>
-									<td width="124" class="tdleftwhite">&nbsp;����� Upload <br>�¼����ҹ (������) </td>
+									<td width="124" class="tdleftwhite">&nbsp;ไฟล์ที่ Upload <br>โดยผู้ใช้งาน (ทั้งหมด) </td>
 									<td colspan="3">
-										<?  if($po_file != ""){ ?>			
-											<a onClick="window.open('\\\\<?= $http_host; ?>\\iso\\po_thai\\<? echo $po_file; ?>');"  target="_blank"  style="cursor:hand" >
-												<span class="style_text">���꡷����</span> ���ʹ�� PO ��� Upload �¼���� Ẻ�ʴ���¡�÷�����											</a><br>
-										<?  } ?>							
-										<input name="po_file" type="file" size="50" ><input name="po_fileold" type="hidden" value="<? echo $po_file; ?>">	
-										<span class="style_text">* �ó����͡����������� �кѹ�֡�Ѻ������</span>									</td>
+										<?php  if($po_file != ""){ ?>			
+											<a onClick="window.open('\\\\<?= $http_host; ?>\\iso\\po_thai\\<?php echo $po_file; ?>');"  target="_blank"  style="cursor:hand" >
+												<span class="style_text">คลิ๊กที่นี่</span> เพื่อดูใบ PO ที่ Upload โดยผู้ใช้ แบบแสดงรายการทั้งหมด											</a><br>
+										<?php  } ?>							
+										<input name="po_file" type="file" size="50" ><input name="po_fileold" type="hidden" value="<?php echo $po_file; ?>">	
+										<span class="style_text">* กรณีเลือกไฟล์เข้าไปเพิ่ม จะบันทึกทับไฟล์เก่า</span>									</td>
 								</tr>
 								<tr>
 									<td class="tdleftwhite">
-										&nbsp;����� Upload <br>�¼����ҹ (�Դ�Ҥ�)									</td>
+										&nbsp;ไฟล์ที่ Upload <br>โดยผู้ใช้งาน (ปิดราคา)									</td>
 									<td colspan="3">
-										<?  if($po_file2 != ""){ ?>			
-											<a onClick="window.open('\\\\<?= $http_host; ?>\\iso\\po_thai2\\<? echo $po_file2; ?>');"  target="_blank"  style="cursor:hand" >
-												<span class="style_text">���꡷����</span> ���ʹ�� PO ��� Upload �¼���� Ẻ�Դ�Ҥ�											</a>
+										<?php  if($po_file2 != ""){ ?>			
+											<a onClick="window.open('\\\\<?= $http_host; ?>\\iso\\po_thai2\\<?php echo $po_file2; ?>');"  target="_blank"  style="cursor:hand" >
+												<span class="style_text">คลิ๊กที่นี่</span> เพื่อดูใบ PO ที่ Upload โดยผู้ใช้ แบบปิดราคา											</a>
 											<br>
-										<?  } ?>							
-										<input name="po_file2" type="file" size="50" ><input name="po_file2old" type="hidden" value="<? echo $po_file2; ?>">	
-										<span class="style_text">* �ó����͡����������� �кѹ�֡�Ѻ������</span>									</td>
+										<?php  } ?>							
+										<input name="po_file2" type="file" size="50" ><input name="po_file2old" type="hidden" value="<?php echo $po_file2; ?>">	
+										<span class="style_text">* กรณีเลือกไฟล์เข้าไปเพิ่ม จะบันทึกทับไฟล์เก่า</span>									</td>
 								</tr>
 								<tr>
 									<td class="tdleftwhite">
-										&nbsp;����� Upload <br>�¼����ҹ (�Դ����)									</td>
+										&nbsp;ไฟล์ที่ Upload <br>โดยผู้ใช้งาน (ปิดท้าย)									</td>
 									<td colspan="3">
-										<?  if($po_file3 != ""){ ?>			
-											<a onClick="window.open('\\\\<?= $http_host; ?>\\iso\\po_thai3\\<? echo $po_file3; ?>');"  target="_blank"  style="cursor:hand" >
-												<span class="style_text">���꡷����</span> ���ʹ�� PO ��� Upload �¼���� Ẻ�Դ����											</a>
+										<?php  if($po_file3 != ""){ ?>			
+											<a onClick="window.open('\\\\<?= $http_host; ?>\\iso\\po_thai3\\<?php echo $po_file3; ?>');"  target="_blank"  style="cursor:hand" >
+												<span class="style_text">คลิ๊กที่นี่</span> เพื่อดูใบ PO ที่ Upload โดยผู้ใช้ แบบปิดท้าย											</a>
 											<br>
-										<?  } ?>							
-										<input name="po_file3" type="file" size="50" ><input name="po_file3old" type="hidden" value="<? echo $po_file3; ?>">	
-										<span class="style_text">* �ó����͡����������� �кѹ�֡�Ѻ������</span>									</td>
+										<?php  } ?>							
+										<input name="po_file3" type="file" size="50" ><input name="po_file3old" type="hidden" value="<?php echo $po_file3; ?>">	
+										<span class="style_text">* กรณีเลือกไฟล์เข้าไปเพิ่ม จะบันทึกทับไฟล์เก่า</span>									</td>
 								</tr>
 								</table>
 							</td>
@@ -531,29 +532,29 @@ if(session_is_registered("valid_userprpo")) {
 							<td>
 								<table width="100%" border="1" align="center" cellpadding="0" cellspacing="0">
 								<tr bgcolor="999999">
-									<td colspan="13" class="tdleftblack">��������´�Թ���</td>
+									<td colspan="13" class="tdleftblack">รายละเอียดสินค้า</td>
 								</tr>
 								<tr>
 								  <td width="25" rowspan="2" class="tdcenterwhite">Del</td>
 								  <td width="25" rowspan="2" class="tdcenterwhite">Edit</td>
 								  <td width="25" rowspan="2" class="tdcenterwhite">Add Jobs</td>
-								  <td width="60" rowspan="2" class="tdcenterwhite">������</td>
-								  <td width="130" rowspan="2" class="tdcenterwhite">������ͧ��������</td>
-								  <td width="100" rowspan="2" class="tdcenterwhite">�����Թ���</td>
-								  <td rowspan="2" class="tdcenterwhite">������¡��</td>
-								  <td colspan="3" class="tdcenterwhite">��¡�÷���ʴ���� PO </td>
-								  <td colspan="3" class="tdcenterwhite">��¡�÷����㹡���Ѻ���</td>
-<?php 	if($ref_po_no <> ''){	?>	<td width="75" rowspan="2" class="tdcenterwhite">�ӹǹ<br>����Ѻ�������</td>  <?php } ?>
+								  <td width="60" rowspan="2" class="tdcenterwhite">ประเภท</td>
+								  <td width="130" rowspan="2" class="tdcenterwhite">กลุ่มของค่าใช้จ่าย</td>
+								  <td width="100" rowspan="2" class="tdcenterwhite">รหัสสินค้า</td>
+								  <td rowspan="2" class="tdcenterwhite">ชื่อรายการ</td>
+								  <td colspan="3" class="tdcenterwhite">รายการที่แสดงบนใบ PO </td>
+								  <td colspan="3" class="tdcenterwhite">รายการที่ใช้ในการรับเข้า</td>
+<?php 	if($ref_po_no <> ''){	?>	<td width="75" rowspan="2" class="tdcenterwhite">จำนวน<br>ที่รับเข้าแล้ว</td>  <?php } ?>
 								  </tr>
 								<tr>
-									<td width="50" class="tdcenterwhite">�ӹǹ</td>
-								  	<td width="80" class="tdcenterwhite">�Ҥҵ��˹���<br></td>
-									<td width="80" class="tdcenterwhite">�Ҥ����</td>
-								    <td width="50" class="tdcenterwhite">�ӹǹ</td>
-								    <td width="80" class="tdcenterwhite">�Ҥҵ��˹���</td>
-								    <td width="80" class="tdcenterwhite">�Ҥ����</td>
+									<td width="50" class="tdcenterwhite">จำนวน</td>
+								  	<td width="80" class="tdcenterwhite">ราคาต่อหน่วย<br></td>
+									<td width="80" class="tdcenterwhite">ราคารวม</td>
+								    <td width="50" class="tdcenterwhite">จำนวน</td>
+								    <td width="80" class="tdcenterwhite">ราคาต่อหน่วย</td>
+								    <td width="80" class="tdcenterwhite">ราคารวม</td>
 								</tr>
-								<?
+								<?php
 									$sum_total=0;
 									$sum_total_gar= 0;
 									while(odbc_fetch_row($cur_query_podet)){
@@ -572,7 +573,7 @@ if(session_is_registered("valid_userprpo")) {
 										$gar_price = odbc_result($cur_query_podet, "gar_price");
 										
 										if($prod_type=="2"){
-											$strQUEDetailSubjob = "select pd.subjob_show + '=' + sj.qty + '/' + sj.cost + '.-' subjob_show
+											$strQUEDetailSubjob = "select pd.subjob_show || '=' || sj.qty || '/' || sj.cost || '.-' subjob_show
 																						from po_details_subjob sj, mrp_pd pd
 																						where sj.subjob=pd.subjob 
 																						and po_no= '$po_no'
@@ -603,7 +604,7 @@ if(session_is_registered("valid_userprpo")) {
 														where PO_NO = '$ref_po_no' 
 														and Runno = (select max(Runno) from PODT_Center where PO_NO = '$ref_po_no') 
 														and LineNum = '$id'";
-										//$queSEL = @odbc_exec(	$MSSQL_connect, $strSEL) or die(alert("�Դ��ͼԴ��Ҵ �������ö�����żŢ�����㹰ҹ����������"));
+										//$queSEL = @odbc_exec(	$MSSQL_connect, $strSEL) or die(alert("เกิดข้อผิดพลาด ไม่สามารถประมวลผลข้อมูลในฐานข้อมูลได้ค่ะ"));
 										$read = @odbc_result($queSEL,"Received");
 										//$received_qty = @odbc_result($queSEL,"Received_QTY"); 
 								?>
@@ -622,7 +623,7 @@ if(session_is_registered("valid_userprpo")) {
 									<img src="../include/images/Add_Jobs.GIF" width="25" height="25" border="0"></a>
 									</td>									
 									<td>
-									<?
+									<?php
 											switch($prod_type){
 												case '1'	:	echo ' BOM';					break;
 												case '2'	:	echo ' SubContact';		break;
@@ -638,16 +639,16 @@ if(session_is_registered("valid_userprpo")) {
 											$queSEL = @odbc_exec($MSSQL_connect,$strSEL);
 											$item = @odbc_result($queSEL,"Description");
 									?>
-											&nbsp;<? echo $item; ?>
+											&nbsp;<?php echo $item; ?>
 									</td>
-									<td>&nbsp;<? echo $prod_no; ?></td>
-									<td>&nbsp;<? echo $prod_name; ?></td>
-									<td><div align="center"><? if($prod_qty=="") echo '&nbsp;'; else if(floor($prod_qty)==$prod_qty)echo floor($prod_qty); else echo $prod_qty; echo " ".$prod_unit; ?></div></td>
-									<td><div align="right"><? if($prod_price=="") echo '&nbsp;'; else echo number_format($prod_price,2,".",","); ?></div></td>
-									<td><div align="right"><? if($total_price=="") echo '&nbsp;'; else echo number_format($total_price,2,".",","); ?></div></td>
-									<td><div align="center"><? if(($prod_type=='5')||($prod_type=='6'))echo "-"; else if(floor($gar_qty)==$gar_qty)echo floor($gar_qty); else echo $gar_qty; echo " ".$gar_unit; ?></div></td>
-									<td><div align="right"><? if(($prod_type=='5')||($prod_type=='6'))echo "-"; else echo number_format($gar_price,2,".",","); ?></div></td>
-									<td><div align="right"><? if(($prod_type=='5')||($prod_type=='6'))echo "-"; else echo number_format($total_price_gar,2,".",","); ?></div></td>
+									<td>&nbsp;<?php echo $prod_no; ?></td>
+									<td>&nbsp;<?php echo $prod_name; ?></td>
+									<td><div align="center"><?php if($prod_qty=="") echo '&nbsp;'; else if(floor($prod_qty)==$prod_qty)echo floor($prod_qty); else echo $prod_qty; echo " ".$prod_unit; ?></div></td>
+									<td><div align="right"><?php if($prod_price=="") echo '&nbsp;'; else echo number_format($prod_price,2,".",","); ?></div></td>
+									<td><div align="right"><?php if($total_price=="") echo '&nbsp;'; else echo number_format($total_price,2,".",","); ?></div></td>
+									<td><div align="center"><?php if(($prod_type=='5')||($prod_type=='6'))echo "-"; else if(floor($gar_qty)==$gar_qty)echo floor($gar_qty); else echo $gar_qty; echo " ".$gar_unit; ?></div></td>
+									<td><div align="right"><?php if(($prod_type=='5')||($prod_type=='6'))echo "-"; else echo number_format($gar_price,2,".",","); ?></div></td>
+									<td><div align="right"><?php if(($prod_type=='5')||($prod_type=='6'))echo "-"; else echo number_format($total_price_gar,2,".",","); ?></div></td>
 <?php 	/*if($ref_po_no <> ''){	
 		if($received_qty =="" && $gar_unit  !="")
 			$received_qty = "0 ".$gar_unit;
@@ -659,31 +660,31 @@ if(session_is_registered("valid_userprpo")) {
 		<td style="text-align:center">&nbsp;</td> 
 <?php //} ?>
 								</tr>
-								<?
+								<?php
 									}
 								?>				
 								<tr>
-									<td colspan="7" > <strong> &nbsp;<span class="thai_baht">�Ҥҷ���к����Ҥҷ���ѡ��ǹŴ(�����¡��) </span></strong></td>
-									<td class="thai_baht"><div align="right"><? echo number_format($sum_total,2,".",","); ?></div></td>
+									<td colspan="7" > <strong> &nbsp;<span class="thai_baht">ราคาที่ระบุเป็นราคาที่หักส่วนลด(ตามรายการ) </span></strong></td>
+									<td class="thai_baht"><div align="right"><?php echo number_format($sum_total,2,".",","); ?></div></td>
 								    <td colspan="2" >&nbsp;</td>
-							        <td class="thai_baht"><div align="right"><? echo number_format($sum_total_gar,2,".",","); ?></div></td>
+							        <td class="thai_baht"><div align="right"><?php echo number_format($sum_total_gar,2,".",","); ?></div></td>
 							        <td>&nbsp;</td>
 								</tr>				  
 								<tr>
 									<td colspan="13" class="tdleftblack">
 									  <div align="right">	
-									  		<? 
+									  		<?php 
 													if($ref_po_no <> ''){
 											?>
-											  <input type="button" name="btnRefPoNo" onClick="popupLevel1('podet_ref_PONO.php?po_no=<?=$po_no; ?>&ref_po_no=<?=$ref_po_no; ?>',900,575,50,50);" value="�����Թ���" style="width:150px; height:27px; cursor:hand;"   target="_blank">
-											<?
+											  <input type="button" name="btnRefPoNo" onClick="popupLevel1('podet_ref_PONO.php?po_no=<?=$po_no; ?>&ref_po_no=<?=$ref_po_no; ?>',900,575,50,50);" value="เพิ่มสินค้า" style="width:150px; height:27px; cursor:hand;"   target="_blank">
+											<?php
 											  }else{
 											?>
-											  <input type="button" name="btnProduct" onClick="popupLevel1('podet_addbom.php?po_no=<?=$po_no; ?>',900,575,50,50);" value="�����Թ��һ����� BOM, Product, Service" style="width:260px; height:27px; cursor:hand;"   target="_blank">
-										<!--<input type="button" name="btnSubContact" onClick="popupLevel1('podet_addsubc.php?po_no=<?= $po_no; ?>',800,575,50,90);" value="�����Թ��һ����� SubContract" style="width:180px; height:27px; cursor:hand;"   target="_blank">-->									  
-											  <input type="button" name="btnEtc" onClick="popupLevel1('podet_addkey.php?po_no=<?= $po_no; ?>',905,502,80,50);" value="�����Թ��һ����� Detail, Etc" style="width:170px; height:27px; cursor:hand;"   target="_blank">
-											<input type="button" name="btnPR" onClick="popupLevel1('podet_addpr.php?po_no=<?= $po_no; ?>',950,600,50,30);" value="�����Թ��ҵ�� PR (���»�����)" style="width:180px; height:27px; cursor:hand;"   target="_blank">
-											<?
+											  <input type="button" name="btnProduct" onClick="popupLevel1('podet_addbom.php?po_no=<?=$po_no; ?>',900,575,50,50);" value="เพิ่มสินค้าประเภท BOM, Product, Service" style="width:260px; height:27px; cursor:hand;"   target="_blank">
+										<!--<input type="button" name="btnSubContact" onClick="popupLevel1('podet_addsubc.php?po_no=<?= $po_no; ?>',800,575,50,90);" value="เพิ่มสินค้าประเภท SubContract" style="width:180px; height:27px; cursor:hand;"   target="_blank">-->									  
+											  <input type="button" name="btnEtc" onClick="popupLevel1('podet_addkey.php?po_no=<?= $po_no; ?>',905,502,80,50);" value="เพิ่มสินค้าประเภท Detail, Etc" style="width:170px; height:27px; cursor:hand;"   target="_blank">
+											<input type="button" name="btnPR" onClick="popupLevel1('podet_addpr.php?po_no=<?= $po_no; ?>',950,600,50,30);" value="เพิ่มสินค้าตาม PR (หลายประเภท)" style="width:180px; height:27px; cursor:hand;"   target="_blank">
+											<?php
 											}
 											?>
 									  </div>	</td>
@@ -715,34 +716,34 @@ if(session_is_registered("valid_userprpo")) {
 			  </table>
 				<table width="900" cellpadding="0" cellspacing="0">
                   <tr>
-                    <td colspan="2" class="tdleftwhite">�������ͧ�Թ���</td>
+                    <td colspan="2" class="tdleftwhite">ประเภทของสินค้า</td>
                   </tr>
                   <tr>
                     <td width="80">- BOM</td>
-                    <td>����¡���Թ��ҷ����㹡�ü�Ե</td>
+                    <td>เป็นรายการสินค้าที่ใช้ในการผลิต</td>
                   </tr>
                   <tr>
                     <td>- SubContact </td>
-                    <td>�繤�Ҩ�ҧ���Թ��ҷ����㹡�ü�Ե��ͧ�к� Subjob(��������Ҥ�ŧ JOB) </td>
+                    <td>เป็นค่าจ้างทำสินค้าที่ใช้ในการผลิตต้องระบุ Subjob(เพื่อให้ราคาลง JOB) </td>
                   </tr>
                   <tr>
                     <td>- Product </td>
-                    <td>����¡���Թ���������ٻ㹺���ѷ �Ѻ��ͧ�� ��ͧ�ӡ���Ѻ��� (���͢�� �����繢ͧ��) </td>
+                    <td>เป็นรายการสินค้าสำเร็จรูปในบริษัท จับต้องได้ ต้องทำการรับเข้า (เพื่อขาย หรือเป็นของแถม) </td>
                   </tr>
                   <tr>
                     <td>- Service </td>
-                    <td>����¡���Թ���������ٻ㹺���ѷ �Ѻ��ͧ�� ��ͧ�ӡ���Ѻ��� (���ͫ��� ������������) </td>
+                    <td>เป็นรายการสินค้าสำเร็จรูปในบริษัท จับต้องได้ ต้องทำการรับเข้า (เพื่อซ่อม หรือเป็นอะไหล่) </td>
                   </tr>
                   <tr>
                     <td>- Etc </td>
-                    <td>���Թ��ҷ������ͧ�ӡ���Ѻ��� �� ��������ҹ�Ἱ� ��� </td>
+                    <td>เป็นสินค้าที่ไม่ต้องทำการรับเข้า เช่น ซื้อมาใช้งานในแผนก ฯลฯ </td>
                   </tr>
                   <tr>
                     <td>- Detail </td>
-                    <td>����¡�÷������ͧ�����ҹ��� ����§���ͤ�����§���ͧ PO ��ҹ��</td>
+                    <td>เป็นรายการที่ไม่ต้องนำไปใช้งานต่อ ใช้เพียงเพื่อความสวยงามของ PO เท่านั้น</td>
                   </tr>
 				 <tr>
-                    <td colspan="2" ><span class="style_text">* ��س����͡��¡���Թ�����ШѴ���ӴѺ��¡���Թ���������º���¡�͹�ӡ�úѹ�֡������ �ӹǹ�Թ���/Job ���ͧ�ҡ����ա��ź��¡���Թ����͡�ҡ�к������� <BR/>&nbsp;&nbsp;�ӹǹ�Թ���/Job �����仴���</span></td>
+                    <td colspan="2" ><span class="style_text">* กรุณาเลือกรายการสินค้าและจัดทำลำดับรายการสินค้าให้เรียบร้อยก่อนทำการบันทึกข้อมูล จำนวนสินค้า/Job เนื่องจากถ้ามีการลบรายการสินค้าออกจากระบบข้อมูล <BR/>&nbsp;&nbsp;จำนวนสินค้า/Job จะหายไปด้วย</span></td>
                   </tr>
                 </table>
 				<br>
@@ -753,7 +754,7 @@ if(session_is_registered("valid_userprpo")) {
 		</script>
 	</body>
 </html>
-<?
+<?php
 }else{
 		include("../include_RedThemes/SessionTimeOut.php");
 }
