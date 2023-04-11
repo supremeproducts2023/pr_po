@@ -1,6 +1,6 @@
-<?
+<?php
 @session_start();
-if(session_is_registered("valid_userprpo")) {
+if(isset($_SESSION["valid_userprpo"])) {
 ?>
 <html>
 <head>
@@ -16,7 +16,7 @@ if(session_is_registered("valid_userprpo")) {
 <noframes><body>
 </body></noframes>
 </html>
-<?
+<?php
 }else{
 		include("../include_RedThemes/SessionTimeOut.php");
 }
