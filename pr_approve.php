@@ -1,6 +1,6 @@
 <?
   	@session_start();
-	if(session_is_registered("valid_userprpo")) {
+	if(isset($_SESSION["valid_userprpo"])) {
 			require_once("../include_RedThemes/odbc_connect.php");
 ?>
 <html><head>
@@ -16,7 +16,7 @@
 <body topmargin="0" leftmargin="0">
 <center>
 			<form name="form_pr" action="pr_approvecode.php" method="post">
-			<input name="pr_no" type="hidden" value="<? echo $_GET["pr_no"]; ?>">
+			<input name="pr_no" type="hidden" value="<?php echo $_GET["pr_no"]; ?>">
 		<table width="450"  border="0" cellpadding="0" cellspacing="0"  bgcolor="E9EAEB">
           <tr>
             <th> &nbsp;&nbsp;เหตุผลที่ไม่อนุมัติ</th>

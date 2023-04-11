@@ -31,7 +31,7 @@ function clearname()
 </script>
 <?
 @session_start();
-if(session_is_registered("valid_userprpo")) {
+if(isset($_SESSION["valid_userprpo"])) {
 		require_once("../include_RedThemes/odbc_connect.php");				
 		//require_once("../include_RedThemes/MSSQLServer_connect.php");	
 		require_once("../include/alert.php");
@@ -88,14 +88,14 @@ if(session_is_registered("valid_userprpo")) {
 		}
 		//================================================
 
-		$strQUEGeneral = "select distinct p.pr_no,format(p.pr_date,'DD-MM-YYYY')  pr_date,
+		$strQUEGeneral = "select distinct p.pr_no,format(p.pr_date,'dd-MM-yyyy')  pr_date,
 												p.pr_status,p.obj_name1,p.flag_obj,pp.po_no
 											from pr_master p
 											left join pr_details pd on p.pr_no=pd.pr_no
 											left join pr_and_po pp on p.pr_no=pp.pr_no
 											where 1=1  ";
 		if(@$s_pr_no != '') $strQUEGeneral .= "and   p.pr_no like upper('%$s_pr_no%')  ";			
-		if(@$s_start != '') $strQUEGeneral .= "and   format(p.pr_date,'DD-MM-YYYY') between format('$s_start','DD-MM-YYYY') and format('$s_stop','DD-MM-YYYY')  ";			
+		if(@$s_start != '') $strQUEGeneral .= "and   format(p.pr_date,'dd-MM-yyyy') between format('$s_start','dd-MM-yyyy') and format('$s_stop','dd-MM-yyyy')  ";			
 		
 		if(@$s_for_ref!="") $strQUEGeneral .= "and upper(p.obj_name1) like upper('%$s_for_ref%') ";		
 		//if(@$s_prod_name!="") $strQUEGeneral .= "and ((upper(pd.prod_name) like upper('%$s_prod_name%')) or (upper(pd.prod_no) like upper('%$s_prod_name%'))) ";	
@@ -130,17 +130,17 @@ if(session_is_registered("valid_userprpo")) {
 								<tr>
 									<td width="120" class="tdleftwhite">&nbsp;</td>
 									<td width="100" class="tdleftwhite">เลขที่ PR</td>
-									<td width="403"><input name="s_pr_no" type="text"    onKeyDown="if(event.keyCode==13) document.pr_searchNew.submit();" value="<?  echo @$s_pr_no; ?>" size="40"></td>
+									<td width="403"><input name="s_pr_no" type="text"    onKeyDown="if(event.keyCode==13) document.pr_searchNew.submit();" value="<?php  echo @$s_pr_no; ?>" size="40"></td>
 								</tr>
 								<tr>
 									<td class="tdleftwhite">&nbsp;</td>
 									<td class="tdleftwhite">วันที่เปิด PR</td>
 								
 									<td>
-									<input name="s_start" type="text"  value="<?  echo @$s_start; ?>" size="10" maxlength="10" onBlur="return testdate(document.pr_searchNew.s_start);"  onKeyDown="if(event.keyCode==13) event.keyCode=9;"> 
+									<input name="s_start" type="text"  value="<?php  echo @$s_start; ?>" size="10" maxlength="10" onBlur="return testdate(document.pr_searchNew.s_start);"  onKeyDown="if(event.keyCode==13) event.keyCode=9;"> 
 										ถึง
-									<input name="s_stop" type="text"  value="<?  echo @$s_stop; ?>" size="10" maxlength="10"  onKeyDown="if(event.keyCode==13){ testdate(document.pr_searchNew.s_stop); document.pr_searchNew.submit(); }"> 
-										(รูปแบบ DD-MM-YYYY) 
+									<input name="s_stop" type="text"  value="<?php  echo @$s_stop; ?>" size="10" maxlength="10"  onKeyDown="if(event.keyCode==13){ testdate(document.pr_searchNew.s_stop); document.pr_searchNew.submit(); }"> 
+										(รูปแบบ dd-MM-yyyy) 
 									</td>
 								</tr>
                                 <tr>
@@ -152,8 +152,8 @@ if(session_is_registered("valid_userprpo")) {
 											$cur_query = odbc_exec($conn,$str);
 											$empno_show = odbc_result($cur_query, "e_name");
 									  ?>
-                                    		<input name="empno" id="empno" type="text" value="<?  echo @$s_empno; ?>"   size="10" maxlength="15" class="style_readonly" readonly="">
-                                            <input name="empno_show" id="empno_show" type="text" value="<?  echo $empno_show ?>"   size="50"  class="style_readonly" readonly="">
+                                    		<input name="empno" id="empno" type="text" value="<?php  echo @$s_empno; ?>"   size="10" maxlength="15" class="style_readonly" readonly="">
+                                            <input name="empno_show" id="empno_show" type="text" value="<?php  echo $empno_show ?>"   size="50"  class="style_readonly" readonly="">
                                             <img src="../include/images/emp_icon.gif" width="20" height="19" onClick="lovEmp();">
                                             <img src="include/images/close.png" width="20" height="19" onClick="clearname();">
                                     </td>
@@ -162,7 +162,7 @@ if(session_is_registered("valid_userprpo")) {
 								<tr>
 									<td class="tdleftwhite">&nbsp;</td>
 									<td class="tdleftwhite">FOR</td>
-									<td><input name="s_for_ref" type="text"  onKeyDown="if(event.keyCode==13) document.pr_searchNew.submit();" value="<?  echo @$s_for_ref; ?>" size="40"></td>
+									<td><input name="s_for_ref" type="text"  onKeyDown="if(event.keyCode==13) document.pr_searchNew.submit();" value="<?php  echo @$s_for_ref; ?>" size="40"></td>
 								</tr>
 													
 								<tr>
@@ -171,15 +171,15 @@ if(session_is_registered("valid_userprpo")) {
 									<td>
 										<select name="s_pr_status">
 										
-											<option value="1" <? if((@$s_pr_status=="")||(@$s_po_status=="1")) echo "selected"; ?>>ผู้แทนพิมพ์ใบขอซื้อ(ยังไม่ส่ง)</option>
+											<option value="1" <?php if((@$s_pr_status=="")||(@$s_po_status=="1")) echo "selected"; ?>>ผู้แทนพิมพ์ใบขอซื้อ(ยังไม่ส่ง)</option>
 										
-											<option value="2" <? if(@$s_pr_status=="2") echo "selected"; ?>>รออนุมัติจากผู้จัดการ</option>
-											<option value="3" <? if(@$s_pr_status=="3") echo "selected"; ?>>ผู้จัดการไม่อนุมัติใบขอซื้อ(รอแก้ไข)</option>
-											<option value="4" <? if(@$s_pr_status=="4") echo "selected"; ?>>รอการออก PO</option>
-											<option value="5" <? if(@$s_pr_status=="5") echo "selected"; ?>>การออก PO เรียบร้อยแล้ว</option>
-											<option value="6" <? if(@$s_pr_status=="6") echo "selected"; ?>>รับสินค้าได้แล้ว</option>
-											<option value="7" <? if(@$s_pr_status=="7") echo "selected"; ?>>การตีกลับใบขอซื้อ</option>
-											<option value="all" <? if(@$s_pr_status=="all") echo "selected"; ?>>ทุกสถานะ</option>
+											<option value="2" <?php if(@$s_pr_status=="2") echo "selected"; ?>>รออนุมัติจากผู้จัดการ</option>
+											<option value="3" <?php if(@$s_pr_status=="3") echo "selected"; ?>>ผู้จัดการไม่อนุมัติใบขอซื้อ(รอแก้ไข)</option>
+											<option value="4" <?php if(@$s_pr_status=="4") echo "selected"; ?>>รอการออก PO</option>
+											<option value="5" <?php if(@$s_pr_status=="5") echo "selected"; ?>>การออก PO เรียบร้อยแล้ว</option>
+											<option value="6" <?php if(@$s_pr_status=="6") echo "selected"; ?>>รับสินค้าได้แล้ว</option>
+											<option value="7" <?php if(@$s_pr_status=="7") echo "selected"; ?>>การตีกลับใบขอซื้อ</option>
+											<option value="all" <?php if(@$s_pr_status=="all") echo "selected"; ?>>ทุกสถานะ</option>
 										</select>
 									</td>
 								</tr>
@@ -188,8 +188,8 @@ if(session_is_registered("valid_userprpo")) {
 									<td class="tdleftwhite">บริษัท </td>
                                     <td>
                                         <select name="pr_company">
-                                          <option value = "S" <?php if(@$s_pr_company=="") echo "selected"; ?>>Supreme</option>
-                                          <option value = "T" <?php if(@$s_pr_company=="T") echo "selected"; ?>>Transtek</option>
+                                          <option value = "S" <?php  if(@$s_pr_company=="") echo "selected"; ?>>Supreme</option>
+                                          <option value = "T" <?php  if(@$s_pr_company=="T") echo "selected"; ?>>Transtek</option>
                                         </select>
                                     </td>
 								</tr>
@@ -251,14 +251,14 @@ if(session_is_registered("valid_userprpo")) {
 								?>
 									<tr >
 									    <td width="60" align="center">
-													<a href="./prmas_reportcode.php?pr_no=<? echo $pr_no; ?>"   style="cursor:hand" target="_blank"  title="ใบ PR">
+													<a href="./prmas_reportcode.php?pr_no=<?php echo $pr_no; ?>"   style="cursor:hand" target="_blank"  title="ใบ PR">
 																<img src="../include/images/report_icon.png" border="0">
 														</a>
 										</td>   		
-										<td ><div align="center"><? echo $pr_no;?></div></td>
+										<td ><div align="center"><?php echo $pr_no;?></div></td>
 										<td ><div align="center">
-										<? if ($po_no!=""){?>
-											<a onClick="remote_add('pomas_report.php?doc_no=<? echo $po_no; ?>&doc_type=systemgen',500,155);" style="cursor:hand"><? echo $po_no; ?></a>
+										<?php if ($po_no!=""){?>
+											<a onClick="remote_add('pomas_report.php?doc_no=<?php echo $po_no; ?>&doc_type=systemgen',500,155);" style="cursor:hand"><?php echo $po_no; ?></a>
 										<?}
 										else
 										{
@@ -266,8 +266,8 @@ if(session_is_registered("valid_userprpo")) {
 											&nbsp;
 										<?}?>
 											</div></td>
-										<td ><div align="center">&nbsp;<? echo $pr_date;?></div></td>
-										<td  >&nbsp;<? echo $obj_name1;?></td>
+										<td ><div align="center">&nbsp;<?php echo $pr_date;?></div></td>
+										<td  >&nbsp;<?php echo $obj_name1;?></td>
 										<td  >&nbsp;
 											<?
 												switch($pr_status){
@@ -280,7 +280,7 @@ if(session_is_registered("valid_userprpo")) {
 													case '7'   	: echo "การตีกลับใบขอซื้อ"; 		break;
 												}
 											?>										</td>
-										<td>&nbsp;<?php if($pr_company=="8") echo "Transtek"; else echo "Supreme";?></td>
+										<td>&nbsp;<?php  if($pr_company=="8") echo "Transtek"; else echo "Supreme";?></td>
 									</tr>
 								<?
 									}
