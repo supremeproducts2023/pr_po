@@ -1,6 +1,6 @@
 <?
 @session_start();
-if(session_is_registered("valid_userprpo")) {
+if(isset($_SESSION["valid_userprpo"])) {
 ?>
 <html>
 <head>
@@ -8,7 +8,7 @@ if(session_is_registered("valid_userprpo")) {
 <meta http-equiv="Content-Type" content="text/html; charset=windows-874">
 		<script language='javascript' src='file://///172.10.0.16/WebServ/webroot/include/windowfullscreen.js'></script>				
 </head>
-<?php
+<?php 
 	$pr_no = @$_GET["pr_no"];
 	$flag = @$_GET["flag"];
  	if($pr_no!="" && $flag!="") {
