@@ -104,15 +104,15 @@ if(isset($_SESSION["valid_userprpo"])) {
 			 }
 			  $s_stop .= '-'.$v_month.'-'.$v_year;
 		}
-		$strQUEGeneral = "select  distinct  p.po_no,to_char(p.po_date,'DD-MM-YYYY')  po_date,
-												p.po_status,to_char(p.e_mail_date,'DD-MM-YYYY HH:MI') e_mail_date,
+		$strQUEGeneral = "select  distinct  p.po_no,format(p.po_date,'dd-MM-yyyy')  po_date,
+												p.po_status,format(p.e_mail_date,'dd-MM-YYYY HH:MI') e_mail_date,
 												s.supplier_title,s.company_name,p.po_file,p.po_file2,p.po_file3,p.po_company
 											from po_master p
 											left join supplier s on p.supplier_id=s.supplier_id
 											left join po_details pd on p.po_no=pd.po_no
 											where 1 = 1 ";
 		if(@$s_po_no != '') $strQUEGeneral .= "and   p.po_no like upper('%$s_po_no%')  ";			
-		if(@$s_start != '') $strQUEGeneral .= "and   to_date(p.po_date,'DD-MM-YYYY') between to_date('$s_start','DD-MM-YYYY') and to_date('$s_stop','DD-MM-YYYY')  ";			
+		if(@$s_start != '') $strQUEGeneral .= "and   convert(varchar,p.po_date,103) between convert(varchar,'$s_start',103) and convert(varchar,'$s_stop',103)  ";			
 		if(@$s_supplier!='') $strQUEGeneral .= "and  upper(s.company_name) like upper('%$s_supplier%')  ";
 		if(@$s_for_ref!="") $strQUEGeneral .= "and upper(p.for_ref) like upper('%$s_for_ref%') ";		
 		if(@$s_prod_name!="") $strQUEGeneral .= "and ((upper(pd.prod_name) like upper('%$s_prod_name%')) or (upper(pd.prod_no) like upper('%$s_prod_name%'))) ";	
@@ -138,7 +138,6 @@ if(isset($_SESSION["valid_userprpo"])) {
 		}else{
 			$strQUEGeneral .="order by  po_status,po_no";
 		}
-
 	?>
 		<br>
 		<center>
