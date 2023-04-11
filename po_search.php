@@ -27,10 +27,10 @@ function clearname()
 		document.getElementById("empno_show").value = '';
 }
 </script>
-<?
-@session_start();
-if(session_is_registered("valid_userprpo")) {
-		require_once("../include_RedThemes/odbc_connect.php");				
+<?php
+// @session_start();
+if(isset($_SESSION["valid_userprpo"])) {
+		require_once("../include_RedThemes/MSSQLServer_connect_2.php");				
 		require_once("../include/alert.php");
 		$roles_user = $_SESSION["roles_user"];
 		include "../include_RedThemes/wait.php";
@@ -38,7 +38,7 @@ if(session_is_registered("valid_userprpo")) {
 ?>
 <html>
 	<head>
-		<title>**Search „∫ PO **</title>
+		<title>**Search ‡πÉ‡∏ö PO **</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-874">
 		<link href="../include/style1.css" rel="stylesheet" type="text/css">
 		<script language='javascript' src='../include/check_date.js'></script>		
@@ -48,10 +48,10 @@ if(session_is_registered("valid_userprpo")) {
 		<script language='javascript' src='../include/button_del.js'></script>				
 	</head>
 	<body  topmargin="0" leftmargin="0">
-<?
+<?php
 		$s_empno = "";
 		$choice_value= $_SESSION["choice_value"];	
-		//========== ‡√◊ËÕß°“√ Search ·≈È«§È“ß keyword ==================
+		//========== ‡πÄ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏Å‡∏≤‡∏£ Search ‡πÅ‡∏•‡πâ‡∏ß‡∏Ñ‡πâ‡∏≤‡∏á keyword ==================
 		$flagSearch = @$_POST["flagSearch"];
 		if(@$flagSearch == 'PushSearch'){
             $s_po_company = @$_POST["po_company"];
@@ -104,15 +104,15 @@ if(session_is_registered("valid_userprpo")) {
 			 }
 			  $s_stop .= '-'.$v_month.'-'.$v_year;
 		}
-		$strQUEGeneral = "select  distinct  p.po_no,format(p.po_date,'DD-MM-YYYY')  po_date,
-												p.po_status,format(p.e_mail_date,'DD-MM-YYYY HH:MI') e_mail_date,
+		$strQUEGeneral = "select  distinct  p.po_no,to_char(p.po_date,'DD-MM-YYYY')  po_date,
+												p.po_status,to_char(p.e_mail_date,'DD-MM-YYYY HH:MI') e_mail_date,
 												s.supplier_title,s.company_name,p.po_file,p.po_file2,p.po_file3,p.po_company
 											from po_master p
 											left join supplier s on p.supplier_id=s.supplier_id
 											left join po_details pd on p.po_no=pd.po_no
 											where 1 = 1 ";
 		if(@$s_po_no != '') $strQUEGeneral .= "and   p.po_no like upper('%$s_po_no%')  ";			
-		if(@$s_start != '') $strQUEGeneral .= "and   format(p.po_date,'DD-MM-YYYY') between format('$s_start','DD-MM-YYYY') and format('$s_stop','DD-MM-YYYY')  ";			
+		if(@$s_start != '') $strQUEGeneral .= "and   to_date(p.po_date,'DD-MM-YYYY') between to_date('$s_start','DD-MM-YYYY') and to_date('$s_stop','DD-MM-YYYY')  ";			
 		if(@$s_supplier!='') $strQUEGeneral .= "and  upper(s.company_name) like upper('%$s_supplier%')  ";
 		if(@$s_for_ref!="") $strQUEGeneral .= "and upper(p.for_ref) like upper('%$s_for_ref%') ";		
 		if(@$s_prod_name!="") $strQUEGeneral .= "and ((upper(pd.prod_name) like upper('%$s_prod_name%')) or (upper(pd.prod_no) like upper('%$s_prod_name%'))) ";	
@@ -146,7 +146,7 @@ if(session_is_registered("valid_userprpo")) {
 				<input name="flagSearch" type="hidden" value="PushSearch">
 				<table width="900"  border="0" cellpadding="0" cellspacing="0" bgcolor="E9EAEB">
 				<tr>
-					<th width="750">&nbsp;&nbsp;§ÈπÀ“</th>
+					<th width="750">&nbsp;&nbsp;‡∏Ñ‡πâ‡∏ô‡∏´‡∏≤</th>
 				</tr>
 				<tr >
 					<td>
@@ -156,69 +156,69 @@ if(session_is_registered("valid_userprpo")) {
 								<table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
 								<tr>
 									<td width="120" class="tdleftwhite">&nbsp;</td>
-									<td width="100" class="tdleftwhite">‡≈¢∑’Ë PO</td>
-									<td width="403"><input name="s_po_no" type="text"    onKeyDown="if(event.keyCode==13) document.po_search.submit();" value="<?  echo @$s_po_no; ?>" size="40"></td>
+									<td width="100" class="tdleftwhite">‡πÄ‡∏•‡∏Ç‡∏ó‡∏µ‡πà PO</td>
+									<td width="403"><input name="s_po_no" type="text"    onKeyDown="if(event.keyCode==13) document.po_search.submit();" value="<?php  echo  @$s_po_no; ?>" size="40"></td>
 								</tr>
 								<tr>
 									<td class="tdleftwhite">&nbsp;</td>
-									<td class="tdleftwhite">«—π∑’Ë‡ª‘¥ PO</td>
+									<td class="tdleftwhite">‡∏ß‡∏±‡∏ô‡∏ó‡∏µ‡πà‡πÄ‡∏õ‡∏¥‡∏î PO</td>
 								
 									<td>
-									<input name="s_start" type="text"  value="<?  echo @$s_start; ?>" size="10" maxlength="10" onBlur="return testdate(document.po_search.s_start);"  onKeyDown="if(event.keyCode==13) event.keyCode=9;"> 
-										∂÷ß
-									<input name="s_stop" type="text"  value="<?  echo @$s_stop; ?>" size="10" maxlength="10"  onKeyDown="if(event.keyCode==13){ testdate(document.po_search.s_stop); document.po_search.submit(); }"> 
-										(√Ÿª·∫∫ DD-MM-YYYY) 
+									<input name="s_start" type="text"  value="<?php  echo  @$s_start; ?>" size="10" maxlength="10" onBlur="return testdate(document.po_search.s_start);"  onKeyDown="if(event.keyCode==13) event.keyCode=9;"> 
+										‡∏ñ‡∏∂‡∏á
+									<input name="s_stop" type="text"  value="<?php  echo  @$s_stop; ?>" size="10" maxlength="10"  onKeyDown="if(event.keyCode==13){ testdate(document.po_search.s_stop); document.po_search.submit(); }"> 
+										(‡∏£‡∏π‡∏õ‡πÅ‡∏ö‡∏ö DD-MM-YYYY) 
 									</td>
 								</tr>
                                 <tr>
 									<td class="tdleftwhite">&nbsp;</td>
-									<td class="tdleftwhite">™◊ËÕºŸÈ®—¥∑” PO</td>
+									<td class="tdleftwhite">‡∏ä‡∏∑‡πà‡∏≠‡∏ú‡∏π‡πâ‡∏à‡∏±‡∏î‡∏ó‡∏≥ PO</td>
 									<td>
-                                     <?
+                                     <?php
 											$str = "select e_name from emp where empno = '".$s_empno."'";
 											$cur_query = odbc_exec($conn,$str);
 											$empno_show = odbc_result($cur_query, "e_name");
 									  ?>
-                                    		<input name="empno" id="empno" type="text" value="<?  echo @$s_empno; ?>"   size="10" maxlength="15" class="style_readonly" readonly="">
-                                            <input name="empno_show" id="empno_show" type="text" value="<?  echo $empno_show ?>"   size="50"  class="style_readonly" readonly="">
+                                    		<input name="empno" id="empno" type="text" value="<?php  echo  @$s_empno; ?>"   size="10" maxlength="15" class="style_readonly" readonly="">
+                                            <input name="empno_show" id="empno_show" type="text" value="<?php  echo  $empno_show ?>"   size="50"  class="style_readonly" readonly="">
                                             <img src="../include/images/emp_icon.gif" width="20" height="19" onClick="lovEmp();">
                                             <img src="include/images/close.png" width="20" height="19" onClick="clearname();">
                                     </td>
 								</tr>
 								<tr>
 									<td class="tdleftwhite">&nbsp;</td>
-									<td class="tdleftwhite">™◊ËÕ Supplier </td>
-									<td><input name="s_supplier" type="text"  onKeyDown="if(event.keyCode==13) document.po_search.submit();" value="<?  echo @$s_supplier; ?>" size="40"></td>
+									<td class="tdleftwhite">‡∏ä‡∏∑‡πà‡∏≠ Supplier </td>
+									<td><input name="s_supplier" type="text"  onKeyDown="if(event.keyCode==13) document.po_search.submit();" value="<?php  echo  @$s_supplier; ?>" size="40"></td>
 								</tr>
 								<tr>
 									<td class="tdleftwhite">&nbsp;</td>
 									<td class="tdleftwhite">FOR</td>
-									<td><input name="s_for_ref" type="text"  onKeyDown="if(event.keyCode==13) document.po_search.submit();" value="<?  echo @$s_for_ref; ?>" size="40"></td>
+									<td><input name="s_for_ref" type="text"  onKeyDown="if(event.keyCode==13) document.po_search.submit();" value="<?php  echo  @$s_for_ref; ?>" size="40"></td>
 								</tr>
 								<tr>
 									<td class="tdleftwhite">&nbsp;</td>
-									<td class="tdleftwhite">√À— /™◊ËÕ ‘π§È“</td>
-									<td><input name="s_prod_name" type="text"  onKeyDown="if(event.keyCode==13) document.po_search.submit();" value="<?  echo @$s_prod_name; ?>" size="40"></td>
+									<td class="tdleftwhite">‡∏£‡∏´‡∏±‡∏™/‡∏ä‡∏∑‡πà‡∏≠‡∏™‡∏¥‡∏ô‡∏Ñ‡πâ‡∏≤</td>
+									<td><input name="s_prod_name" type="text"  onKeyDown="if(event.keyCode==13) document.po_search.submit();" value="<?php  echo  @$s_prod_name; ?>" size="40"></td>
 								</tr>								
 								<tr>
 									<td class="tdleftwhite">&nbsp;</td>
-									<td class="tdleftwhite"> ∂“π–¢Õß PO </td>
+									<td class="tdleftwhite">‡∏™‡∏ñ‡∏≤‡∏ô‡∏∞‡∏Ç‡∏≠‡∏á PO </td>
 									<td>
 										<select name="s_po_status">
-										<? if($roles_user=='MS'){  ?>
-											<option value="1" <? if((@$s_po_status=="")||(@$s_po_status=="1")) echo "selected"; ?>>MS  √È“ß„∫ PO „π√–∫∫</option>
-										<? } ?>
-											<option value="2" <? if(@$s_po_status=="2") echo "selected"; ?>>MS æ‘¡æÏ„∫ PO ‡√’¬∫√ÈÕ¬·≈È«</option>
-											<option value="3" <? if(@$s_po_status=="3") echo "selected"; ?>>MS Clear „∫ PO</option>
-											<option value="4" <? if(@$s_po_status=="4") echo "selected"; ?>>‚°¥—ß∑”√—∫‡¢È“·≈È«</option>
-											<option value="5" <? if(@$s_po_status=="5") echo "selected"; ?>>PO ∂Ÿ°¬°‡≈‘°‚¥¬ MS</option>
-											<option value="all" <? if(@$s_po_status=="all") echo "selected"; ?>>∑ÿ° ∂“π–</option>
+										<?php if($roles_user=='MS'){  ?>
+											<option value="1" <?php if((@$s_po_status=="")||(@$s_po_status=="1")) echo "selected"; ?>>MS ‡∏™‡∏£‡πâ‡∏≤‡∏á‡πÉ‡∏ö PO ‡πÉ‡∏ô‡∏£‡∏∞‡∏ö‡∏ö</option>
+										<?php } ?>
+											<option value="2" <?php if(@$s_po_status=="2") echo "selected"; ?>>MS ‡∏û‡∏¥‡∏°‡∏û‡πå‡πÉ‡∏ö PO ‡πÄ‡∏£‡∏µ‡∏¢‡∏ö‡∏£‡πâ‡∏≠‡∏¢‡πÅ‡∏•‡πâ‡∏ß</option>
+											<option value="3" <?php if(@$s_po_status=="3") echo "selected"; ?>>MS Clear ‡πÉ‡∏ö PO</option>
+											<option value="4" <?php if(@$s_po_status=="4") echo "selected"; ?>>‡πÇ‡∏Å‡∏î‡∏±‡∏á‡∏ó‡∏≥‡∏£‡∏±‡∏ö‡πÄ‡∏Ç‡πâ‡∏≤‡πÅ‡∏•‡πâ‡∏ß</option>
+											<option value="5" <?php if(@$s_po_status=="5") echo "selected"; ?>>PO ‡∏ñ‡∏π‡∏Å‡∏¢‡∏Å‡πÄ‡∏•‡∏¥‡∏Å‡πÇ‡∏î‡∏¢ MS</option>
+											<option value="all" <?php if(@$s_po_status=="all") echo "selected"; ?>>‡∏ó‡∏∏‡∏Å‡∏™‡∏ñ‡∏≤‡∏ô‡∏∞</option>
 										</select>
 									</td>
 								</tr>
 								<tr>
                                     <td class="tdleftwhite">&nbsp;</td>
-									<td class="tdleftwhite">∫√‘…—∑ </td>
+									<td class="tdleftwhite">‡∏ö‡∏£‡∏¥‡∏©‡∏±‡∏ó </td>
                                     <td>
                                         <select name="po_company">
                                           <option value = "S" <?php if(@$s_po_company=="") echo "selected"; ?>>Supreme</option>
@@ -251,7 +251,7 @@ if(session_is_registered("valid_userprpo")) {
 			</form>
 			<table width="900"  border="0" cellpadding="0" cellspacing="0" bgcolor="E9EAEB">
 				<tr>
-					<th width="750">&nbsp;&nbsp;º≈°“√§ÈπÀ“</th>
+					<th width="750">&nbsp;&nbsp;‡∏ú‡∏•‡∏Å‡∏≤‡∏£‡∏Ñ‡πâ‡∏ô‡∏´‡∏≤</th>
 				</tr>
 				<tr >
 					<td>
@@ -260,25 +260,25 @@ if(session_is_registered("valid_userprpo")) {
 							<td>
 								<table width="100%"  border="1" cellspacing="0" cellpadding="0" >
 								<tr>
-								<? 
+								<?php 
 									switch($choice_value){
 										case 'poup'		: ?><td class="tdcenterblack" width="25">Edit</td>
-																		<td class="tdcenterblack" width="60">‡≈◊ËÕπ«—π Ëß</td><?			break;
-										case 'podel'		: ?><td class="tdcenterblack" width="25">Del</td><?			break;
+																		<td class="tdcenterblack" width="60">‡πÄ‡∏•‡∏∑‡πà‡∏≠‡∏ô‡∏ß‡∏±‡∏ô‡∏™‡πà‡∏á</td><?php			break;
+										case 'podel'		: ?><td class="tdcenterblack" width="25">Del</td><?php			break;
 										case 'porep'		: ?><td class="tdcenterblack" width="126">Report</td>
-																			<? if($roles_user=='MS'){ ?>
-																					<td width="120" class="tdcenterblack">ª√—∫ ∂“π–</td>																																					
-																					<td width="125" class="tdcenterblack">Port Data to B1</td><? } ?>
-																		<?		break;
+																			<?php if($roles_user=='MS'){ ?>
+																					<td width="120" class="tdcenterblack">‡∏õ‡∏£‡∏±‡∏ö‡∏™‡∏ñ‡∏≤‡∏ô‡∏∞</td>																																					
+																					<td width="125" class="tdcenterblack">Port Data to B1</td><?php } ?>
+																		<?php		break;
 									}
 								?>
-									<td width="70" align="center"   class="tdcenterblack"><p>‡≈¢∑’Ë PO</p></td>
-									<td width="70" align="center"   class="tdcenterblack">«—π∑’Ë‡ª‘¥ PO</td>
+									<td width="70" align="center"   class="tdcenterblack"><p>‡πÄ‡∏•‡∏Ç‡∏ó‡∏µ‡πà PO</p></td>
+									<td width="70" align="center"   class="tdcenterblack">‡∏ß‡∏±‡∏ô‡∏ó‡∏µ‡πà‡πÄ‡∏õ‡∏¥‡∏î PO</td>
 									<td class="tdcenterblack"><p>Supplier</p></td>
-									<td width="150" class="tdcenterblack"><p class="tdcenterblack"> ∂“π–</p></td>
-									<td width="70" align="center" class="tdcenterblack"><p class="tdcenterblack">∫√‘…—∑</p></td>
+									<td width="150" class="tdcenterblack"><p class="tdcenterblack">‡∏™‡∏ñ‡∏≤‡∏ô‡∏∞</p></td>
+									<td width="70" align="center" class="tdcenterblack"><p class="tdcenterblack">‡∏ö‡∏£‡∏¥‡∏©‡∏±‡∏ó</p></td>
 								</tr>
-								<?
+								<?php
 								  if($flagSearch== 'PushSearch'){
 								//echo $strQUEGeneral;	
 									$curQUEGeneral= odbc_exec($conn,$strQUEGeneral);	
@@ -294,88 +294,88 @@ if(session_is_registered("valid_userprpo")) {
 										$po_company = odbc_result($curQUEGeneral, "po_company");
 								?>
 									<tr <?php echo ''; ?>>
-									<?
+									<?php
 										switch($choice_value){
 											case 'poup'		:	?><td>
 																<div align="center">	
-															<a href="./pomas_edit.php?po_no=<? echo $po_no; ?>&flag=edit"  title="¥Ÿ√“¬≈–‡Õ’¬¥">
+															<a href="./pomas_edit.php?po_no=<?php echo $po_no; ?>&flag=edit"  title="‡∏î‡∏π‡∏£‡∏≤‡∏¢‡∏•‡∏∞‡πÄ‡∏≠‡∏µ‡∏¢‡∏î">
 																		<img src="../include/images/edit_icon.png" border="0"></a>
 																</div>
 															</td>	
 															<td>
 															<div align="center">	
-															<a href="./po_search_Delivery.php?po_no=<? echo $po_no; ?>"  title="‡≈◊ËÕπ«—π Ëß">
+															<a href="./po_search_Delivery.php?po_no=<?php echo $po_no; ?>"  title="‡πÄ‡∏•‡∏∑‡πà‡∏≠‡∏ô‡∏ß‡∏±‡∏ô‡∏™‡πà‡∏á">
 																		<img src="../include/menu_pic/Calendar.png" border="0" height="25px" width="25px"></a>
 																</div>
 															</td>
-															<? break;
+															<?php break;
 											case 'podel'		:	?><td>
 																<div align="center">	
-																<a onClick="remote_del('pomas_delcode.php?po_no=<? echo $po_no; ?>&flag=del');"   style="cursor:hand">
+																<a onClick="remote_del('pomas_delcode.php?po_no=<?php echo $po_no; ?>&flag=del');"   style="cursor:hand">
 																		<img src="../include/images/del_icon.png" border="0"></a>
 																</div>
-															</td>	<? break;
+															</td>	<?php break;
 											case 'porep'		:	?><td>
-												<? if($roles_user=='MS'){  ?>
+												<?php if($roles_user=='MS'){  ?>
 																<div align="center">	
 																	<table width="125" border="0" cellpadding="0" cellspacing="0">
 																	<tr>
 																		<td width="60">
-																			<a onClick="remote_add('pomas_report.php?doc_no=<? echo $po_no; ?>&doc_type=systemgen',500,155);" style="cursor:hand"><img src="../include/images/report_icon.png" border="0"></a>
-																			<a onClick="remote_add2('SendToMail.php?doc_no=<? echo $po_no; ?>&doc_type=systemgen',480,630,530,0);" style="cursor:hand"><img src="../include/images/mail_icon.png" border="0"></a></td>                                                        
+																			<a onClick="remote_add('pomas_report.php?doc_no=<?php echo $po_no; ?>&doc_type=systemgen',500,155);" style="cursor:hand"><img src="../include/images/report_icon.png" border="0"></a>
+																			<a onClick="remote_add2('SendToMail.php?doc_no=<?php echo $po_no; ?>&doc_type=systemgen',480,630,530,0);" style="cursor:hand"><img src="../include/images/mail_icon.png" border="0"></a></td>                                                        
 																		<td>System</td>
 																	</tr>
-																	<? if(($po_file != "")||($po_file2 != "")||($po_file3 != "")){ ?>
+																	<?php if(($po_file != "")||($po_file2 != "")||($po_file3 != "")){ ?>
 																	<tr>
 																		<td>
-																			<a onClick="remote_add('pomas_report.php?doc_no=<? echo $po_no; ?>&doc_type=userup&po_file=<? echo $po_file; ?>&po_file2=<? echo $po_file2; ?>&po_file3=<? echo $po_file3; ?>',500,155);" style="cursor:hand"><img src="../include/images/report_icon.png" border="0"></a>
-																			<a onClick="remote_add2('SendToMail.php?doc_no=<? echo $po_no; ?>&doc_type=userup&po_file=<? echo $po_file; ?>&po_file2=<? echo $po_file2; ?>&po_file3=<? echo $po_file3; ?>',480,630,530,0);" style="cursor:hand"><img src="../include/images/mail_icon.png" border="0"></a>
+																			<a onClick="remote_add('pomas_report.php?doc_no=<?php echo $po_no; ?>&doc_type=userup&po_file=<?php echo $po_file; ?>&po_file2=<?php echo $po_file2; ?>&po_file3=<?php echo $po_file3; ?>',500,155);" style="cursor:hand"><img src="../include/images/report_icon.png" border="0"></a>
+																			<a onClick="remote_add2('SendToMail.php?doc_no=<?php echo $po_no; ?>&doc_type=userup&po_file=<?php echo $po_file; ?>&po_file2=<?php echo $po_file2; ?>&po_file3=<?php echo $po_file3; ?>',480,630,530,0);" style="cursor:hand"><img src="../include/images/mail_icon.png" border="0"></a>
 																		</td>
 																		<td>User Upload </td>
 																	</tr>
-																	<? } ?>
+																	<?php } ?>
 																	</table>
-																	<?
+																	<?php
 																	if($v_e_mail_date !=""){
 																			print "<font color=blue>Mail : ".$v_e_mail_date."</font>";
 																	}
 																	?>
 																</div>
 															</td>
-														<?
+														<?php
 															switch($po_status){
 																case '1'	:	?><td>
 																				<div align="center">
-																					<a onClick="remote_do('po_closecode.php?po_no=<? echo $po_no; ?>&flag=2');"   style="cursor:hand">
-																					<font color="red">ÕÕ° PO ‡√’¬∫√ÈÕ¬ °¥∑’Ëπ’Ë</font>																														</a>																				</div>
+																					<a onClick="remote_do('po_closecode.php?po_no=<?php echo $po_no; ?>&flag=2');"   style="cursor:hand">
+																					<font color="red">‡∏≠‡∏≠‡∏Å PO ‡πÄ‡∏£‡∏µ‡∏¢‡∏ö‡∏£‡πâ‡∏≠‡∏¢ ‡∏Å‡∏î‡∏ó‡∏µ‡πà‡∏ô‡∏µ‡πà</font>																														</a>																				</div>
 																					</td>
 																					<td>&nbsp;</td>
-																					<? break;		
+																					<?php break;		
 																case '2'	:	?><td><div align="center">
-																						<a onClick="remote_close('po_closecode.php?po_no=<? echo $po_no; ?>&flag=3');"  
+																						<a onClick="remote_close('po_closecode.php?po_no=<?php echo $po_no; ?>&flag=3');"  
 																						style="cursor:hand">
-																						<font color="red">ª‘¥ß“π °¥∑’Ëπ’Ë</font>																														</a>																					</div></td>
+																						<font color="red">‡∏õ‡∏¥‡∏î‡∏á‡∏≤‡∏ô ‡∏Å‡∏î‡∏ó‡∏µ‡πà‡∏ô‡∏µ‡πà</font>																														</a>																					</div></td>
 																						<td><div align="center">
 																							<a onClick="remote_port('po_portData.php?po_no=<?= $po_no; ?>');" style="cursor:pointer"> 
-																							<font color="#0033FF">§≈‘°∑’Ëπ’Ë ‡æ◊ËÕ Port ¢ÈÕ¡Ÿ≈</font>	</a>
+																							<font color="#0033FF">‡∏Ñ‡∏•‡∏¥‡∏Å‡∏ó‡∏µ‡πà‡∏ô‡∏µ‡πà ‡πÄ‡∏û‡∏∑‡πà‡∏≠ Port ‡∏Ç‡πâ‡∏≠‡∏°‡∏π‡∏•</font>	</a>
 																						</div></td>	
-																						<? break;																	
+																						<?php break;																	
 																default	:	?><td>&nbsp;</td>
 																					<td>&nbsp;</td>
-																					<? break;
+																					<?php break;
 															} 
 													}else{
 														if(($roles_user=='ShowPO2')||($roles_user=='MNGGWD')){
 															 if($po_file2 != ""){
-																	?><a onClick="remote_add('pomas_report.php?doc_no=<? echo $po_no; ?>&doc_type=userup&po_file=<? echo $po_file; ?>&po_file2=<? echo $po_file2; ?>&po_file3=<? echo $po_file3; ?>',500,155);" style="cursor:hand"><img src="../include/images/report_icon.png" border="0"></a> By User Upload<?
+																	?><a onClick="remote_add('pomas_report.php?doc_no=<?php echo $po_no; ?>&doc_type=userup&po_file=<?php echo $po_file; ?>&po_file2=<?php echo $po_file2; ?>&po_file3=<?php echo $po_file3; ?>',500,155);" style="cursor:hand"><img src="../include/images/report_icon.png" border="0"></a> By User Upload<?
 															 }else{
-																	?><a onClick="remote_add('pomas_report.php?doc_no=<? echo $po_no; ?>&doc_type=systemgen',500,155);" style="cursor:hand"><img src="../include/images/report_icon.png" border="0"></a> By System<?
+																	?><a onClick="remote_add('pomas_report.php?doc_no=<?php echo $po_no; ?>&doc_type=systemgen',500,155);" style="cursor:hand"><img src="../include/images/report_icon.png" border="0"></a> By System<?php
 															 }
 														}else{ // ShowPO
 															 if(($po_file != "")||($po_file2 != "")||($po_file3 != "")){
-																	?><a onClick="remote_add('pomas_report.php?doc_no=<? echo $po_no; ?>&doc_type=userup&po_file=<? echo $po_file; ?>&po_file2=<? echo $po_file2; ?>&po_file3=<? echo $po_file3; ?>',500,155);" style="cursor:hand"><img src="../include/images/report_icon.png" border="0"></a> By User Upload<?
+																	?><a onClick="remote_add('pomas_report.php?doc_no=<?php echo $po_no; ?>&doc_type=userup&po_file=<?php echo $po_file; ?>&po_file2=<?php echo $po_file2; ?>&po_file3=<?php echo $po_file3; ?>',500,155);" style="cursor:hand"><img src="../include/images/report_icon.png" border="0"></a> By User Upload<?
 															 }else{
-																	?><a onClick="remote_add('pomas_report.php?doc_no=<? echo $po_no; ?>&doc_type=systemgen',500,155);" style="cursor:hand"><img src="../include/images/report_icon.png" border="0"></a> By System<?
+																	?><a onClick="remote_add('pomas_report.php?doc_no=<?php echo $po_no; ?>&doc_type=systemgen',500,155);" style="cursor:hand"><img src="../include/images/report_icon.png" border="0"></a> By System<?php
 															 }														
 														}
 														if($v_e_mail_date !=""){
@@ -384,22 +384,22 @@ if(session_is_registered("valid_userprpo")) {
 													}												
 										}
 									?> 				
-										<td ><div align="center"><? echo $po_no;?></div></td>
-										<td ><div align="center">&nbsp;<? echo $po_date;?></div></td>
-										<td  >&nbsp;<? echo $company_name;?></td>
+										<td ><div align="center"><?php echo $po_no;?></div></td>
+										<td ><div align="center">&nbsp;<?php echo $po_date;?></div></td>
+										<td  >&nbsp;<?php echo $company_name;?></td>
 										<td  >&nbsp;
-											<?
+											<?php
 												switch($po_status){
-													case '1'	: echo "MS  √È“ß„∫ PO „π√–∫∫"; 		break;
-													case '2'	: echo "MS æ‘¡æÏ„∫ PO ‡√’¬∫√ÈÕ¬·≈È«"; 		break;
-													case '3'	: echo "MS Clear „∫ PO"; 			break;
-													case '4'	: echo "‚°¥—ß∑”√—∫‡¢È“·≈È«"; 		break;
-													case '5'   	: echo "PO ∂Ÿ°¬°‡≈‘°‚¥¬ MS"; 		break;
+													case '1'	: echo "MS ‡∏™‡∏£‡πâ‡∏≤‡∏á‡πÉ‡∏ö PO ‡πÉ‡∏ô‡∏£‡∏∞‡∏ö‡∏ö"; 		break;
+													case '2'	: echo "MS ‡∏û‡∏¥‡∏°‡∏û‡πå‡πÉ‡∏ö PO ‡πÄ‡∏£‡∏µ‡∏¢‡∏ö‡∏£‡πâ‡∏≠‡∏¢‡πÅ‡∏•‡πâ‡∏ß"; 		break;
+													case '3'	: echo "MS Clear ‡πÉ‡∏ö PO"; 			break;
+													case '4'	: echo "‡πÇ‡∏Å‡∏î‡∏±‡∏á‡∏ó‡∏≥‡∏£‡∏±‡∏ö‡πÄ‡∏Ç‡πâ‡∏≤‡πÅ‡∏•‡πâ‡∏ß"; 		break;
+													case '5'   	: echo "PO ‡∏ñ‡∏π‡∏Å‡∏¢‡∏Å‡πÄ‡∏•‡∏¥‡∏Å‡πÇ‡∏î‡∏¢ MS"; 		break;
 												}
 											?>										</td>
 										<td>&nbsp;<?php if($po_company=="T") echo "Transtek"; else echo "Supreme";?></td>
 									</tr>
-								<?
+								<?php
 									}
 									}
 								?>
@@ -420,23 +420,23 @@ if(session_is_registered("valid_userprpo")) {
 			<br>
 			<table  border="0" cellspacing="0" cellpadding="0">
 			<tr>
-				<td colspan="3" ><strong>À¡“¬‡Àµÿ -  ∂“π–¢Õß PO ∑—ÈßÀ¡¥ </strong></td>
+				<td colspan="3" ><strong>‡∏´‡∏°‡∏≤‡∏¢‡πÄ‡∏´‡∏ï‡∏∏ - ‡∏™‡∏ñ‡∏≤‡∏ô‡∏∞‡∏Ç‡∏≠‡∏á PO ‡∏ó‡∏±‡πâ‡∏á‡∏´‡∏°‡∏î </strong></td>
 			</tr>
 			<tr>
 				<td>
 					<table width="900">
 					<tr>
 						<td width="20">1</td>
-						<td width="200"> MS  √È“ß„∫ PO „π√–∫∫</td>
+						<td width="200"> MS ‡∏™‡∏£‡πâ‡∏≤‡∏á‡πÉ‡∏ö PO ‡πÉ‡∏ô‡∏£‡∏∞‡∏ö‡∏ö</td>
 						<td width="20">2</td>
-						<td width="200">MS æ‘¡æÏ„∫ PO ‡√’¬∫√ÈÕ¬·≈È«</td>
+						<td width="200">MS ‡∏û‡∏¥‡∏°‡∏û‡πå‡πÉ‡∏ö PO ‡πÄ‡∏£‡∏µ‡∏¢‡∏ö‡∏£‡πâ‡∏≠‡∏¢‡πÅ‡∏•‡πâ‡∏ß</td>
 						<td width="20">3</td>
-						<td width="200">MS Clear „∫ PO</td>
+						<td width="200">MS Clear ‡πÉ‡∏ö PO</td>
 						<td width="20">4</td>
-						<td>‚°¥—ß∑”√—∫‡¢È“·≈È«</td>
+						<td>‡πÇ‡∏Å‡∏î‡∏±‡∏á‡∏ó‡∏≥‡∏£‡∏±‡∏ö‡πÄ‡∏Ç‡πâ‡∏≤‡πÅ‡∏•‡πâ‡∏ß</td>
 					</tr>
 					<tr>
-						<td colspan="8">&nbsp;&nbsp;·∂« ’‡À≈◊Õß §◊Õ PO ∑’Ë‡§¬ port ¢ÈÕ¡Ÿ≈ ‰ª¬—ß B1 ·≈È«</td>
+						<td colspan="8">&nbsp;&nbsp;‡πÅ‡∏ñ‡∏ß‡∏™‡∏µ‡πÄ‡∏´‡∏•‡∏∑‡∏≠‡∏á ‡∏Ñ‡∏∑‡∏≠ PO ‡∏ó‡∏µ‡πà‡πÄ‡∏Ñ‡∏¢ port ‡∏Ç‡πâ‡∏≠‡∏°‡∏π‡∏• ‡πÑ‡∏õ‡∏¢‡∏±‡∏á B1 ‡πÅ‡∏•‡πâ‡∏ß</td>
 					</tr>
 					</table>
 				</td>
@@ -449,7 +449,7 @@ if(session_is_registered("valid_userprpo")) {
 		
 	</body>
 </html>
-<?
+<?php
 	sleep(0);
 	echo '<script>';
 	echo 'document.all.welcome.style.display = "none";';
