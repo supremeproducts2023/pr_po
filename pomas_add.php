@@ -29,13 +29,13 @@
 				$po_c=@$_POST["po_c"];
 				
 				//  Generate Primary key   PO YY xxxxx //
-					$str_int_year = "select substr(to_char(sysdate,'YYYY')+543,3,2) int_year from dual";			
+					$str_int_year = "select substring(convert(varchar,format(getdate(),'yyyy')+543),3,2) int_year";			
 					$cur_int_year = @odbc_exec($conn,$str_int_year);
 					$int_year = @odbc_result($cur_int_year, "int_year");
 			
 					if($po_c == 's'){
-					$str_mx = "select nvl(max(substr(po_no,6,5))+1,1) int_mx from po_master ";
-					$str_mx = $str_mx."where substr(po_no,3,1) = '1' and substr(po_no,4,2) = '".$int_year."' and  length(po_no) = 10";
+					$str_mx = "select isnull(max(substring(po_no,6,5))+1,1) int_mx from po_master ";
+					$str_mx = $str_mx."where substring(po_no,3,1) = '1' and substring(po_no,4,2) = '".$int_year."' and  len(po_no) = 10";
 					$cur_mx = @odbc_exec($conn,$str_mx);
 					$int_mx = @odbc_result($cur_mx, "int_mx");
 
@@ -48,8 +48,8 @@
 						$po_no = "PO1" . $int_year . $str_middle . $int_mx;
 					}
 					else{
-						$str_mx = "select nvl(max(substr(po_no,6,5))+1,1) int_mx from po_master ";
-						$str_mx = $str_mx."where substr(po_no,3,1) = '3' and substr(po_no,4,2) = '".$int_year."' and  length(po_no) = 10";
+						$str_mx = "select nvl(max(substring(po_no,6,5))+1,1) int_mx from po_master ";
+						$str_mx = $str_mx."where substring(po_no,3,1) = '3' and substring(po_no,4,2) = '".$int_year."' and  length(po_no) = 10";
 						$cur_mx = @odbc_exec($conn,$str_mx);
 						$int_mx = @odbc_result($cur_mx, "int_mx");
 
@@ -76,11 +76,11 @@
 									redhead,
 									for_ref,po_status,rec_user,rec_date,ref_po_no,po_company,delivery_date,boi_flg
 									) values(
-									'$po_no',to_date('$po_date','dd-MM-yyyy'),'$supplier_id',
+									'$po_no',convert(varchar(10),'$po_date',103),'$supplier_id',
 									'$your_ref','$our_ref','$despatch_to','$delivery_time', '$PayCode', '$payment',
 									'$po_remark','$flag_vat','$accid','$costid',
 									'$redhead',
-									'$for_ref','1','$empno_user',sysdate,'$ref_po_no','$po_company',to_date('$delivery_date','dd-MM-yyyy'),'$boi')";
+									'$for_ref','1','$empno_user',getdate(),'$ref_po_no','$po_company',convert(varchar(10),'$delivery_date',103),'$boi')";
 									echo $strINS;
 				$exeINS = @odbc_exec($conn,$strINS) or die(alert("เกิดข้อผิดพลาดขึ้นกับระบบ ทำให้ไม่สามารถบันทึกข้อมูล PO นี้ลงบนฐานข้อมูลได้ค่ะ"));
 				$exeCOMMIT = @odbc_exec($conn,"commit");
