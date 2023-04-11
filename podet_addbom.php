@@ -1,9 +1,9 @@
-<?
+<?php
 @session_start();
-if(session_is_registered("valid_userprpo")) {
-		require_once("../include_RedThemes/odbc_connect.php");				
+if(isset($_SESSION["valid_userprpo"])) {
+		require_once("../include_RedThemes/MSSQLServer_connect_2.php");				
 		$empno_user = $_SESSION["empno_user"];
-		//============= Start-��ǹ��÷ӧҹ����ͼ�ҹ��á����� SUBMIT �˹�ҡ�÷ӧҹ��� (code) ===============	
+		//============= Start-ส่วนการทำงานเมื่อผ่านการกดปุ่ม SUBMIT ในหน้าการทำงานนี้ (code) ===============	
 				$flagAction=@$_POST["flagAction"];
 				if($flagAction=='SearchCode'){ 
 						$prod_type = @$_POST["s_prod_type"];
@@ -19,7 +19,7 @@ if(session_is_registered("valid_userprpo")) {
 									if($keyword != "") $strQUE .= "and (upper(bom_codeshow) like upper('%$keyword%')) or (upper(bom_desc) like upper('%$keyword%'))";
 									$curQUE= odbc_exec($conn,$strQUE." order by bom_type,bom_codeshow");					
 							}else if(($prod_type=='3')||($prod_type=='4')){
-									$strQUE = "select prodno code,princ_prodno prod_no,engname +'('+ id_keep +')' prod_name,unittype prod_unit,prod_type type from product where status='1' ";
+									$strQUE = "select prodno code,princ_prodno prod_no,engname + '(' + id_keep + ')' prod_name,unittype prod_unit,prod_type type from product where status='1' ";
 									if($keyword != "") $strQUE .= "and (upper(princ_prodno) like upper('%$keyword%')) or (upper(engname) like upper('%$keyword%'))";
 									$curQUE= odbc_exec($conn,$strQUE." order by princ_prodno");					
 							}
@@ -40,7 +40,7 @@ if(session_is_registered("valid_userprpo")) {
 					$arr_gar_price=@$_POST["arr_gar_price"];
 
 
-					$strMAX = "select ISNULL(max(id)+1,1) id  from po_details where po_no='$v_po_no'";			
+					$strMAX = "select isnull(max(id)+1,1) id  from po_details where po_no='$v_po_no'";			
 					$curMAX = @odbc_exec($conn,$strMAX);
 					$id = @odbc_result($curMAX, "id");
 
@@ -85,20 +85,20 @@ if(session_is_registered("valid_userprpo")) {
 					$result=odbc_exec($conn,"update po_master set po_status='1' where po_no='$v_po_no'");						
 					$exeCOMMIT = odbc_exec($conn,"commit");
 					echo '<script language="JavaScript" type="text/JavaScript">';
-					echo '		alert ("�����Ŷ١�ѹ�֡������ '.$ok.' ��¡�ä��");';
+					echo '		alert ("ข้อมูลถูกบันทึกทั้งสิ้น '.$ok.' รายการค่ะ");';
 					echo '		window.opener.location.reload("./pomas_edit.php");';
 					echo '		window.close();';
 					echo '</script>'; 
 				}else{
 					$v_po_no = $_GET["po_no"]; 
 				}
-		//============= End-��ǹ��÷ӧҹ����ͼ�ҹ��á����� SUBMIT �˹�ҡ�÷ӧҹ��� (code) ===============	
+		//============= End-ส่วนการทำงานเมื่อผ่านการกดปุ่ม SUBMIT ในหน้าการทำงานนี้ (code) ===============	
 	include "../include_RedThemes/wait.php";
 	flush();
 ?>
 <html>
 	<head>
-		<title>�����Թ��һ����� BOM, Product, Service</title>
+		<title>เพิ่มสินค้าประเภท BOM, Product, Service</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-874">
 		<link href="../include/style1.css" rel="stylesheet" type="text/css">
 		<script language='javascript' src='../include_RedThemes/funcChkInput.js'></script>	
@@ -114,11 +114,11 @@ if(session_is_registered("valid_userprpo")) {
 			<tr>
 				<td><table width="100%"  border="1" align="center" cellpadding="0" cellspacing="0">
                   <tr>
-                    <td width="130" class="tdleftwhite">&nbsp;�Ţ���� PO <span class="style_star">*</span></td>
+                    <td width="130" class="tdleftwhite">&nbsp;เลขที่ใบ PO <span class="style_star">*</span></td>
                     <td width="250"><input name="po_no" type="text" class="style_readonly" value="<?=$v_po_no; ?>"  readonly=""></td>
-                    <td width="120"><span class="tdleftwhite">&nbsp;�������Թ��ҷ��ѹ�֡</span></td>
+                    <td width="120"><span class="tdleftwhite">&nbsp;ประเภทสินค้าที่บันทึก</span></td>
                     <td class="style_text">&nbsp;
-                      <? if(@$prod_type=="1") echo 'BOM'; else if(@$prod_type=="3") echo 'Product'; else if(@$prod_type=="4") echo 'Service'; ?></td>
+                      <?php if(@$prod_type=="1") echo 'BOM'; else if(@$prod_type=="3") echo 'Product'; else if(@$prod_type=="4") echo 'Service'; ?></td>
                   </tr>
 
                 </table></td>
@@ -133,15 +133,15 @@ if(session_is_registered("valid_userprpo")) {
 						<td>
 							<table width="100%"  border="1" cellspacing="0" cellpadding="0">
 							<tr>
-								<td width="130"  class="tdleftwhite">&nbsp;Keyword �������� </td>
+								<td width="130"  class="tdleftwhite">&nbsp;Keyword ที่ใช้ค้นหา </td>
 								<td><select name="s_prod_type">
-                                  <option value="1" <? if((@$prod_type=="")||(@$prod_type=="1"))echo 'selected="selected"'; ?>>BOM</option>
-                                  <option value="3" <? if(@$prod_type=="3")echo 'selected="selected"'; ?>>Product</option>
-                                  <option value="4" <? if(@$prod_type=="4")echo 'selected="selected"'; ?>>Service</option>
+                                  <option value="1" <?php if((@$prod_type=="")||(@$prod_type=="1"))echo 'selected="selected"'; ?>>BOM</option>
+                                  <option value="3" <?php if(@$prod_type=="3")echo 'selected="selected"'; ?>>Product</option>
+                                  <option value="4" <?php if(@$prod_type=="4")echo 'selected="selected"'; ?>>Service</option>
                                 </select>
 								  <input name="keyword" type="text"  size="60" value="<?= @$keyword; ?>"> 
-							    (�����Թ���, �����Թ���) 
-						        <input type="submit" name="Submit" value="����" onKeyDown="if(event.keyCode==13) document.form1.submit();"></td>
+							    (รหัสสินค้า, ชื่อสินค้า) 
+						        <input type="submit" name="Submit" value="ค้นหา" onKeyDown="if(event.keyCode==13) document.form1.submit();"></td>
 							</tr>
 							</table>						</td>
 					</tr>		
@@ -153,29 +153,29 @@ if(session_is_registered("valid_userprpo")) {
 									<table border="1" align="left" cellpadding="0" cellspacing="0" >
 									<tr>
 										<td width="25" rowspan="2" class="tdcenterblack"><input type="checkbox" name="CheckOrUn" onClick="return unOrCheckCheckbox(document.form1);"></td>
-										<td width="80" rowspan="2" class="tdcenterblack">������</td>
-										<td width="130" rowspan="2" class="tdcenterblack">�����Թ���</td>
-										<td width="260" rowspan="2" class="tdcenterblack">�����Թ���</td>
-										<td colspan="3" class="tdcenterblack">��¡�ú�� PO </td>
-										<td colspan="3" class="tdcenterblack">��¡���Ѻ���</td>
+										<td width="80" rowspan="2" class="tdcenterblack">ประเภท</td>
+										<td width="130" rowspan="2" class="tdcenterblack">รหัสสินค้า</td>
+										<td width="260" rowspan="2" class="tdcenterblack">ชื่อสินค้า</td>
+										<td colspan="3" class="tdcenterblack">รายการบนใบ PO </td>
+										<td colspan="3" class="tdcenterblack">รายการรับเข้า</td>
 										<td width="15" rowspan="2" class="tdcenterblack">&nbsp;</td>
 								      </tr>
 									<tr>
-									  <td width="50" class="tdcenterblack">�ӹǹ</td>
-									  <td width="50" class="tdcenterblack">˹���</td>
-									  <td width="80" class="tdcenterblack">�Ҥҵ��˹���</td>
-									  <td width="50" class="tdcenterblack">�ӹǹ</td>
-									  <td width="50" class="tdcenterblack">˹���</td>
-									  <td width="80" class="tdcenterblack">�Ҥҵ��˹���</td>
+									  <td width="50" class="tdcenterblack">จำนวน</td>
+									  <td width="50" class="tdcenterblack">หน่วย</td>
+									  <td width="80" class="tdcenterblack">ราคาต่อหน่วย</td>
+									  <td width="50" class="tdcenterblack">จำนวน</td>
+									  <td width="50" class="tdcenterblack">หน่วย</td>
+									  <td width="80" class="tdcenterblack">ราคาต่อหน่วย</td>
 									</tr>
 									</table>								</td>
 							</tr>
 							<tr>
 								<td>
 									<div id="maentabel" style="  height:390px; width:895; overflow:auto; z-index=2;display:block;">	
-									<? if(@$prod_type != ""){ ?>
+									<?php if(@$prod_type != ""){ ?>
 										<table border="1" align="left" cellpadding="0" cellspacing="0">
-										<?
+										<?php
 											$i=0;
 											while(odbc_fetch_row($curQUE)){
 												$v_code = odbc_result($curQUE, "code");
@@ -196,12 +196,12 @@ if(session_is_registered("valid_userprpo")) {
 										  <td width="50"><input name="arr_gar_unit[]" type="text" id="arr_gar_unit[]"  size="3" value="<?= $v_prod_unit; ?>" readonly="" class="style_readonly"></td>
 										  <td width="80"><input name="arr_gar_price[]" type="text" id="arr_gar_price[]"   onKeyDown="return chkNumberInput('float');" size="8" maxlength="16" ></td>
 										</tr>
-										<?	
+										<?php	
 												$i++;												
 											}
 										?>				
 										</table>	
-									<? } ?>
+									<?php } ?>
 									</div>								</td>
 							</tr>
 							</table>						</td>
@@ -225,7 +225,7 @@ if(session_is_registered("valid_userprpo")) {
 	</div>
 </body>
 </html>
-<?
+<?php
 	sleep(0);
 	echo '<script>';
 	echo 'document.all.welcome.style.display = "none";';
@@ -234,7 +234,7 @@ if(session_is_registered("valid_userprpo")) {
 <script language="javascript">
 	document.form1.keyword.select();
 </script>
-<?
+<?php
 }else{
 		include("../include_RedThemes/SessionTimeOut.php");
 }
