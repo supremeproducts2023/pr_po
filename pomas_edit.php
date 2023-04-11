@@ -573,7 +573,7 @@ if(isset($_SESSION["valid_userprpo"])) {
 										$gar_price = odbc_result($cur_query_podet, "gar_price");
 										
 										if($prod_type=="2"){
-											$strQUEDetailSubjob = "select pd.subjob_show || '=' || sj.qty || '/' || sj.cost || '.-' subjob_show
+											$strQUEDetailSubjob = "select pd.subjob_show + '=' + sj.qty + '/' + sj.cost + '.-' subjob_show
 																						from po_details_subjob sj, mrp_pd pd
 																						where sj.subjob=pd.subjob 
 																						and po_no= '$po_no'
@@ -636,7 +636,7 @@ if(isset($_SESSION["valid_userprpo"])) {
 									<td>
 									<?php 
 											$strSEL = "select Description from NONITEM_MASTER where Item_Code = '$item_code'";
-											$queSEL = @odbc_exec($MSSQL_connect,$strSEL);
+											$queSEL = @odbc_exec($conn,$strSEL);
 											$item = @odbc_result($queSEL,"Description");
 									?>
 											&nbsp;<?php echo $item; ?>
