@@ -357,7 +357,7 @@ function clearname()
 					<?php } ?>
 					<td><div align="center">&nbsp;<?php echo $pr_no;?></div></td>
 					<td><div align="center">&nbsp;<?php echo $pr_date;?></div></td>
-					<td>&nbsp;<?php echo $company_name;?></td>
+					<td>&nbsp;<?php echo iconv( "windows-874", "utf-8" ,$company_name);?></td>
 					<td>&nbsp;<?
 							if($pr_status=="1")echo "ผู้แทนพิมพ์ใบขอซื้อ(ยังไม่ส่ง)";
 							else if($pr_status=="2")echo "รออนุมัติจากผู้จัดการ";

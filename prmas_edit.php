@@ -302,7 +302,8 @@ if (isset($_SESSION["valid_userprpo"])) {
 			$flag_obj = @$_POST["flag_obj"];
 
 			$supplier_id = @$_POST["supplier_id"];
-			$pr_remark = @$_POST["pr_remark"];
+			$pr_remark = iconv( "windows-874", "utf-8" ,@$_POST["pr_remark"]) ;
+
 			$empno = @$_POST["empno"];
 			$deptno = @$_POST["deptno"];
 			$mngno = @$_POST["mngno"];
@@ -336,6 +337,13 @@ if (isset($_SESSION["valid_userprpo"])) {
 			}
 			$vat_include = @$_POST["vat_include"];
 			$pr_pathold = @$_POST["pr_pathold"];
+
+
+			$pr_payment = iconv("utf-8" ,  "windows-874" ,$pr_payment);
+			$obj_name1 = iconv("utf-8" ,  "windows-874" ,$obj_name1);
+			$obj_name2 = iconv("utf-8" ,  "windows-874" ,$obj_name2);
+			$obj_name3 = iconv("utf-8" ,  "windows-874" ,$obj_name3);
+
 			$strUPD = "update pr_master set 
 						pr_date=convert(date, '$pr_date',103),
 						deptno='$deptno',
@@ -418,25 +426,27 @@ if (isset($_SESSION["valid_userprpo"])) {
 		$cur_pr_master = odbc_exec($conn, $txt_pr_master);
 		$pr_date = odbc_result($cur_pr_master, "pr_date");
 		$deptno = odbc_result($cur_pr_master, "deptno");
-		$deptno_show = odbc_result($cur_pr_master, "deptno_show");
+		$deptno_show = iconv( "windows-874", "utf-8" ,odbc_result($cur_pr_master, "deptno_show")) ;
 		$empno = odbc_result($cur_pr_master, "empno");
-		$empno_show = odbc_result($cur_pr_master, "empno_show");
+		$empno_show =iconv( "windows-874", "utf-8" , odbc_result($cur_pr_master, "empno_show")) ;
 		$mngno = odbc_result($cur_pr_master, "mngno");
 
 		if ($mngno != "-") {
 			$cur_mng = odbc_exec($conn, "select  e_name from emp where empno='$mngno'");
-			$mngno_show = odbc_result($cur_mng, "e_name");
+			$mngno_show = iconv( "windows-874", "utf-8" ,odbc_result($cur_mng, "e_name")) ;
 		}
 		$supplier_id = odbc_result($cur_pr_master, "supplier_id");
-		$supplier_show = odbc_result($cur_pr_master, "company_name");
+		$supplier_show = iconv( "windows-874", "utf-8" ,odbc_result($cur_pr_master, "company_name")) ;
 		$paycode = odbc_result($cur_pr_master, "PayCode");
 		$pr_payment = odbc_result($cur_pr_master, "pr_payment");
-		$pr_remark = odbc_result($cur_pr_master, "pr_remark");
+		//$pr_remark =  odbc_result($cur_pr_master, "pr_remark");
+		$pr_remark = iconv( "windows-874", "utf-8" ,odbc_result($cur_pr_master, "pr_remark"));
 		$Jobno = odbc_result($cur_pr_master, "jobno");
 		$flag_obj = odbc_result($cur_pr_master, "flag_obj");
-		$obj_name1 = odbc_result($cur_pr_master, "obj_name1");
-		$obj_name2 = odbc_result($cur_pr_master, "obj_name2");
-		$obj_name3 = odbc_result($cur_pr_master, "obj_name3");
+		$obj_name1 = iconv( "windows-874", "utf-8" , odbc_result($cur_pr_master, "obj_name1"));
+		//$obj_name2 = iconv( "windows-874", "utf-8" ,odbc_result($cur_pr_master, "obj_name2"));
+		$obj_name2 = iconv( "windows-874", "utf-8" , odbc_result($cur_pr_master, "obj_name2")) ;
+		$obj_name3 =iconv( "windows-874", "utf-8" , odbc_result($cur_pr_master, "obj_name3"));
 		$estimate_day = odbc_result($cur_pr_master, "estimate_day");
 		$vat_include = odbc_result($cur_pr_master, "vat_include");
 		$pr_path = odbc_result($cur_pr_master, "pr_path");
@@ -456,11 +466,12 @@ if (isset($_SESSION["valid_userprpo"])) {
 		?>
 		<br>
 		<center>
+ 
 			<form name="form_pr" action="prmas_edit.php" method="post" enctype="multipart/form-data">
 				<input name="flagAction" type="hidden" value="UpCode">
 				<table width="870" border="0" cellpadding="0" cellspacing="0" bgcolor="E9EAEB">
 					<tr>
-						<th> &nbsp;&nbsp;แก้ไข PR <?php if ($flag_obj == "8") echo "Transtek";
+						<th> &nbsp;&nbsp;แก้ไข PR <?php if ($flag_obj == "8") echo "Transtek"; 
 													else echo "Supreme"; ?></th>
 						<th>
 							<div align="right">&nbsp;</div>
@@ -509,7 +520,7 @@ if (isset($_SESSION["valid_userprpo"])) {
 														}
 														?>
 													</select>
-													<input type="text" name="pr_payment" value="<?= @$pr_payment; ?>" size="70" maxlength="120">
+													<input type="text" name="pr_payment" value="<?= iconv( "windows-874", "utf-8" ,@$pr_payment); ?>" size="70" maxlength="120">
 												</td>
 											</tr>
 											<tr>
@@ -581,7 +592,7 @@ if (isset($_SESSION["valid_userprpo"])) {
 											<tr>
 												<td class="tdleftwhite">&nbsp;ผู้ขอซื้อ<span class="style_star">*</span></td>
 												<td>
-													<input name="empno" type="text" value="<?= @$empno; ?>" size="10" maxlength="15" class="style_readonly" readonly=""><input name="empno_show" type="text" value="<?= @$empno_show; ?>" size="50" maxlength="15" class="style_readonly" readonly="">
+													<input name="empno" type="text" value="<?= @$empno; ?>" size="10" maxlength="15" class="style_readonly" readonly=""><input name="empno_show" type="text" value="<?=  @$empno_show; ?>" size="50" maxlength="15" class="style_readonly" readonly="">
 													<?php
 													if (substr($roles_user, 0, 3) != 'MNG') {
 														echo "&nbsp;";
@@ -671,11 +682,12 @@ if (isset($_SESSION["valid_userprpo"])) {
 											while (odbc_fetch_row($cur_query_prdet)) {
 												$id = odbc_result($cur_query_prdet, "id");
 												$prod_no = odbc_result($cur_query_prdet, "prod_no");
-												$prod_name = odbc_result($cur_query_prdet, "prod_name");
+												$prod_name = odbc_result($cur_query_prdet, "prod_name") ;
 												$prod_qty = odbc_result($cur_query_prdet, "prod_qty");
 												$prod_unit = odbc_result($cur_query_prdet, "prod_unit");
 												$prod_price = odbc_result($cur_query_prdet, "prod_price");
 												$discount_baht = odbc_result($cur_query_prdet, "discount_baht");
+
 
 												if ((($prod_price * $prod_qty) - $discount_baht) == 0) $prod_price = 0;
 												else $prod_price = (($prod_price * $prod_qty) - $discount_baht) / $prod_qty;
@@ -688,7 +700,7 @@ if (isset($_SESSION["valid_userprpo"])) {
 															where sj.subjob=pd.subjob 
 															and pr_no= '$pr_no'
 															and id='$id'";
-													$curQUEDetailSubjob = odbc_exec($conn, $strQUEDetailSubjob);
+															echo $strQUEDetailSubjob;
 													$subjob_show = "";
 													while (odbc_fetch_row($curQUEDetailSubjob)) {
 														if ($subjob_show == "") $subjob_show = odbc_result($curQUEDetailSubjob, "subjob_show");
@@ -719,7 +731,7 @@ if (isset($_SESSION["valid_userprpo"])) {
 														<?php } ?>
 													</td>
 													<td>&nbsp;<?= $prod_no; ?></td>
-													<td>&nbsp;<?= $prod_name; ?></td>
+													<td>&nbsp;<?= iconv( "windows-874", "utf-8" ,$prod_name); ?></td>
 													<td>&nbsp;<?= $prod_qty; ?></td>
 													<td>&nbsp;<?= $prod_unit; ?></td>
 													<td>
@@ -765,6 +777,7 @@ if (isset($_SESSION["valid_userprpo"])) {
 										<table width="100%" border="1" align="center" cellpadding="0" cellspacing="0">
 											<tr>
 												<th colspan="2">
+												<input type="button" name="Button2" value="ทดสอบ" style="cursor:hand" onClick="window.open('./prmas_reportcode01.php')">
 													<input type="button" name="Button" value="แสดงรายงาน" style="cursor:hand" onClick="window.open('./prmas_reportcode.php?pr_no=<?= $pr_no; ?>');">
 													<input type="button" name="Button" value="ส่งให้ผู้จัดการอนุมัติ" style="cursor:hand" onClick="remote_confirm('pr_commitcode.php?pr_no=<?= $pr_no; ?>&flag=from_editpage');">
 												</th>
