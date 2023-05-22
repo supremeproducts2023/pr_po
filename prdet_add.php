@@ -355,7 +355,7 @@ if (isset($_SESSION["valid_userprpo"])) {
 											</tr>
 											<tr>
 												<td class="tdleftwhite">&nbsp;ชื่อสินค้า</td>
-												<td><input name="prod_name" id="prod_name" type="text" value="<?php echo @$prod_name; ?>" size="60" maxlength="300" onKeyUp="return check_string(document.form_prdet.prod_name,300);">
+												<td><input name="prod_name" id="prod_name" type="text" value="<?php echo iconv( "windows-874", "utf-8" ,@$prod_name); ?>" size="60" maxlength="300" onKeyUp="return check_string(document.form_prdet.prod_name,300);">
 												</td>
 											</tr>
 											<tr>
@@ -364,7 +364,7 @@ if (isset($_SESSION["valid_userprpo"])) {
 											</tr>
 											<tr>
 												<td class="tdleftwhite">&nbsp;หน่วย</td>
-												<td><input name="prod_unit" type="text" value="<?php echo @$prod_unit; ?>" size="20" maxlength="15" onKeyUp="return check_string(document.form_prdet.prod_unit,15);">
+												<td><input name="prod_unit" type="text" value="<?php echo iconv( "windows-874", "utf-8" ,@$prod_unit); ?>" size="20" maxlength="15" onKeyUp="return check_string(document.form_prdet.prod_unit,15);">
 													<script language="JavaScript" type="text/JavaScript">
 														fn_FillorChoice(document.form_prdet,"no");
 													</script>
