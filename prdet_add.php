@@ -27,6 +27,7 @@ if (isset($_SESSION["valid_userprpo"])) {
 			$cur_mx = @odbc_exec($conn, $str_mx);
 			$id = @odbc_result($cur_mx, "id");
 
+			$prod_name = iconv("utf-8" ,  "windows-874",$prod_name);
 			$txt_add = "insert into pr_details (
 															id,pr_no,code,prod_no,prod_name,prod_qty,
 															prod_unit,prod_price,discount_percent,discount_baht,
@@ -41,6 +42,7 @@ if (isset($_SESSION["valid_userprpo"])) {
 			$exe_commit = @odbc_exec($conn, "commit");
 		} else {  //if($flagAction=="UpCode"){
 			$id = @$_POST["id"];
+			$prod_name = iconv("utf-8" ,  "windows-874",$prod_name);
 			$txt_up = "update pr_details set 
 															prod_no='$prod_no',
 															code='$code',

@@ -385,7 +385,7 @@ if(isset($_SESSION["valid_userprpo"])) {
 									?> 				
 										<td ><div align="center"><?php echo $po_no;?></div></td>
 										<td ><div align="center">&nbsp;<?php echo $po_date;?></div></td>
-										<td  >&nbsp;<?php echo $company_name;?></td>
+										<td  >&nbsp;<?php echo iconv( "windows-874", "utf-8" ,$company_name);?></td>
 										<td  >&nbsp;
 											<?php
 												switch($po_status){
