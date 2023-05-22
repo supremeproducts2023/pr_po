@@ -209,15 +209,26 @@ if(isset($_SESSION["valid_userprpo"])) {
 			{$boi = '2';} 
 			else if ($flag_boi == '3')
 			{$boi = '3';} 
+
+			$your_ref = iconv("utf-8" ,  "windows-874" ,$your_ref);
+			$our_ref = iconv("utf-8" ,  "windows-874" ,$our_ref);
+			$despatch_to =  iconv("utf-8" ,  "windows-874" ,$despatch_to);
+			$delivery_time =  iconv("utf-8" ,  "windows-874" ,$delivery_time);
+			$payment =  iconv("utf-8" ,  "windows-874" ,$payment);
+			$accid =  iconv("utf-8" ,  "windows-874" ,$accid);
+			$costid =  iconv("utf-8" ,  "windows-874" ,$costid);
+			$for_ref =  iconv("utf-8" ,  "windows-874" ,$for_ref);
+			$po_remark = iconv("utf-8" ,  "windows-874" ,$po_remark);
+
 				
 			$txt_up = "update po_master set 
-									po_date=convert(varchar, '$po_date', 103),
+									po_date=convert(date, '$po_date', 103),
 									supplier_id='$supplier_id',
 									your_ref='$your_ref',
 									our_ref='$our_ref',
 									despatch_to='$despatch_to',
 									delivery_time='$delivery_time',
-									delivery_date=convert(varchar,'$delivery_date', 103),
+									delivery_date=convert(date,'$delivery_date', 103),
 									PayCode='$PayCode',
 									payment='$payment',
 									discount_percent='$discount_percent',
@@ -284,7 +295,7 @@ if(isset($_SESSION["valid_userprpo"])) {
 			$txt_up .= "last_user='$empno_user',
 								last_date=getdate()
 								where po_no='$po_no'";	
-			// echo $txt_up;					
+			//  echo $txt_up;					
 			$exe_up = @odbc_exec($conn,$txt_up) or die(alert("เกิดข้อผิดพลาดขึ้นกับระบบ ทำให้ไม่สามารถอัพเดท PO นี้ได้ค่ะ"));
 			$exe_commit = @odbc_exec($conn,"commit");
 		    echo '<script language="JavaScript" type="text/JavaScript">';
@@ -396,26 +407,26 @@ if(isset($_SESSION["valid_userprpo"])) {
 								<tr>
 									<td class="tdleftwhite">&nbsp;To Messers <span class="style_star"> *</span> </td>
 									<td colspan="3">
-										<input name="supplier_id" type="text" value="<?php echo @$supplier_id; ?>"  size="10" class="style_readonly" readonly=""><input name="supplier_show" type="text" value="<?php echo @$supplier_show; ?>"  size="70" class="style_readonly" readonly=""><input name="supplier_but" type="button" value="&nbsp;...&nbsp;" onClick="lovSupplier();">									</td>
+										<input name="supplier_id" type="text" value="<?php echo @$supplier_id; ?>"  size="10" class="style_readonly" readonly=""><input name="supplier_show" type="text" value="<?php echo iconv( "windows-874", "utf-8" ,@$supplier_show); ?>"  size="70" class="style_readonly" readonly=""><input name="supplier_but" type="button" value="&nbsp;...&nbsp;" onClick="lovSupplier();">									</td>
 								</tr>
 								<tr>
 									<td class="tdleftwhite">&nbsp;Your Ref. </td>
-									<td colspan="3"><input name="your_ref" type="text" onKeyUp="return check_string(document.form_po.your_ref,50);" value="<?php echo @$your_ref; ?>"  size="70" maxlength="50"></td>
+									<td colspan="3"><input name="your_ref" type="text" onKeyUp="return check_string(document.form_po.your_ref,50);" value="<?php echo iconv( "windows-874", "utf-8" ,@$your_ref); ?>"  size="70" maxlength="50"></td>
 								</tr>
 								<tr>
 									<td class="tdleftwhite">&nbsp;Our Ref. </td>
-									<td colspan="3"><input name="our_ref" type="text" onKeyUp="return check_string(document.form_po.our_ref,50);" value="<?php echo @$our_ref; ?>"  size="70" maxlength="50"></td>
+									<td colspan="3"><input name="our_ref" type="text" onKeyUp="return check_string(document.form_po.our_ref,50);" value="<?php echo iconv( "windows-874", "utf-8" ,@$our_ref); ?>"  size="70" maxlength="50"></td>
 								</tr>
 								<tr>
 									<td class="tdleftwhite">&nbsp;Despatch to </td>
 									<td colspan="3">
-										<input name="despatch_to" type="text" onKeyUp="return check_string(document.form_po.despatch_to,50);" value="<?php echo @$despatch_to; ?>"  size="70" maxlength="50"><input type="button" name="despatch_tobut" value="&nbsp;...&nbsp;" onClick="return cal_descpatch_to(document.form_po.despatch_to);">									</td>
+										<input name="despatch_to" type="text" onKeyUp="return check_string(document.form_po.despatch_to,50);" value="<?php echo iconv( "windows-874", "utf-8" ,@$despatch_to); ?>"  size="70" maxlength="50"><input type="button" name="despatch_tobut" value="&nbsp;...&nbsp;" onClick="return cal_descpatch_to(document.form_po.despatch_to);">									</td>
 								</tr>
 								<tr>
 									<td class="tdleftwhite">&nbsp;Delivery Time</td>
 									<td colspan="3">
-										<input name="delivery_time" type="text" onKeyUp="return check_string(document.form_po.delivery_time,50);" value="<?php echo @$delivery_time; ?>"  size="70" maxlength="50"><input type="button" name="delivery_timebut" value="&nbsp;...&nbsp;" onClick="return cal_delivery_time(document.form_po.delivery_time);">									
-										&nbsp;Delivery Date&nbsp;<input name="delivery_date" type="text"  class="style_readonly"value="<?php  echo @$delivery_date; ?>" size="8" readonly="" >						  
+										<input name="delivery_time" type="text" onKeyUp="return check_string(document.form_po.delivery_time,50);" value="<?php echo iconv( "windows-874", "utf-8" ,@$delivery_time); ?>"  size="70" maxlength="50"><input type="button" name="delivery_timebut" value="&nbsp;...&nbsp;" onClick="return cal_delivery_time(document.form_po.delivery_time);">									
+										&nbsp;Delivery Date&nbsp;<input name="delivery_date" type="text"  class="style_readonly"value="<?php  echo iconv( "windows-874", "utf-8" ,@$delivery_date); ?>" size="8" readonly="" >						  
 										<script language='javascript'>
 															<!-- 
 															  if (!document.layers) {
@@ -449,7 +460,7 @@ if(isset($_SESSION["valid_userprpo"])) {
 											}	
 									?>
 									</select>		
-									<input type="text" name="payment" id="payment" value="<?=@$payment;?>" size="70" maxlength="120">									</td>
+									<input type="text" name="payment" id="payment" value="<?=iconv( "windows-874", "utf-8" ,@$payment);?>" size="70" maxlength="120">									</td>
 								  </tr>
 								<tr>
 									<td class="tdleftwhite">&nbsp;Dicount</td>
@@ -472,20 +483,20 @@ if(isset($_SESSION["valid_userprpo"])) {
 								<tr>
 									<td class="tdleftwhite">&nbsp;รหัสบัญชี </td>
 									<td colspan="3">
-										<textarea name="accid" cols="85" rows="3" onKeyUp="return check_string(document.form_po.accid,200);"><?php echo @$accid; ?></textarea><input name="acc_but" type="button" value="&nbsp;...&nbsp;" onClick="lovCodeAccount()">									</td>
+										<textarea name="accid" cols="85" rows="3" onKeyUp="return check_string(document.form_po.accid,200);"><?php echo iconv( "windows-874", "utf-8" ,@$accid); ?></textarea><input name="acc_but" type="button" value="&nbsp;...&nbsp;" onClick="lovCodeAccount()">									</td>
 								</tr>					  
 								<tr>
 									<td class="tdleftwhite">&nbsp;COST CENTER </td>
 									<td colspan="3">
-										<textarea name="costid" cols="85" rows="3" onKeyUp="return check_string(document.form_po.costid,200);"><?php echo @$costid; ?></textarea><input name="cost_but" type="button" value="&nbsp;...&nbsp;" onClick="lovCostCenter()">									</td>
+										<textarea name="costid" cols="85" rows="3" onKeyUp="return check_string(document.form_po.costid,200);"><?php echo iconv( "windows-874", "utf-8" ,@$costid); ?></textarea><input name="cost_but" type="button" value="&nbsp;...&nbsp;" onClick="lovCostCenter()">									</td>
 								</tr>					  
 								<tr>
 									<td class="tdleftwhite">&nbsp;For </td>
-									<td colspan="3"><textarea name="for_ref" cols="85" rows="3" onKeyUp="return check_string(document.form_po.for_ref,500);"><?php echo @$for_ref; ?></textarea></td>
+									<td colspan="3"><textarea name="for_ref" cols="85" rows="3" onKeyUp="return check_string(document.form_po.for_ref,500);"><?php echo iconv( "windows-874", "utf-8" ,@$for_ref); ?></textarea></td>
 								</tr>
 								<tr>
 									<td class="tdleftwhite">&nbsp;Remark</td>
-									<td colspan="3"><textarea name="po_remark" cols="85" rows="3" onKeyUp="return check_string(document.form_po.po_remark,300);"><?php echo @$po_remark; ?></textarea></td>
+									<td colspan="3"><textarea name="po_remark" cols="85" rows="3" onKeyUp="return check_string(document.form_po.po_remark,300);"><?php echo iconv( "windows-874", "utf-8" ,@$po_remark); ?></textarea></td>
 								</tr>
 								<tr>
 									<td class="tdleftwhite">&nbsp;<span class="thai_baht">หัวแดง (ปกติ) </spa_n></td>
