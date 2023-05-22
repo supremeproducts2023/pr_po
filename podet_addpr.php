@@ -1,9 +1,10 @@
-<?
-@session_start();
-if(session_is_registered("valid_userprpo")) {
-		require_once("../include_RedThemes/odbc_connect.php");				
+<?php
+// @session_start();
+if(isset($_SESSION["valid_userprpo"])) {
+	
+		require_once("../include_RedThemes/MSSQLServer_connect_2.php");				
 		$empno_user = $_SESSION["empno_user"];
-		//============= Start-��ǹ��÷ӧҹ����ͼ�ҹ��á����� SUBMIT �˹�ҡ�÷ӧҹ��� (code) ===============	
+		//============= Start-ส่วนการทำงานเมื่อผ่านการกดปุ่ม SUBMIT ในหน้าการทำงานนี้ (code) ===============	
 				$flagAction=@$_POST["flagAction"];
 				if($flagAction=='SearchCode'){ 
 						$v_po_no= $_POST["po_no"];
@@ -35,7 +36,7 @@ if(session_is_registered("valid_userprpo")) {
 																						break;
 											}	
 									}
-									$curQUE= odbc_exec($conn,$strQUE." order by pm.pr_no,pd.id");						
+									$curQUE= odbc_exec($conn,$strQUE." order by pm.pr_no,pd.id");			
 				}else if($flagAction=='AddCode'){ 
 					$v_po_no = @$_POST["po_no"];
 					
@@ -142,14 +143,15 @@ if(session_is_registered("valid_userprpo")) {
 					$result=odbc_exec($conn,"update po_master set po_status='1' where po_no='$v_po_no'");						
 					$exeCOMMIT = odbc_exec($conn,"commit");
 					echo '<script language="JavaScript" type="text/JavaScript">';
-					echo '		alert ("�����Ŷ١�ѹ�֡������ '.$ok.' ��¡��\n\n  �����������������������ѹ�������ҧ PO ��� PR ���º�������Ǥ��");';
+					echo '		alert ("ข้อมูลถูกบันทึกทั้งสิ้น '.$ok.' รายการ\n\n  พร้อมทั้งเพิ่มเติมความสัมพันธ์ระหว่าง PO และ PR เรียบร้อยแล้วค่ะ");';
 					echo '		window.opener.location.reload("./pomas_edit.php");';
 					echo '		window.close();';
 					echo '</script>'; 								
 				}else{
 						$v_po_no = @$_GET["po_no"]; 
 				}
-		//============= End-��ǹ��÷ӧҹ����ͼ�ҹ��á����� SUBMIT �˹�ҡ�÷ӧҹ��� (code) ===============	
+
+		//============= End-ส่วนการทำงานเมื่อผ่านการกดปุ่ม SUBMIT ในหน้าการทำงานนี้ (code) ===============
 	include "../include_RedThemes/wait.php";
 	flush();
 		
@@ -159,7 +161,7 @@ if(session_is_registered("valid_userprpo")) {
 ?>
 <html>
 	<head>
-		<title>�����Թ��ҵ�� PR (���»�����)</title>
+		<title>เพิ่มสินค้าตาม PR (หลายประเภท)</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-874">
 		<link href="../include/style1.css" rel="stylesheet" type="text/css">
 		<script language='javascript' src='../include_RedThemes/funcChkInput.js'></script>	
@@ -212,7 +214,7 @@ if(session_is_registered("valid_userprpo")) {
 			<tr>
 				<td><table width="100%"  border="1" align="center" cellpadding="0" cellspacing="0">
                   <tr>
-                    <td width="130" class="tdleftwhite">&nbsp;�Ţ���� PO <span class="style_star">*</span></td>
+                    <td width="130" class="tdleftwhite">&nbsp;เลขที่ใบ PO <span class="style_star">*</span></td>
                     <td><input name="po_no" type="text" class="style_readonly" value="<?=$v_po_no; ?>"  readonly=""></td>
                   </tr>
 
@@ -228,16 +230,16 @@ if(session_is_registered("valid_userprpo")) {
 						<td>
 							<table width="100%"  border="1" cellspacing="0" cellpadding="0">
 							<tr>
-								<td width="130"  class="tdleftwhite">&nbsp;Keyword �������� </td>
+								<td width="130"  class="tdleftwhite">&nbsp;Keyword ที่ใช้ค้นหา</td>
 								<td>
 										<select name="type_search">
-										  <option value="pr_no" <? if((@$type_search=="pr_no")||(@$type_search==""))echo 'selected="selected"'; ?>>���ҵ���Ţ��� PR</option>
-										  <option value="e_name" <? if(@$type_search=="e_name")echo 'selected="selected"'; ?>>���ҵ�����ͼ���Դ PR</option>
-										  <option value="prod_no" <? if(@$type_search=="prod_no")echo 'selected="selected"'; ?>>���ҵ�������Թ���</option>
-										  <option value="prod_name" <? if(@$type_search=="prod_name")echo 'selected="selected"'; ?>>���ҵ�������Թ���</option>
+										  <option value="pr_no" <?php if((@$type_search=="pr_no")||(@$type_search==""))echo 'selected="selected"'; ?>>ค้นหาตามเลขที่ PR</option>
+										  <option value="e_name" <?php if(@$type_search=="e_name")echo 'selected="selected"'; ?>>ค้นหาตามชื่อผู้เปิด PR</option>
+										  <option value="prod_no" <?php if(@$type_search=="prod_no")echo 'selected="selected"'; ?>>้นหาตามรหัสสินค้า</option>
+										  <option value="prod_name" <?php if(@$type_search=="prod_name")echo 'selected="selected"'; ?>>ค้นหาตามชื่อสินค้า</option>
 										</select>
 										  <input name="keyword" type="text"  size="50" value="<?= @$keyword; ?>">
-										  <input type="submit" name="Submit" value="����" onKeyDown="if(event.keyCode==13) document.form1.submit();">
+										  <input type="submit" name="Submit" value="ค้นหา" onKeyDown="if(event.keyCode==13) document.form1.submit();">
 								</td>
 							</tr>
 							</table>						
@@ -251,21 +253,21 @@ if(session_is_registered("valid_userprpo")) {
 									<table border="1" align="left" cellpadding="0" cellspacing="0" >
 									<tr>
 										<td width="25" rowspan="2" class="tdcenterblack"><input type="checkbox" name="CheckOrUn" onClick="return unOrCheckCheckbox(document.form1);"></td>
-										<td width="83" rowspan="2" class="tdcenterblack">������</td>
+										<td width="83" rowspan="2" class="tdcenterblack">ประเภท</td>
 										<td width="60" rowspan="2" class="tdcenterblack">PR No. </td>
-										<td width="130" rowspan="2" class="tdcenterblack">�����Թ���</td>
-										<td width="305" rowspan="2" class="tdcenterblack">�����Թ���</td>
-										<td colspan="3" class="tdcenterblack">��¡�ú�� PO </td>
-										<td colspan="3" class="tdcenterblack">��¡���Ѻ���</td>
+										<td width="130" rowspan="2" class="tdcenterblack">รหัสสินค้า</td>
+										<td width="305" rowspan="2" class="tdcenterblack">ชื่อสินค้า</td>
+										<td colspan="3" class="tdcenterblack">รายการบนใบ PO </td>
+										<td colspan="3" class="tdcenterblack">รายการรับเข้า</td>
 										<td width="15" rowspan="2" class="tdcenterblack">&nbsp;</td>
 								      </tr>
 									<tr>
-									  <td width="40" class="tdcenterblack">�ӹǹ</td>
-									  <td width="40" class="tdcenterblack">˹���</td>
-									  <td width="70" class="tdcenterblack">�Ҥҵ��˹���</td>
-									  <td width="40" class="tdcenterblack">�ӹǹ</td>
-									  <td width="40" class="tdcenterblack">˹���</td>
-									  <td width="70" class="tdcenterblack">�Ҥҵ��˹���</td>
+									  <td width="40" class="tdcenterblack">จำนวน</td>
+									  <td width="40" class="tdcenterblack">หน่วย</td>
+									  <td width="70" class="tdcenterblack">ราคาต่อหน่วย</td>
+									  <td width="40" class="tdcenterblack">จำนวน</td>
+									  <td width="40" class="tdcenterblack">หน่วย</td>
+									  <td width="70" class="tdcenterblack">ราคาต่อหน่วย</td>
 									</tr>
 									</table>								</td>
 							</tr>
@@ -273,7 +275,7 @@ if(session_is_registered("valid_userprpo")) {
 								<td>
 									<div id="maentabel" style="  height:390px; width:945; overflow:auto; z-index=2;display:block;">	
 										<table border="1" align="left" cellpadding="0" cellspacing="0">
-										<?
+										<?php
 											$i=0;
 											while(@odbc_fetch_row($curQUE)){
 												$v_pr_no = odbc_result($curQUE, "pr_no");
@@ -297,21 +299,21 @@ if(session_is_registered("valid_userprpo")) {
 											<td width="25" class="tdcenterwhite"><input type=checkbox name="checkbox[]" value=<?=$i."|-|".$v_code."|-|".$v_pr_no."|-|".$v_id; ?> onClick="if(this.checked==true){ document.form1.elements[<?=$i*10+$num_of_obj+1;  ?>].focus(); } " ></td>
 											<td width="83">
 												  <select name="arr_prod_type[]" style="width:81px; font-size:9px;">
-														<? if($v_code==""){ ?>
+														<?php if($v_code==""){ ?>
 															<option value="5">ETC</option>
 															<option value="6">Detail</option>
-														<? }elseif($v_flag_obj=='7'){	 ?>
+														<?php }elseif($v_flag_obj=='7'){	 ?>
 															<option value="2">SubContact</option>
 															<option value="1">BOM</option>
-														<? }elseif($v_flag_obj=='2'){	 ?>
+														<?php }elseif($v_flag_obj=='2'){	 ?>
 															<option value="1">BOM</option>
-														<? }elseif($v_flag_obj=='3'){	 ?>
+														<?php }elseif($v_flag_obj=='3'){	 ?>
 															<option value="4">Service</option>
 															<option value="3">Product</option>
-														<? }else{	 ?>
+														<?php }else{	 ?>
 															<option value="3">Product</option>
 															<option value="4">Service</option>
-														<? }?>
+														<?php }?>
 												  </select>
 											</td>
 											<td width="60"><?=$v_pr_no; ?>
@@ -321,15 +323,15 @@ if(session_is_registered("valid_userprpo")) {
 										  <td width="40"><input name="arr_prod_qty[]" type="text" id="arr_prod_qty[]"   onKeyDown="return chkNumberInput('float');" size="3" maxlength="8" value="<?= $v_prod_qty; ?>" style="font-size:9px;"></td>
 										  <td width="40"><input name="arr_prod_unit[]" type="text" id="arr_prod_unit[]"   onKeyUp="return chkStringInput(this);" size="3" maxlength="15"  value="<?= $v_prod_unit; ?>" style="font-size:9px;"></td>
 										  <td width="70"><input name="arr_prod_price[]" type="text" id="arr_prod_price[]"   onKeyDown="return chkNumberInput('float');" size="9" maxlength="16" value="<?= $v_prod_price; ?>" style="font-size:9px;"></td>
-										  <td width="40"><input name="arr_gar_qty[]" type="text" id="arr_gar_qty[]"   onKeyDown="return chkNumberInput('float');" size="3" maxlength="8" value="<? if($v_code!= "")echo $v_prod_qty; ?>" style="font-size:9px;"></td>
-										  <td width="40"><input name="arr_gar_unit[]" type="text" id="arr_gar_unit[]"  size="3" value="<? if($v_code!= "")echo $v_prod_unit; ?>" style="font-size:9px;"></td>
-										  <td width="70"><input name="arr_gar_price[]" type="text" id="arr_gar_price[]"   onKeyDown="return chkNumberInput('float');" size="9" maxlength="16"  value="<? if($v_code!= "")echo $v_prod_price; ?>" style="font-size:9px;"></td>
+										  <td width="40"><input name="arr_gar_qty[]" type="text" id="arr_gar_qty[]"   onKeyDown="return chkNumberInput('float');" size="3" maxlength="8" value="<?php if($v_code!= "")echo $v_prod_qty; ?>" style="font-size:9px;"></td>
+										  <td width="40"><input name="arr_gar_unit[]" type="text" id="arr_gar_unit[]"  size="3" value="<?php if($v_code!= "")echo $v_prod_unit; ?>" style="font-size:9px;"></td>
+										  <td width="70"><input name="arr_gar_price[]" type="text" id="arr_gar_price[]"   onKeyDown="return chkNumberInput('float');" size="9" maxlength="16"  value="<?php if($v_code!= "")echo $v_prod_price; ?>" style="font-size:9px;"></td>
 										</tr>
 										  <script language="javascript">
 												  fn_SetFill(document.form1,<?= $i*10+$num_of_obj;?>);
 										  </script>															
 										
-										<?	
+										<?php	
 												$i++;												
 											}
 										?>				
@@ -358,7 +360,7 @@ if(session_is_registered("valid_userprpo")) {
 	</div>
 </body>
 </html>
-<?
+<?php
 	sleep(0);
 	echo '<script>';
 	echo 'document.all.welcome.style.display = "none";';
@@ -367,7 +369,7 @@ if(session_is_registered("valid_userprpo")) {
 <script language="javascript">
 	document.form1.keyword.select();
 </script>
-<?
+<?php
 }else{
 		include("../include_RedThemes/SessionTimeOut.php");
 }
