@@ -21,7 +21,7 @@ if (isset($_SESSION["valid_userprpo"])) {
 		<script language='javascript' src='../include/popcalendar.js'></script>
 
 		<!-- Check Not null -->
-		<script language='javascript'>
+		<script language='javascript' charset="tis-620">
 			function check_pr(obj, pr_type) {
 				if (obj.pr_date.value == "") {
 					alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
@@ -397,6 +397,7 @@ if (isset($_SESSION["valid_userprpo"])) {
 
 		$cur_emp = odbc_exec($conn, "select  e_name,mngno,deptno from emp where empno='$empno_user'");
 		$empno_show = odbc_result($cur_emp, "e_name");
+		
 
 		if (@$mngno == "") {
 			if (($roles_user == "MNG") || ($roles_user == "MNGGWD") || ($roles_user == "MNGShowPO")) {
@@ -547,7 +548,7 @@ if (isset($_SESSION["valid_userprpo"])) {
 											<tr>
 												<td class="tdleftwhite">&nbsp;ผู้ขอซื้อ<span class="style_star">*</span></td>
 												<td><input name="empno" type="text" value="<?php echo @$empno_user; ?>" size="10" maxlength="15" class="style_readonly" readonly="">
-													<input name="empno_show" type="text" value="<?php echo @$empno_show; ?>" size="50" maxlength="15" class="style_readonly" readonly="">
+													<input name="empno_show" type="text" value="<?php echo iconv( "windows-874", "utf-8" ,@$empno_show); ?>" size="50" maxlength="15" class="style_readonly" readonly="">
 													<?
 													if (substr($roles_user, 0, 3) != 'MNG') {
 														echo "&nbsp;";
@@ -562,13 +563,13 @@ if (isset($_SESSION["valid_userprpo"])) {
 											<tr>
 												<td class="tdleftwhite"> &nbsp;แผนก<span class="style_star">*</span></td>
 												<td><input name="deptno" type="text" value="<?php echo @$deptno; ?>" size="10" maxlength="20" class="style_readonly" readonly="">
-													<input name="deptno_show" type="text" value="<?php echo @$deptno_show; ?>" size="50" maxlength="15" class="style_readonly" readonly=""><input name="deptno_but" type="button" value="..." onClick="lovDeptUse();">
+													<input name="deptno_show" type="text" value="<?php echo iconv( "windows-874", "utf-8" ,@$deptno_show); ?>" size="50" maxlength="15" class="style_readonly" readonly=""><input name="deptno_but" type="button" value="..." onClick="lovDeptUse();">
 												</td>
 											</tr>
 											<tr>
 												<td class="tdleftwhite">&nbsp;ผู้อนุมัติ<span class="style_star">*</span></td>
 												<td><input name="mngno" type="text" value="<?php echo @$mngno; ?>" size="10" maxlength="15" class="style_readonly" readonly="">
-													<input name="mngno_show" type="text" value="<?php echo @$mngno_show; ?>" size="50" maxlength="15" class="style_readonly" readonly="">
+													<input name="mngno_show" type="text" value="<?php echo iconv( "windows-874", "utf-8" ,@$mngno_show); ?>" size="50" maxlength="15" class="style_readonly" readonly="">
 													<img src="../include/images/emp_icon.gif" width="20" height="19" onClick="lovMng();">
 												</td>
 											</tr>
