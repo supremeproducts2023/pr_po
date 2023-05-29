@@ -1,7 +1,7 @@
-<?
-  	@session_start();
-	if(session_is_registered("valid_userprpo")) {
-				require_once("../include_RedThemes/odbc_connect.php");				
+<?php
+  	// @session_start();
+    if(isset($_SESSION["valid_userprpo"])) {
+				require_once("../include_RedThemes/MSSQLServer_connect_2.php");				
 				$choice_value= $_SESSION["choice_value"];	
 
 				$vendor=@$_POST["vendor"];
@@ -23,7 +23,7 @@
 ?>
 <html>
 <head>
-		<title>**Search ������ Supplier **</title>
+		<title>**Search ข้อมูล Supplier **</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-874">
 		
 		<link href="../include/style1.css" rel="stylesheet" type="text/css">
@@ -37,7 +37,7 @@
 <form name="sup_search" method="post" action="vendor_search.php">
   <table width="600"  border="0" cellpadding="0" cellspacing="0" bgcolor="E9EAEB">
     <tr>
-      <th width="670">&nbsp;&nbsp;����</th>
+      <th width="670">&nbsp;&nbsp;ค้นหา</th>
     </tr>
     <tr >
       <td>
@@ -48,19 +48,19 @@
                 <tr height="28px">
                   <td width="175"><div align="right">                &nbsp;&nbsp;&nbsp;
                     </div></td>
-                  <td width="166">���� / ���� vendor Group</td>
+                  <td width="166">รหัส / ชื่อ vendor Group</td>
                   <td width="403">
-				  <input name="vendor" type="text"  value="<? echo @$vendor; ?>">					</td>
+				  <input name="vendor" type="text"  value="<?php echo @$vendor; ?>">					</td>
                 </tr>
                  <tr height="28px">
                   <td width="175"><div align="right">                &nbsp;&nbsp;&nbsp;
                     </div></td>
-                  <td width="166">ʶҹ�</td>
+                  <td width="166">สถานะ</td>
                   <td width="403">
 				  <select name="status" id="status" style="width:100px;">
-                  	<option value="" <? if($status == "") echo "selected";?>>������</option>
-                    <option value="1" <? if($status == "1") echo "selected";?>>��ҹ</option>
-                    <option value="0" <? if($status == "0") echo "selected";?>>��ԡ��ҹ</option>
+                  	<option value="" <?php if($status == "") echo "selected";?>>ทั้งหมด</option>
+                    <option value="1" <?php if($status == "1") echo "selected";?>>ใช้งาน</option>
+                    <option value="0" <?php if($status == "0") echo "selected";?>>เลิกใช้งาน</option>
                   </select>
                   </td>
                 </tr>
@@ -87,7 +87,7 @@
 </form>
 <table width="593"  border="0" cellpadding="0" cellspacing="0" bgcolor="E9EAEB">
   <tr>
-    <th width="850">&nbsp;&nbsp;�š�ä���</th>
+    <th width="850">&nbsp;&nbsp;ผลการค้นหา</th>
   </tr>
   <tr >
     <td>
@@ -96,17 +96,17 @@
           <td>
             <table width="598"  border="1" cellspacing="0" cellpadding="0" >
               <tr>
-			  <? if($choice_value == "vendorEdit"){ ?>
+			  <?php if($choice_value == "vendorEdit"){ ?>
 			  	<td width="30" class="tdcenterblack">Edit</td>
-			  <? }else if($choice_value == "vendorDel"){ ?>
+			  <?php }else if($choice_value == "vendorDel"){ ?>
 			  	<td width="30" class="tdcenterblack">Del</td>
-				<? } ?>
-                <td width="50" align="center"   class="tdcenterblack">�ӴѺ</td>
-                <td width="130" align="center"  class="tdcenterblack">�Ţ��� vendor Group </td>
-                <td width="340"   class="tdcenterblack"><p>���� vendor Group </p></td>
-                <td width="100"   class="tdcenterblack"><p>ʶҹ� </p></td>
+				<?php } ?>
+                <td width="50" align="center"   class="tdcenterblack">ลำดับ</td>
+                <td width="130" align="center"  class="tdcenterblack">เลขที่ vendor Group </td>
+                <td width="340"   class="tdcenterblack"><p>ชื่อ vendor Group </p></td>
+                <td width="100"   class="tdcenterblack"><p>สถานะ </p></td>
                 </tr>
- <?
+ <?php
 				$curvendorQUE= @odbc_exec($conn,@$strvendorQUE);	
 				$i = 1;
   				while(@odbc_fetch_row($curvendorQUE)){
@@ -118,30 +118,30 @@
 
               <tr>
 												  	
-								<? 		 	if($choice_value == 'vendorEdit') {	?>
+								<?php 		 	if($choice_value == 'vendorEdit') {	?>
 														<td><div align="center">
-														<a href="./vendorGroup_edit.php?v_no=<? echo $vendor_no; ?>"><img src="../include/images/edit_icon.png" border="0"></a>
+														<a href="./vendorGroup_edit.php?v_no=<?php echo $vendor_no; ?>"><img src="../include/images/edit_icon.png" border="0"></a>
 														</div></td>	
-								<? 		  	}else if($choice_value == 'vendorDel') { ?>
+								<?php 		  	}else if($choice_value == 'vendorDel') { ?>
 														<td>
-                                                        <?
+                                                        <?php
                                                         	if($vendor_status=="1")
 															{
 														?>
                                                         <div align="center">
-														<a onClick="remote_del('vendorGroup_del.php?v_id=<? echo $vendor_id; ?>');"   style="cursor:hand"><img src="../include/images/del_icon.png" border="0"></a>
+														<a onClick="remote_del('vendorGroup_del.php?v_id=<?php echo $vendor_id; ?>');"   style="cursor:hand"><img src="../include/images/del_icon.png" border="0"></a>
 														</div>
-                                                        <? }?></td>	
-								<? 			
+                                                        <?php }?></td>	
+								<?php 			
 												} 
 								?> 				
 				<td  style="text-align:center"><?=$i;?></td>
                 <td  style="text-align:center"><?=$vendor_no;?></td>
                 <td >&nbsp;<?=$vendor_name;?></td>
-                <td   style="text-align:center"><? if($vendor_status == "1") echo "��ҹ"; else echo "��ԡ��ҹ";?></td>
+                <td   style="text-align:center"><?php if($vendor_status == "1") echo "ใช้งาน"; else echo "เลิกใช้งาน";?></td>
                 </tr>
 
- <?
+ <?php
  					$i++;
 					}
 ?>
@@ -160,7 +160,7 @@
     </table></td>
   </tr>
 </table>
-<?
+<?php
 	sleep(0);
 	echo '<script>';
 	echo 'document.all.welcome.style.display = "none";';
@@ -172,7 +172,7 @@
 </center>
 </body>
 </html>
-<?
+<?php
 	}else{
 		include("../include_RedThemes/SessionTimeOut.php");
 	}

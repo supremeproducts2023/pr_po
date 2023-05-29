@@ -21,9 +21,10 @@
 																				vendor_id,vendor_no,vendor_name,
 																				recuser_id,rec_date,vendor_status
 																			) values(
-																				(select nvl(max(vendor_id),0)+1 vendor_id from  vendor_group),
-																				'$vendor_no','$vendor_name','$empno_user',sysdate,'1'
+																				(select isnull(max(vendor_id),0)+1 vendor_id from  vendor_group),
+																				'$vendor_no','$vendor_name','$empno_user',GETDATE(),'1'
 																			)";
+
 										$exeSupplierINS = @odbc_exec($conn,$strSupplierINS);
 										if($exeSupplierINS){
 													$_SESSION["vendor_no"] = @$vendor_no;
