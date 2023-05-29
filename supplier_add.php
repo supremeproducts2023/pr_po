@@ -1,7 +1,7 @@
-<?
-  	@session_start();
-	if(session_is_registered("valid_userprpo")) {
-			require_once("../include_RedThemes/odbc_connect.php");			
+<?php
+  	// @session_start();
+		if(isset($_SESSION["valid_userprpo"])) {
+			require_once("../include_RedThemes/MSSQLServer_connect_2.php");			
 			//require_once("../include_RedThemes/MSSQLServer_connect.php");		
 			require_once("../include/alert.php");
 			$empno_user = $_SESSION["empno_user"];
@@ -26,10 +26,10 @@
 										$fax_number = @$_POST["fax_number"];
 										$status = @$_POST["status"];
 										$country = @$_POST["country"];
-										$strSupplierMX = "select ISNULL(max(supplier_id)+1,1) int_mx from supplier ";
+										$strSupplierMX = "select nvl(max(supplier_id)+1,1) int_mx from supplier ";
 										$recSupplierMX = @odbc_exec($conn,$strSupplierMX);
 										$supplier_id = @odbc_result($recSupplierMX, "int_mx");
-										$strSupplierMX = "select ISNULL(max(supplier_id)+1,1) int_mx from supplier  ";
+										$strSupplierMX = "select nvl(max(supplier_id)+1,1) int_mx from supplier  ";
 										$recSupplierMX = @odbc_exec($conn,$strSupplierMX);
 										$sup_as400id = @odbc_result($recSupplierMX, "int_mx");																							
 										$company = @$_POST["company"];	
@@ -40,10 +40,10 @@
 										$branch_type = @$_POST["branch_type"];	
 										if($branch_type=="0")
 										{
-										$branch_name ="�ӹѡ�ҹ�˭�";
+										$branch_name ="สำนักงานใหญ่";
 										}
 										
-										$curQUEVendorSup = odbc_exec($conn,"select ISNULL(count(supplier_id),0) as count_vendor from supplier where vendor_no='$vendorno' ");
+										$curQUEVendorSup = odbc_exec($conn,"select nvl(count(supplier_id),0) as count_vendor from supplier where vendor_no='$vendorno' ");
 										$totalVendorNo = @odbc_result($curQUEVendorSup, "count_vendor");	
 										
 										if ($totalVendorNo==0){
@@ -57,7 +57,7 @@
 																			) values(
 																				'$supplier_id','$company_name','$supplier_title',
 																				'$supplier_address1','$supplier_address2','$supplier_address3','$supplier_address3_1',
-																				'$PayCode','$supplier_payment','$empno_user',getdate(),
+																				'$PayCode','$supplier_payment','$empno_user',sysdate,
 																				'$sup_type','$tambol','$district','$province','$province_id','$fax_number','$postcode',
 																				'I',null,'$status','$country','$sup_as400id','$company','$vendorno','$pid','$branch_name',$branch_type
 																			)";
@@ -69,21 +69,21 @@
 													$_SESSION["sespk_no"] = $supplier_id;			
 ?>
 													<script language="JavaScript" type="text/JavaScript">
-															alert ("�ѹ�֡���������º�������Ǥ��");
+															alert ("บันทึกข้อมูลเรียบร้อยแล้วค่ะ");
 															parent.main_frame.location.href = './supplier_edit.php';
 													</script>						
-<? 										
+<?php							
 										}else{
 ?>
 													<script language="JavaScript" type="text/JavaScript">
-															alert ("�к��ջѭ���������ö�ѹ�֡����������");
+															alert ("ระบบมีปัญหาไม่สามารถบันทึกข้อมูลได้ค่ะ");
 													</script>						
-<? 
+<?php
 										}
 										}else{
 
 									echo '<script language="JavaScript" type="text/JavaScript">';
-									echo 'alert ("��سһ�͹���� Vendor �������ͧ�ҡ���� Vendor �������к�����");';
+									echo 'alert ("กรุณาป้อนรหัส Vendor ใหม่เนื่องจากรหัส Vendor นี้มีในระบบแล้ว");';
 									echo '</script>';						
 										}
 				}else{
@@ -100,7 +100,7 @@
 						return returnvalue;
 				}			
 				
-				//	���������� Requirment �Ţ��� 213
+				//	เพิ่มเติมตาม Requirment เลขที่ 213
 				function openVender(type_use){
 						returnvalue = window.showModalDialog( '../include_RedThemes/lov/lov_search_vendor_group.php?themes=DefaultBlue&type_use='+type_use,'newWin','dialogWidth:500px;dialogHeight:540px;');											
 						return returnvalue;
@@ -116,7 +116,7 @@
 						 }
 				}       
 				
-				//	���������� Requirment �Ţ��� 213
+				//	เพิ่มเติมตาม Requirment เลขที่ 213
 				function lovVender(){
 						returnvalue = openVender(''); 
 						if (returnvalue != null){ 
@@ -146,25 +146,25 @@
 							if (sel == '1') {
 							   
 									if(obj.branch_name.value==""){ 
-										alert("��سҡ�͡�����ŷ��������ͧ���� * ���ú���");
+										alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
 										obj.branch_name.focus();
 										return false;
 									}
 								}
 							 }
 							 if(obj.company_name.value==""){  	
-								alert("��سҡ�͡�����ŷ��������ͧ���� * ���ú���");
+								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
 								obj.company_name.focus();
 								return false;
 							}
 							  if(obj.pid.value==""){
-								alert("��سҡ�͡�����ŷ��������ͧ���� * ���ú���");
+								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
 								obj.pid.focus();
 								return false;
 							}		
 							
 							if(obj.PayCode.value=="none"){
-								alert("��سҡ�͡�����ŷ��������ͧ���� * ���ú���");
+								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
 								obj.PayCode.focus();
 								return false;
 							}	
@@ -201,7 +201,7 @@
 			<form name="form_sup" action="supplier_add.php" method="post">
 		<table width="600"  border="0" cellpadding="0" cellspacing="0"  bgcolor="E9EAEB">
           <tr>
-            <th> &nbsp;&nbsp;���������� Approval Supplier List</th>
+            <th> &nbsp;&nbsp;เพิ่มข้อมูล Approval Supplier List</th>
           </tr>
           <tr>
             <td colspan="2">
@@ -209,20 +209,20 @@
                 <tr>
                   <td><table width="100%"  border="1" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td width="120" class="tdleftwhite"> &nbsp;�Ţ��� Supplier</td>
-                        <td><input name="supplier_id" type="text"  value="�к��� Generate �ѵ��ѵ� ��ѧ�ѹ�֡�����Ť��" size="45"  class="style_readonly" readonly="">						</td>
+                        <td width="120" class="tdleftwhite"> &nbsp;เลขที่ Supplier</td>
+                        <td><input name="supplier_id" type="text"  value="ระบบจะ Generate อัตโนมัติ หลังบันทึกข้อมูลค่ะ" size="45"  class="style_readonly" readonly="">						</td>
                       </tr>
 				    <tr>
-					  	<td class="tdleftwhite">&nbsp;���� SAP</td>
-						<td><input type="text" name="as400" value="�к��� Generate �ѵ��ѵ� ��ѧ�ѹ�֡�����Ť��" size="45"  class="style_readonly" readonly=""></td>
+					  	<td class="tdleftwhite">&nbsp;รหัส SAP</td>
+						<td><input type="text" name="as400" value="ระบบจะ Generate อัตโนมัติ หลังบันทึกข้อมูลค่ะ" size="45"  class="style_readonly" readonly=""></td>
 					  </tr>
 					  <tr>
 					  	<td class="tdleftwhite">&nbsp;Vendor Group</td>
 						<td>
                        <!-- 
-                       	��䢵�� Requirment �Ţ��� 213
+                       	แก้ไขตาม Requirment เลขที่ 213
                        <input name="vendorno" type="text" id="vendorno"  onkeypress="return handleEnter(this, event);" size="25" maxlength="50" onKeyDown="return check_string(document.form_sup.vendorno,14);" />
-						<input type="button" name="Button" value="��Ǩ�ͺ����" onClick="remote_vendor(document.form_sup.vendorno.value,'');" /> -->
+						<input type="button" name="Button" value="ตรวจสอบรหัส" onClick="remote_vendor(document.form_sup.vendorno.value,'');" /> -->
                         <input name="vendor_name" type="text" id="vendorname" size="45" maxlength="150" readonly="" class="style_readonly"/>
 						<input name="vendor" type="button" id="vendor" value="  ...  " onClick="lovVender();" style="cursor:pointer;">
                         <input name="vendorno" type="hidden">
@@ -230,70 +230,70 @@
 						</td>
 					  </tr>
                       <tr>
-                        <td class="tdleftwhite">&nbsp;���͡�è�����¹</td>
-                        <td><input name="supplier_title" type="text" onKeyUp="return check_string(document.form_sup.supplier_title,20);" value="<? echo @$supplier_title; ?>"  size="15" maxlength="20">
-							<input type="button" name="b1" value="����ѷ" onClick="document.form_sup.supplier_title.value='����ѷ';" style="width:35px;"><input type="button" name="b12" value="��ҧ�����ǹ" onClick="document.form_sup.supplier_title.value='��ҧ�����ǹ';" style="width:65px;"><input type="button" name="b122" value="��ҧ�����ǹ�ӡѴ" onClick="document.form_sup.supplier_title.value='��ҧ�����ǹ�ӡѴ';" style="width:85px;"><input type="button" name="b12" value="��ҹ" onClick="document.form_sup.supplier_title.value='��ҹ';" style="width:25px;">
+                        <td class="tdleftwhite">&nbsp;ชื่อการจดทะเบียน</td>
+                        <td><input name="supplier_title" type="text" onKeyUp="return check_string(document.form_sup.supplier_title,20);" value="<?php echo @$supplier_title; ?>"  size="15" maxlength="20">
+							<input type="button" name="b1" value="บริษัท" onClick="document.form_sup.supplier_title.value='บริษัท';" style="width:35px;"><input type="button" name="b12" value="ห้างหุ้นส่วน" onClick="document.form_sup.supplier_title.value='ห้างหุ้นส่วน';" style="width:65px;"><input type="button" name="b122" value="ห้างหุ้นส่วนจำกัด" onClick="document.form_sup.supplier_title.value='ห้างหุ้นส่วนจำกัด';" style="width:85px;"><input type="button" name="b12" value="ร้าน" onClick="document.form_sup.supplier_title.value='ร้าน';" style="width:25px;">
 						</td>
                       </tr>
 					   <tr>
-					  	<td class="tdleftwhite">&nbsp;�ԵԺؤ��/�ؤ�Ÿ�����<span class="style_star">*</span></td>
+					  	<td class="tdleftwhite">&nbsp;นิติบุคคล/บุคคลธรรมดา<span class="style_star">*</span></td>
 						<td><select name="company" id="company">
 						  <option value="C">C</option>
 						  <option value="P">P</option>
-						</select>&nbsp;&nbsp;C=�ԵԺؤ��  P=�ؤ�Ÿ�����</td>
+						</select>&nbsp;&nbsp;C=นิติบุคคล  P=บุคคลธรรมดา</td>
 					  </tr>
 					  <tr>
-					  	<td class="tdleftwhite">&nbsp;ʶҹ��Сͺ���<span class="style_star">*</span></td>
+					  	<td class="tdleftwhite">&nbsp;สถานประกอบการ<span class="style_star">*</span></td>
 						<td>
-						<input name="branch_type" type="radio"  id="branch_type" onClick="disableElement(this.form.branch_name);"value="0" checked /> �ӹѡ�ҹ�˭�
-						<input name="branch_type" type="radio" id="branch_type" onClick="enableElement(this.form.branch_name);" value="1"/> �Ң� <input name="branch_name" id="branch_name" type="text" disabled="true"  onKeyUp="return check_string(document.form_sup.branch_name,200);" value="<? echo @$branch_name; ?>" size="50"  maxlength="200">
+						<input name="branch_type" type="radio"  id="branch_type" onClick="disableElement(this.form.branch_name);"value="0" checked /> สำนักงานใหญ่
+						<input name="branch_type" type="radio" id="branch_type" onClick="enableElement(this.form.branch_name);" value="1"/> สาขา <input name="branch_name" id="branch_name" type="text" disabled="true"  onKeyUp="return check_string(document.form_sup.branch_name,200);" value="<?php echo @$branch_name; ?>" size="50"  maxlength="200">
 						</td>
 					  </tr>
                       <tr>
-                        <td class="tdleftwhite">&nbsp;���� Supplier <span class="style_star">*</span> </td>
-                        <td><input name="company_name" id="company_name"type="text" onKeyUp="return check_string(document.form_sup.company_name,100);" value="<? echo @$company_name; ?>"  size="70" maxlength="100"></td>
+                        <td class="tdleftwhite">&nbsp;ชื่อ Supplier <span class="style_star">*</span> </td>
+                        <td><input name="company_name" id="company_name"type="text" onKeyUp="return check_string(document.form_sup.company_name,100);" value="<?php echo @$company_name; ?>"  size="70" maxlength="100"></td>
                       </tr>
 					  <tr>
-					  	<td class="tdleftwhite">&nbsp;�Ţ��Шӵ�Ǽ����������<span class="style_star">*</span></td>
+					  	<td class="tdleftwhite">&nbsp;เลขประจำตัวผู้เสียภาษี<span class="style_star">*</span></td>
 						<td><input name="pid" id="pid" onkeypress="return isNumberKey(event)" type="text" value="<?=@$pid;?>" size="30" maxlength="13"></td>
 					  </tr>
 					  <tr>
-					  	<td class="tdleftwhite">&nbsp;������ Supplier</td>
+					  	<td class="tdleftwhite">&nbsp;ประเภท Supplier</td>
 						<td>
 							<select name="sup_type" style="width:100px;">
-								<option value="1">㹻����</option>
-								<option value="2">��ҧ�����</option>
+								<option value="1">ในประเทศ</option>
+								<option value="2">ต่างประเทศ</option>
 							</select>
 						</td>
 					  </tr>
                       <tr>
-                        <td class="tdleftwhite">&nbsp;�������</td>
-                        <td><input name="supplier_address1" type="text" onKeyUp="return check_string(document.form_sup.supplier_address1,70);" value="<? echo @$supplier_address1; ?>"  size="70" maxlength="70">
+                        <td class="tdleftwhite">&nbsp;ที่อยู่</td>
+                        <td><input name="supplier_address1" type="text" onKeyUp="return check_string(document.form_sup.supplier_address1,70);" value="<?php echo @$supplier_address1; ?>"  size="70" maxlength="70">
                         <br>
-                        <input name="supplier_address2" type="text" onKeyUp="return check_string(document.form_sup.supplier_address2,70);" value="<? echo @$supplier_address2; ?>"  size="70" maxlength="70"></td>
+                        <input name="supplier_address2" type="text" onKeyUp="return check_string(document.form_sup.supplier_address2,70);" value="<?php echo @$supplier_address2; ?>"  size="70" maxlength="70"></td>
                       </tr>
 					  <tr>
-					  	<td class="tdleftwhite">&nbsp;�ǧ/�Ӻ�</td>
+					  	<td class="tdleftwhite">&nbsp;แขวง/ตำบล</td>
 						<td><input name="tambol" type="text" onKeyUp="return check_string(document.form_sup.tambol,70);" value="<?=@$tambol;?>" size="30" maxlength="70"></td>
 					  </tr>
   					  <tr>
-					  	<td class="tdleftwhite">&nbsp;ࢵ/�����</td>
+					  	<td class="tdleftwhite">&nbsp;เขต/อำเภอ</td>
 						<td><input name="district" type="text" onKeyUp="return check_string(document.form_sup.district,70);" value="<?=@$district;?>" size="30" maxlength="70"></td>
 					  </tr>
    					  <tr>
-					  	<td class="tdleftwhite">&nbsp;�ѧ��Ѵ</td>
+					  	<td class="tdleftwhite">&nbsp;จังหวัด</td>
 						<td><input name="province" id="province" type="text" onKeyUp="return check_string(document.form_sup.province,100);" value="<?=@$province;?>" size="30" maxlength="100" readonly="" class="style_readonly">&nbsp;<input name="provincebutton" type="button" id="provincebutton" value="  ...  " onClick="lovProvinceSale();" style="cursor:pointer;"><input name="province_id" type="hidden" value=""></td>
 					  </tr>
 					  <tr>
-					  	<td class="tdleftwhite">&nbsp;������ɳ���</td>
+					  	<td class="tdleftwhite">&nbsp;รหัสไปรษณีย์</td>
 						<td><input name="postcode" type="text" value="<?=@$postcode;?>" size="30" maxlength="20"></td>
 					  </tr>
 					  <tr>
-					  	<td class="tdleftwhite">&nbsp;�����</td>
+					  	<td class="tdleftwhite">&nbsp;ประเทศ</td>
 						<td><select name="country">				  				 
 						  <?php
 						  		$strSQL = "select country, id from cushos_country";
-								$strResult = @odbc_exec($conn,$strSQL) or die(alert("�Դ��ͼԴ��Ҵ ������������ö�����żŢ�����㹰ҹ����������"));
+								$strResult = @odbc_exec($conn,$strSQL) or die(alert("เกิดข้อผิดพลาด ทำให้ไม่สามารถประมวลผลข้อมูลในฐานข้อมูลได้ค่ะ"));
 								while(@odbc_fetch_row($strResult))
 								{
 									$country = @odbc_result($strResult,"country");
@@ -306,22 +306,22 @@
 						</select></td>
 					  </tr>					  
                       <tr>
-                        <td class="tdleftwhite">&nbsp;�������Ѿ�� 1</td>
-                        <td><input name="supplier_address3" type="text" onKeyUp="return check_string(document.form_sup.supplier_address3,20);" value="<? echo @$supplier_address3; ?>"  size="30" maxlength="20"></td>
+                        <td class="tdleftwhite">&nbsp;เบอร์โทรศัพท์ 1</td>
+                        <td><input name="supplier_address3" type="text" onKeyUp="return check_string(document.form_sup.supplier_address3,20);" value="<?php echo @$supplier_address3; ?>"  size="30" maxlength="20"></td>
                       </tr>
                       <tr>
-                        <td class="tdleftwhite">&nbsp;�������Ѿ�� 2 </td>
-                        <td><input name="supplier_address3_1" type="text" onKeyUp="return check_string(document.form_sup.supplier_address3_1,20);" value="<? echo @$supplier_address3_1; ?>"  size="30" maxlength="20"></td>
+                        <td class="tdleftwhite">&nbsp;เบอร์โทรศัพท์ 2 </td>
+                        <td><input name="supplier_address3_1" type="text" onKeyUp="return check_string(document.form_sup.supplier_address3_1,20);" value="<?php echo @$supplier_address3_1; ?>"  size="30" maxlength="20"></td>
                       </tr>
                       <tr>
-                        <td class="tdleftwhite">&nbsp;����ῡ��</td>
+                        <td class="tdleftwhite">&nbsp;เบอร์แฟกซ์</td>
                         <td><input name="fax_number" type="text" onKeyUp="return check_string(document.form_sup.fax_number,20);" value="<?=@$fax_number; ?>"  size="30" maxlength="20"></td>
                       </tr>
 					  <tr>
-					  	<td class="tdleftwhite">&nbsp;ʶҹ�</td>
+					  	<td class="tdleftwhite">&nbsp;สถานะ</td>
 						<td><select name="status">
-						  <option value="1">��ҹ</option>
-						  <option value="0">�����ҹ</option>
+						  <option value="1">ใช้งาน</option>
+						  <option value="0">ไม่ใช้งาน</option>
 						</select></td>
 					  </tr>
 					 
@@ -335,9 +335,9 @@
 							<select name="PayCode" id="PayCode" >
 							<?php	
 									$strSEL = "select payment_name, payment_description from Payment_method where status = 'Y'";
-									$queSEL = @odbc_exec($conn,$strSEL) or die(alert("�Դ��ͼԴ��Ҵ �������ö�����żŢ�����㹰ҹ����������"));
+									$queSEL = @odbc_exec($conn,$strSEL) or die(alert("เกิดข้อผิดพลาด ไม่สามารถประมวลผลข้อมูลในฐานข้อมูลได้ค่ะ"));
 							?>	
-									<option value="none">��س��к� Payment Term</option> 
+									<option value="none">กรุณาระบุ Payment Term</option> 
 							<?php 
 									while(@odbc_fetch_row($queSEL)){
 										$PayCode = @odbc_result($queSEL,"payment_name");
@@ -350,15 +350,15 @@
 						</td>
 					  </tr>
                       <tr>
-                        <td class="tdleftwhite">&nbsp;���͹䢡�ê����Թ</td>
-                        <td><input name="supplier_payment" type="text" onKeyUp="return check_string(document.form_sup.supplier_payment,120);" value="<? echo @$supplier_payment; ?>"  size="70" maxlength="120"></td>
+                        <td class="tdleftwhite">&nbsp;เงื่อนไขการชำระเงิน</td>
+                        <td><input name="supplier_payment" type="text" onKeyUp="return check_string(document.form_sup.supplier_payment,120);" value="<?php echo @$supplier_payment; ?>"  size="70" maxlength="120"></td>
                       </tr>
                   </table></td>
                 </tr>
                 <tr>
                   <td><table width="100%"  border="1" align="center" cellpadding="0" cellspacing="0">
                     <tr>
-                      <th colspan="3"><div align="right">  <input name="txtCode" type="hidden" value="�ѹ�֡">              
+                      <th colspan="3"><div align="right">  <input name="txtCode" type="hidden" value="บันทึก">              
 						<a onClick="return check_sup(document.form_sup);" style="cursor:hand"
 						onMousedown="document.images['butsave'].src=save3.src" 
 						onMouseup="document.images['butsave'].src=save1.src"						
@@ -391,7 +391,7 @@
 			</script>
 </body>
 </html>
-<?
+<?php
 			}
 	}
 	else{
