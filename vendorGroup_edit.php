@@ -1,8 +1,8 @@
-<? 
+<?php
 @session_start();
-if(session_is_registered("valid_userprpo")) {
-		require_once("../include_RedThemes/odbc_connect.php");
-		require_once("../include_RedThemes/MSSQLServer_connect.php");	
+if(isset($_SESSION["valid_userprpo"])) {
+		require_once("../include_RedThemes/MSSQLServer_connect_2.php");
+		// require_once("../include_RedThemes/MSSQLServer_connect.php");	
 		require_once("../include/alert.php");
 		$empno_user = $_SESSION["empno_user"];		
 		$txtCode=@$_POST["txtCode"];
@@ -12,7 +12,7 @@ if(session_is_registered("valid_userprpo")) {
 						$vendor_name=@$_POST["vendor_name"];
 						$vendor_no_old=@$_POST["vendor_no_old"];
 						
-						$curQUEVendorSup = odbc_exec($conn,"select ISNULL(count(vendor_id),0) as count_vendor from vendor_group where vendor_no='$vendor_no'");
+						$curQUEVendorSup = odbc_exec($conn,"select isnull(count(vendor_id),0) as count_vendor from vendor_group where vendor_no='$vendor_no'");
 						$totalVendorNo = @odbc_result($curQUEVendorSup, "count_vendor");	
 						
 						if ($totalVendorNo==0 or $vendor_no_old == $vendor_no){				
@@ -27,16 +27,16 @@ if(session_is_registered("valid_userprpo")) {
 						if($exeSupplierUPD){
 									$exeCommit = @odbc_exec($conn,"commit");
 									echo '<script language="JavaScript" type="text/JavaScript">';
-									echo 'alert ("�ѹ�֡���������º�������Ǥ��");';
+									echo 'alert ("บันทึกข้อมูลเรียบร้อยแล้วค่ะ");';
 									echo '</script>';
 						}else{
 									echo '<script language="JavaScript" type="text/JavaScript">';
-									echo 'alert ("�к��ջѭ���������ö�ѹ�֡����������");';
+									echo 'alert ("ระบบมีปัญหาไม่สามารถบันทึกข้อมูลได้ค่ะ");';
 									echo '</script>';
 						}		
 						}else{
 									echo '<script language="JavaScript" type="text/JavaScript">';
-									echo 'alert ("��سһ�͹���� Vendor �������ͧ�ҡ���� Vendor �������к�����");';
+									echo 'alert ("กรุณาป้อนรหัส Vendor ใหม่เนื่องจากรหัส Vendor นี้มีในระบบแล้ว");';
 									echo '</script>';		
 						}						
 				}
@@ -70,12 +70,12 @@ if(session_is_registered("valid_userprpo")) {
 			 <script language='javascript'>
 					function check_sup(obj){
 							if(obj.vendor_no.value==""){  	
-								alert("��سҡ�͡�����ŷ��������ͧ���� * ���ú���");
+								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
 								obj.vendor_no.focus();
 								return false;
 							}
 							if(obj.vendor_name.value==""){
-								alert("��سҡ�͡�����ŷ��������ͧ���� * ���ú���");
+								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
 								obj.vendor_name.focus();
 								return false;
 							}			
@@ -89,7 +89,7 @@ if(session_is_registered("valid_userprpo")) {
 						<form name="form_sup" action="vendorGroup_edit.php" method="post">
 							<table width="600"  border="0" cellpadding="0" cellspacing="0"  bgcolor="E9EAEB">
 							  <tr>
-								<th> &nbsp;&nbsp;��䢢����� vendor GROUP</th>
+								<th> &nbsp;&nbsp;แก้ไขข้อมูล vendor GROUP</th>
 								<th><div align="right">&nbsp;</div></th>
 							  </tr>
 							  <tr>
@@ -98,14 +98,14 @@ if(session_is_registered("valid_userprpo")) {
 										<tr>
 										                    <td><table width="100%"  border="1" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td width="148" class="tdleftwhite"> &nbsp;�Ţ��� vendor Group <span class="style_star">*</span></td>
+                        <td width="148" class="tdleftwhite"> &nbsp;เลขที่ vendor Group <span class="style_star">*</span></td>
                         <td width="438">	<input name="vendor_no" type="text"  size="20"  value="<?=$vendor_no?>" >
                        		 						<input name="vendor_id" type="hidden"   value="<?=$vendor_id?>" >
                                                     <input name="vendor_no_old" type="hidden"   value="<?=$vendor_no?>" >
                         </td>
                       </tr>
 					  <tr>
-					  	<td class="tdleftwhite">&nbsp;���� Vendor Group <span class="style_star">*</span></td>
+					  	<td class="tdleftwhite">&nbsp;ชื่อ Vendor Group <span class="style_star">*</span></td>
 						<td><input name="vendor_name" type="text" id="vendorno"  size="50" maxlength="150"  value="<?=$vendor_name?>"/></td>
                       </tr>
                   </table></td>
@@ -116,7 +116,7 @@ if(session_is_registered("valid_userprpo")) {
 												<tr>
 												  <th colspan="3">
 														<div align="right">
-															<input name="txtCode" type="hidden" value="�ѹ�֡">                   
+															<input name="txtCode" type="hidden" value="บันทึก">                   
 															<a onClick="return check_sup(document.form_sup);" style="cursor:hand"
 															onMousedown="document.images['butsave'].src=save3.src" 
 															onMouseup="document.images['butsave'].src=save1.src"						
@@ -146,7 +146,7 @@ if(session_is_registered("valid_userprpo")) {
 			</center>
 	</body>
 </html>
-<?
+<?php
 	}else{
 		include("../include_RedThemes/SessionTimeOut.php");	}
 ?>
