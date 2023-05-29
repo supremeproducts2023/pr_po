@@ -100,7 +100,7 @@
 				<?php } ?>
                 <td width="100" align="center"   class="tdcenterblack">จดทะเบียน</td>
                 <td width="250" align="center"   class="tdcenterblack">ชื่อ Supplier </td>
-                <td width="340"   class="tdcenterblack"><p>ที่อยู่ Supplier</p></td>
+                <td width="840"   class="tdcenterblack"><p>ที่อยู่ Supplier</p></td>
                 <td width="160"  class="tdcenterblack"><p class="tdcenterblack">เงื่อนไขการชำระเงิน</p></td>
                 </tr>
  <?php
@@ -108,18 +108,18 @@
   				while(@odbc_fetch_row($curSupplierQUE)){
 						$supplier_id = odbc_result($curSupplierQUE, "supplier_id");
 						$company_name = odbc_result($curSupplierQUE, "company_name");
-						$supplier_address1 = odbc_result($curSupplierQUE, "supplier_address1");
-						$supplier_address2 = odbc_result($curSupplierQUE, "supplier_address2");
-						$supplier_address3 = odbc_result($curSupplierQUE, "supplier_address3");
-						$supplier_payment = odbc_result($curSupplierQUE, "supplier_payment");
+						$supplier_address1 = iconv( "windows-874", "utf-8" ,odbc_result($curSupplierQUE, "supplier_address1"));
+						$supplier_address2 = iconv( "windows-874", "utf-8" ,odbc_result($curSupplierQUE, "supplier_address2"));
+						$supplier_address3 = iconv( "windows-874", "utf-8" ,odbc_result($curSupplierQUE, "supplier_address3"));
+						$supplier_payment = iconv( "windows-874", "utf-8" ,odbc_result($curSupplierQUE, "supplier_payment"));
 						$supplier_title =  odbc_result($curSupplierQUE, "supplier_title");
-						$supplier_address3_1 = odbc_result($curSupplierQUE, "supplier_address3_1");
-						$tambol = odbc_result($curSupplierQUE, "tambol");
-						$district = odbc_result($curSupplierQUE, "district");
-						$province = odbc_result($curSupplierQUE, "province");
+						$supplier_address3_1 = iconv( "windows-874", "utf-8" ,odbc_result($curSupplierQUE, "supplier_address3_1"));
+						$tambol =iconv( "windows-874", "utf-8" ,odbc_result($curSupplierQUE, "tambol")) ;
+						$district = iconv( "windows-874", "utf-8" ,odbc_result($curSupplierQUE, "district"));
+						$province = iconv( "windows-874", "utf-8" ,odbc_result($curSupplierQUE, "province"));
 						$fax_number = odbc_result($curSupplierQUE, "fax_number");
 						$postcode = odbc_result($curSupplierQUE, "postcode");
-						$country = odbc_result($curSupplierQUE,"country");
+						$country = iconv( "windows-874", "utf-8" ,odbc_result($curSupplierQUE,"country"));
 						$supplier_address="";
 						if($supplier_address1!=""&&$supplier_address2!="")
 							$supplier_address1 = $supplier_address1."<br>".$supplier_address2;						
@@ -197,8 +197,8 @@
 								?> 				
 							
                 <td  valign="top" style="text-align:center"><?php if($supplier_title=="")echo '&nbsp;'; else echo iconv( "windows-874", "utf-8" ,$supplier_title);?></td>
-                <td  valign="top">&nbsp;<? echo iconv( "windows-874", "utf-8" ,$company_name);?></td>
-                <td  valign="top"><?php if($supplier_address=="")echo '&nbsp;'; else echo  iconv( "windows-874", "utf-8" ,$supplier_address); ?>
+                <td  valign="top">&nbsp;<?php echo iconv( "windows-874", "utf-8" ,$company_name);?></td>
+                <td  valign="top"><?php if($supplier_address=="")echo '&nbsp;'; else echo  $supplier_address; ?>
 				 </td>
                 <td valign="top">&nbsp;<?php echo "&nbsp;".iconv( "windows-874", "utf-8" ,$supplier_payment);?></td>
                 </tr>
