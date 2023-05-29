@@ -1,7 +1,7 @@
-<?
-@session_start();
-if(session_is_registered("valid_userprpo")) {
-		require_once("../include_RedThemes/odbc_connect.php");	
+<?php
+// @session_start();
+if(isset($_SESSION["valid_userprpo"])) {
+		require_once("../include_RedThemes/MSSQLServer_connect_2.php");	
 
 			$supplier_id=@$_GET["supplier_id"];
 			$status_ok = 0;
@@ -14,15 +14,15 @@ if(session_is_registered("valid_userprpo")) {
 			include("./sup_search.php");
 			
 			if($status_ok==1){
-				odbc_exec($conn,"commit");
+				@odbc_exec($conn,"commit");
 				echo '<script language="JavaScript" type="text/JavaScript">';
-				echo 'alert ("บันทึกข้อมูลเรียบร้อยแล้วค่ะ");';
+				echo 'alert ("เธเธฑเธเธ—เธถเธเธเนเธญเธกเธนเธฅเน€เธฃเธตเธขเธเธฃเนเธญเธขเนเธฅเนเธงเธเนเธฐ");';
 				echo '</script>';
 				
 			}else{
-				odbc_exec($conn,"rollback");
+				@odbc_exec($conn,"rollback");
 				echo '<script language="JavaScript" type="text/JavaScript">';
-				echo 'alert ("ไม่สามารถลบข้อมูลได้เนื่องจากถูกเรียกใช้งานจากที่อื่นค่ะ");';
+				echo 'alert ("เนเธกเนเธชเธฒเธกเธฒเธฃเธ–เธฅเธเธเนเธญเธกเธนเธฅเนเธ”เนเน€เธเธทเนเธญเธเธเธฒเธเธ–เธนเธเน€เธฃเธตเธขเธเนเธเนเธเธฒเธเธเธฒเธเธ—เธตเนเธญเธทเนเธเธเนเธฐ");';
 				echo '</script>';				
 			}
 }else{

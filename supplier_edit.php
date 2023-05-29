@@ -51,7 +51,7 @@ if(isset($_SESSION["valid_userprpo"])) {
 						$branch_name="";
 						$branch_type=0;
 						}
-						$curQUEVendorSup = odbc_exec($conn,"select nvl(count(supplier_id),0) as count_vendor from supplier where vendor_no='$vendorno' and supplier_id != '$supplier_id'");
+						$curQUEVendorSup = odbc_exec($conn,"select isnull(count(supplier_id),0) as count_vendor from supplier where vendor_no='$vendorno' and supplier_id != '$supplier_id'");
 						$totalVendorNo = @odbc_result($curQUEVendorSup, "count_vendor");	
 						
 						if ($totalVendorNo==0){				
@@ -62,7 +62,7 @@ if(isset($_SESSION["valid_userprpo"])) {
 														SUPPLIER_ADDRESS3_1 = '$supplier_address3_1',
 														SUPPLIER_PAYMENT = '$supplier_payment',
 														LAST_USER = '$empno_user',
-														LAST_DATE = sysdate,
+														LAST_DATE = getdate(),
 														SUPPLIER_TITLE = '$supplier_title',
 														PAYCODE = '$PayCode',
 														TAMBOL = '$tambol',
@@ -83,6 +83,7 @@ if(isset($_SESSION["valid_userprpo"])) {
 														branch_name='$branch_name',
 														branch_type=$branch_type
 														where supplier_id='$supplier_id'";
+														//echo $strSupplierUPD;
 						$exeSupplierUPD = odbc_exec($conn,$strSupplierUPD);
 						if($exeSupplierUPD){
 									$exeCommit = @odbc_exec($conn,"commit");
@@ -123,7 +124,7 @@ if(isset($_SESSION["valid_userprpo"])) {
 												s.PayCode,s.supplier_payment,s.supplier_title,s.supplier_address3_1,s.sup_type,
 												s.tambol,s.district,s.province,s.fax_number,s.postcode,s.status,
 												s.country,s.sup_as400id,s.company,s.vendor_no,vg.vendor_name,branch_name,branch_type,pid
-												from supplier s  left join vendor_group vg on s.vendor_no = vg.vendor_id or s.vendor_no is null
+												from supplier s  left join vendor_group vg on s.vendor_no = convert(varchar,vg.vendor_id) or s.vendor_no is null
 												where s.supplier_id='$supplier_id'";
 				// END
 				$curSupplierQUE = @odbc_exec($conn, $strSupplierQUE );

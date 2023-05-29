@@ -57,7 +57,7 @@
 																			) values(
 																				'$supplier_id','$company_name','$supplier_title',
 																				'$supplier_address1','$supplier_address2','$supplier_address3','$supplier_address3_1',
-																				'$PayCode','$supplier_payment','$empno_user',sysdate,
+																				'$PayCode','$supplier_payment','$empno_user',getdate(),
 																				'$sup_type','$tambol','$district','$province','$province_id','$fax_number','$postcode',
 																				'I',null,'$status','$country','$sup_as400id','$company','$vendorno','$pid','$branch_name',$branch_type
 																			)";
