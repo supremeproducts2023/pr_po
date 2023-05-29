@@ -1,10 +1,10 @@
-<?
-  	@session_start();
-	if(session_is_registered("valid_userprpo")) {
-				require_once("../include_RedThemes/odbc_connect.php");				
+<?php
+  	// @session_start();
+	  if(isset($_SESSION["valid_userprpo"])) {
+				require_once("../include_RedThemes/MSSQLServer_connect_2.php");				
 				$choice_value= $_SESSION["choice_value"];	
 
-				//========== ‡√◊ËÕß°“√ Search ·≈È«§È“ß keyword ==================
+				//========== ‡πÄ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏Å‡∏≤‡∏£ Search ‡πÅ‡∏•‡πâ‡∏ß‡∏Ñ‡πâ‡∏≤‡∏á keyword ==================
 				$flagSearch = @$_POST["flagSearch"];
 				if(@$flagSearch == 'PushSearch'){
 					$strCompany_name=@$_POST["strCompany_name"];
@@ -13,8 +13,8 @@
 															supplier_address2,supplier_address3,supplier_address3_1,
 															tambol,district,province,postcode,supplier_payment,fax_number,c.country 
 													from supplier s
-													left join cushos_country c on s.country = c.id
-													where 1 = 1 ";
+													left join cushos_country c on  s.country = c.id
+													where 1 = 1  ";
 					if(@$strCompany_name != '') $strSupplierQUE .= " and upper(company_name) like upper('%$strCompany_name%')  ";			
 					$strSupplierQUE .= "order by  company_name";
 				}else{
@@ -31,7 +31,7 @@
 ?>
 <html>
 <head>
-		<title>**Search ¢ÈÕ¡Ÿ≈ Supplier **</title>
+		<title>**Search ‡∏Ç‡πâ‡∏≠‡∏°‡∏π‡∏• Supplier **</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-874">
 		
 		<link href="../include/style1.css" rel="stylesheet" type="text/css">
@@ -46,7 +46,7 @@
 <input name="flagSearch" type="hidden" value="PushSearch">
   <table width="880"  border="0" cellpadding="0" cellspacing="0" bgcolor="E9EAEB">
     <tr>
-      <th width="750">&nbsp;&nbsp;§ÈπÀ“</th>
+      <th width="750">&nbsp;&nbsp;‡∏Ñ‡πâ‡∏ô‡∏´‡∏≤</th>
     </tr>
     <tr >
       <td>
@@ -57,9 +57,9 @@
                 <tr>
                   <td width="175" class="tdleftwhite"><div align="right">                &nbsp;&nbsp;&nbsp;
                     </div></td>
-                  <td width="166" class="tdleftwhite">™◊ËÕ Supplier</td>
+                  <td width="166" class="tdleftwhite">‡∏ä‡∏∑‡πà‡∏≠ Supplier</td>
                   <td width="403">
-				  <input name="strCompany_name" type="text" onKeyDown="if(event.keyCode==13) document.sup_search.submit();" value="<? echo @$strCompany_name; ?>">					</td>
+				  <input name="strCompany_name" type="text" onKeyDown="if(event.keyCode==13) document.sup_search.submit();" value="<?php echo @$strCompany_name; ?>">					</td>
                 </tr>
             </table></td>
           </tr>
@@ -68,7 +68,7 @@
               <table width="100%"  border="1" align="center" cellpadding="0" cellspacing="0">
                 <tr>
                   <th colspan="3"><div align="right"> 
-				  <? if($choice_value == 'suprep') {?> <input type="button" name="Button" height="24" value="ÕÕ°√“¬ß“π‡ªÁπ Excel" style="cursor:hand;" onClick="window.open('supplier_report.php?keyword='+document.sup_search.strCompany_name.value);"><? } ?><a 
+				  <?php if($choice_value == 'suprep') {?> <input type="button" name="Button" height="24" value="‡∏≠‡∏≠‡∏Å‡∏£‡∏≤‡∏¢‡∏á‡∏≤‡∏ô‡πÄ‡∏õ‡πá‡∏ô Excel" style="cursor:hand;" onClick="window.open('supplier_report.php?keyword='+document.sup_search.strCompany_name.value);"><?php } ?><a 
 						onMousedown="document.images['butsearch'].src=search3.src"   style="cursor:hand"
 						onMouseup="document.images['butsearch'].src=search1.src"						
 						 onMouseOver="document.images['butsearch'].src=search2.src" 
@@ -84,7 +84,7 @@
 </form>
 <table width="880"  border="0" cellpadding="0" cellspacing="0" bgcolor="E9EAEB">
   <tr>
-    <th width="850">&nbsp;&nbsp;º≈°“√§ÈπÀ“</th>
+    <th width="850">&nbsp;&nbsp;‡∏ú‡∏•‡∏Å‡∏≤‡∏£‡∏Ñ‡πâ‡∏ô‡∏´‡∏≤</th>
   </tr>
   <tr >
     <td>
@@ -93,17 +93,17 @@
           <td>
             <table width="880"  border="1" cellspacing="0" cellpadding="0" >
               <tr>
-			  <? if($choice_value == "supup"){ ?>
+			  <?php if($choice_value == "supup"){ ?>
 			  	<td width="30" class="tdcenterblack">Edit</td>
-			  <? }else if($choice_value == "supdel"){ ?>
+			  <?php }else if($choice_value == "supdel"){ ?>
 			  	<td width="30" class="tdcenterblack">Del</td>
-				<? } ?>
-                <td width="100" align="center"   class="tdcenterblack">®¥∑–‡∫’¬π</td>
-                <td width="250" align="center"   class="tdcenterblack">™◊ËÕ Supplier </td>
-                <td width="340"   class="tdcenterblack"><p>∑’ËÕ¬ŸË Supplier</p></td>
-                <td width="160"  class="tdcenterblack"><p class="tdcenterblack">‡ß◊ËÕπ‰¢°“√™”√–‡ß‘π</p></td>
+				<?php } ?>
+                <td width="100" align="center"   class="tdcenterblack">‡∏à‡∏î‡∏ó‡∏∞‡πÄ‡∏ö‡∏µ‡∏¢‡∏ô</td>
+                <td width="250" align="center"   class="tdcenterblack">‡∏ä‡∏∑‡πà‡∏≠ Supplier </td>
+                <td width="340"   class="tdcenterblack"><p>‡∏ó‡∏µ‡πà‡∏≠‡∏¢‡∏π‡πà Supplier</p></td>
+                <td width="160"  class="tdcenterblack"><p class="tdcenterblack">‡πÄ‡∏á‡∏∑‡πà‡∏≠‡∏ô‡πÑ‡∏Ç‡∏Å‡∏≤‡∏£‡∏ä‡∏≥‡∏£‡∏∞‡πÄ‡∏á‡∏¥‡∏ô</p></td>
                 </tr>
- <?
+ <?php
 				$curSupplierQUE= @odbc_exec($conn,@$strSupplierQUE);	
   				while(@odbc_fetch_row($curSupplierQUE)){
 						$supplier_id = odbc_result($curSupplierQUE, "supplier_id");
@@ -134,22 +134,22 @@
 							$supplier_address .= $supplier_address1;
 							
 						$supplier_address2 = "";
-						if($province=="°√ÿß‡∑æœ")
+						if($province=="‡∏Å‡∏£‡∏∏‡∏á‡πÄ‡∏ó‡∏û‡∏Ø")
 						{
 							if($tambol!="")
-								$supplier_address2 .= " ·¢«ß".$tambol;
+								$supplier_address2 .= " ‡πÅ‡∏Ç‡∏ß‡∏á".$tambol;
 							if($district!="")
-								$supplier_address2 .= " ‡¢µ".$district;
+								$supplier_address2 .= " ‡πÄ‡∏Ç‡∏ï".$district;
 						}else{
 							if($tambol!="")
-								$supplier_address2 .= " µ”∫≈".$tambol;
+								$supplier_address2 .= " ‡∏ï‡∏≥‡∏ö‡∏•".$tambol;
 							if($district!="")
-								$supplier_address2 .= " Õ”‡¿Õ".$district;
+								$supplier_address2 .= " ‡∏≠‡∏≥‡πÄ‡∏†‡∏≠".$district;
 						}	
 						if($province!="")
-							$supplier_address2 .= " ®—ßÀ«—¥".$province;					
+							$supplier_address2 .= " ‡∏à‡∏±‡∏á‡∏´‡∏ß‡∏±‡∏î".$province;					
 						if($postcode!="")
-							$supplier_address2 .= " √À— ‰ª√…≥’¬Ï ".$postcode;					
+							$supplier_address2 .= " ‡∏£‡∏´‡∏±‡∏™‡πÑ‡∏õ‡∏£‡∏©‡∏ì‡∏µ‡∏¢‡πå ".$postcode;					
 						if($country!="")
 							$supplier_address2 .= " ".$country;
 						
@@ -161,18 +161,18 @@
 						}
 								
 						if($supplier_address3!="")
-							$supplier_address3 = "‡∫Õ√Ï‚∑√»—æ∑Ï : ".$supplier_address3;
+							$supplier_address3 = "‡πÄ‡∏ö‡∏≠‡∏£‡πå‡πÇ‡∏ó‡∏£‡∏®‡∏±‡∏û‡∏ó‡πå : ".$supplier_address3;
 						if($supplier_address3_1!="")
 						{	
 							if($supplier_address3 != "")
 								$supplier_address3 .= ", ".$supplier_address3_1;	
-							else	$supplier_address3 = "‡∫Õ√Ï‚∑√»—æ∑Ï : ".$supplier_address3_1;
+							else	$supplier_address3 = "‡πÄ‡∏ö‡∏≠‡∏£‡πå‡πÇ‡∏ó‡∏£‡∏®‡∏±‡∏û‡∏ó‡πå : ".$supplier_address3_1;
 						}
 						if($fax_number!="")
 						{
 							if($supplier_address3 != "")
-								$supplier_address3 .= "<br>‡∫Õ√Ï·ø°´Ï : ".$fax_number;	
-							else	$supplier_address3 = "<br>"."‡∫Õ√Ï·ø°´Ï : ".$supplier_address3_1;
+								$supplier_address3 .= "<br>‡πÄ‡∏ö‡∏≠‡∏£‡πå‡πÅ‡∏ü‡∏Å‡∏ã‡πå : ".$fax_number;	
+							else	$supplier_address3 = "<br>"."‡πÄ‡∏ö‡∏≠‡∏£‡πå‡πÅ‡∏ü‡∏Å‡∏ã‡πå : ".$supplier_address3_1;
 						}
 						if($supplier_address3!="")
 						{
@@ -184,26 +184,26 @@
 
               <tr>
 												  	
-								<? 		 	if($choice_value == 'supup') {	?>
+								<?php 		 	if($choice_value == 'supup') {	?>
 														<td><div align="center">
-														<a href="./supplier_edit.php?supplier_id=<? echo $supplier_id; ?>&flag=edit"  title="¥Ÿ√“¬≈–‡Õ’¬¥"><img src="../include/images/edit_icon.png" border="0"></a>
+														<a href="./supplier_edit.php?supplier_id=<?php echo $supplier_id; ?>&flag=edit"  title="‡∏î‡∏π‡∏£‡∏≤‡∏¢‡∏•‡∏∞‡πÄ‡∏≠‡∏µ‡∏¢‡∏î"><img src="../include/images/edit_icon.png" border="0"></a>
 														</div></td>	
-								<? 		  	}else if($choice_value == 'supdel') { ?>
+								<?php 		  	}else if($choice_value == 'supdel') { ?>
 														<td><div align="center">
-														<a onClick="remote_del('supplier_del.php?supplier_id=<? echo $supplier_id; ?>&flag=del');"   style="cursor:hand"><img src="../include/images/del_icon.png" border="0"></a>
+														<a onClick="remote_del('supplier_del.php?supplier_id=<?php echo $supplier_id; ?>&flag=del');"   style="cursor:hand"><img src="../include/images/del_icon.png" border="0"></a>
 														</div></td>	
-								<? 			
+								<?php 			
 												} 
 								?> 				
 							
-                <td  valign="top" style="text-align:center"><? if($supplier_title=="")echo '&nbsp;'; else echo $supplier_title;?></td>
-                <td  valign="top">&nbsp;<? echo $company_name;?></td>
-                <td  valign="top"><? if($supplier_address=="")echo '&nbsp;'; else echo  $supplier_address; ?>
+                <td  valign="top" style="text-align:center"><?php if($supplier_title=="")echo '&nbsp;'; else echo iconv( "windows-874", "utf-8" ,$supplier_title);?></td>
+                <td  valign="top">&nbsp;<? echo iconv( "windows-874", "utf-8" ,$company_name);?></td>
+                <td  valign="top"><?php if($supplier_address=="")echo '&nbsp;'; else echo  iconv( "windows-874", "utf-8" ,$supplier_address); ?>
 				 </td>
-                <td valign="top">&nbsp;<? echo "&nbsp;".$supplier_payment;?></td>
+                <td valign="top">&nbsp;<?php echo "&nbsp;".iconv( "windows-874", "utf-8" ,$supplier_payment);?></td>
                 </tr>
 
- <?
+ <?php
 					}
 ?>
 
@@ -221,7 +221,7 @@
     </table></td>
   </tr>
 </table>
-<?
+<?php
 	sleep(0);
 	echo '<script>';
 	echo 'document.all.welcome.style.display = "none";';
@@ -233,7 +233,7 @@
 </center>
 </body>
 </html>
-<?
+<?php
 	}else{
 		include("../include_RedThemes/SessionTimeOut.php");
 	}
