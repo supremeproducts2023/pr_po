@@ -1,8 +1,8 @@
-<?
-  	@session_start();
-	if(session_is_registered("valid_userprpo")) {
-			require_once("../include_RedThemes/odbc_connect.php");			
-			require_once("../include_RedThemes/MSSQLServer_connect.php");		
+<?php
+  	// @session_start();
+	  if(isset($_SESSION["valid_userprpo"])) {
+			require_once("../include_RedThemes/MSSQLServer_connect_2.php");			
+			// require_once("../include_RedThemes/MSSQLServer_connect.php");		
 			require_once("../include/alert.php");
 			$empno_user = $_SESSION["empno_user"];	
 			
@@ -12,7 +12,7 @@
 										$vendor_no= @$_POST["vendor_no"];
 										$vendor_name=@$_POST["vendor_name"];
                                         
-										$curQUEVendorSup = odbc_exec($conn,"select ISNULL(count(vendor_no),0) as count_vendor from vendor_group where vendor_no='$vendor_no' ");
+										$curQUEVendorSup = odbc_exec($conn,"select isnull(count(vendor_no),0) as count_vendor from vendor_group where vendor_no='$vendor_no' ");
 										$totalVendorNo = @odbc_result($curQUEVendorSup, "count_vendor");	
 										
 										if ($totalVendorNo==0){
@@ -21,8 +21,8 @@
 																				vendor_id,vendor_no,vendor_name,
 																				recuser_id,rec_date,vendor_status
 																			) values(
-																				(select ISNULL(max(vendor_id),0)+1 vendor_id from  vendor_group),
-																				'$vendor_no','$vendor_name','$empno_user',getdate(),'1'
+																				(select nvl(max(vendor_id),0)+1 vendor_id from  vendor_group),
+																				'$vendor_no','$vendor_name','$empno_user',sysdate,'1'
 																			)";
 										$exeSupplierINS = @odbc_exec($conn,$strSupplierINS);
 										if($exeSupplierINS){
@@ -30,24 +30,24 @@
 													$exeCommit = @odbc_exec($conn,"commit");
 ?>
 													<script language="JavaScript" type="text/JavaScript">
-															alert ("�ѹ�֡���������º�������Ǥ��");
+															alert ("บันทึกข้อมูลเรียบร้อยแล้วค่ะ");
 															location.href('vendorGroup_add.php'+''); 
 													</script>						
-<? 										
+<?php 										
 										}else{
 ?>
 													<script language="JavaScript" type="text/JavaScript">
-															alert ("�к��ջѭ���������ö�ѹ�֡����������");
+															alert ("ระบบมีปัญหาไม่สามารถบันทึกข้อมูลได้ค่ะ");
 													</script>						
-<? 
+<?php 
 										}
 										}else{
 											?>
 													<script language="JavaScript" type="text/JavaScript">
-															alert ("��سһ�͹���� Vendor �������ͧ�ҡ���� Vendor �������к�����");
+															alert ("กรุณาป้อนรหัส Vendor ใหม่เนื่องจากรหัส Vendor นี้มีในระบบแล้ว");
 															location.href('vendorGroup_add.php'+''); 
 													</script>				
-                                    <?					
+                                    <?php					
 										}
 				}else{
 ?>
@@ -75,12 +75,12 @@
 		 <script language='javascript'>
 				function check_sup(obj){
 							if(obj.vendor_no.value==""){  	
-								alert("��سҡ�͡�����ŷ��������ͧ���� * ���ú���");
+								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
 								obj.vendor_no.focus();
 								return false;
 							}
 							if(obj.vendor_name.value==""){
-								alert("��سҡ�͡�����ŷ��������ͧ���� * ���ú���");
+								alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบค่ะ");
 								obj.vendor_name.focus();
 								return false;
 							}			
@@ -99,7 +99,7 @@
 			<form name="form_sup" action="vendorGroup_add.php" method="post">
 		<table width="600"  border="0" cellpadding="0" cellspacing="0"  bgcolor="E9EAEB">
           <tr>
-            <th> &nbsp;&nbsp;���������� vendor Group</th>
+            <th> &nbsp;&nbsp;เพิ่มข้อมูล vendor Group</th>
           </tr>
           <tr>
             <td colspan="2">
@@ -107,11 +107,11 @@
                 <tr>
                   <td><table width="100%"  border="1" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td width="148" class="tdleftwhite"> &nbsp;�Ţ��� vendor Group <span class="style_star">*</span></td>
+                        <td width="148" class="tdleftwhite"> &nbsp;เลขที่ vendor Group <span class="style_star">*</span></td>
                         <td width="438"><input name="vendor_no" type="text"  size="20" ></td>
                       </tr>
 					  <tr>
-					  	<td class="tdleftwhite">&nbsp;���� Vendor Group <span class="style_star">*</span></td>
+					  	<td class="tdleftwhite">&nbsp;ชื่อ Vendor Group <span class="style_star">*</span></td>
 						<td><input name="vendor_name" type="text" id="vendorno"  size="50" maxlength="150" /></td>
 					  </tr>
                   </table></td>
@@ -119,7 +119,7 @@
                 <tr>
                   <td><table width="100%"  border="1" align="center" cellpadding="0" cellspacing="0">
                     <tr>
-                      <th colspan="3"><div align="right">  <input name="txtCode" type="hidden" value="�ѹ�֡">              
+                      <th colspan="3"><div align="right">  <input name="txtCode" type="hidden" value="บันทึก">              
 						<a  style="cursor:hand" onClick="check_sup(document.form_sup);"
 						onMousedown="document.images['butsave'].src=save3.src" 
 						onMouseup="document.images['butsave'].src=save1.src"						
@@ -149,7 +149,7 @@
 </center>
 </body>
 </html>
-<?
+<?php
 			}
 	}
 	else{

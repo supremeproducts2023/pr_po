@@ -200,7 +200,7 @@
                 <td  valign="top">&nbsp;<?php echo iconv( "windows-874", "utf-8" ,$company_name);?></td>
                 <td  valign="top"><?php if($supplier_address=="")echo '&nbsp;'; else echo  $supplier_address; ?>
 				 </td>
-                <td valign="top">&nbsp;<?php echo "&nbsp;".iconv( "windows-874", "utf-8" ,$supplier_payment);?></td>
+                <td valign="top">&nbsp;<?php echo "&nbsp;".$supplier_payment;?></td>
                 </tr>
 
  <?php

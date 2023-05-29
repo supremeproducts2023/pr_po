@@ -26,10 +26,10 @@
 										$fax_number = @$_POST["fax_number"];
 										$status = @$_POST["status"];
 										$country = @$_POST["country"];
-										$strSupplierMX = "select nvl(max(supplier_id)+1,1) int_mx from supplier ";
+										$strSupplierMX = "select isnull(max(supplier_id)+1,1) int_mx from supplier ";
 										$recSupplierMX = @odbc_exec($conn,$strSupplierMX);
 										$supplier_id = @odbc_result($recSupplierMX, "int_mx");
-										$strSupplierMX = "select nvl(max(supplier_id)+1,1) int_mx from supplier  ";
+										$strSupplierMX = "select isnull(max(supplier_id)+1,1) int_mx from supplier  ";
 										$recSupplierMX = @odbc_exec($conn,$strSupplierMX);
 										$sup_as400id = @odbc_result($recSupplierMX, "int_mx");																							
 										$company = @$_POST["company"];	
@@ -43,7 +43,7 @@
 										$branch_name ="สำนักงานใหญ่";
 										}
 										
-										$curQUEVendorSup = odbc_exec($conn,"select nvl(count(supplier_id),0) as count_vendor from supplier where vendor_no='$vendorno' ");
+										$curQUEVendorSup = odbc_exec($conn,"select isnull(count(supplier_id),0) as count_vendor from supplier where vendor_no='$vendorno' ");
 										$totalVendorNo = @odbc_result($curQUEVendorSup, "count_vendor");	
 										
 										if ($totalVendorNo==0){
