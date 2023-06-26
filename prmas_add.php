@@ -372,6 +372,11 @@ if (isset($_SESSION["valid_userprpo"])) {
 				}
 			}
 
+			$pr_payment = iconv("utf-8" ,  "windows-874" ,$pr_payment);
+			$obj_name1 = iconv("utf-8" ,  "windows-874" ,$obj_name1);
+			$obj_name2 = iconv("utf-8" ,  "windows-874" ,$obj_name2);
+			$obj_name3 = iconv("utf-8" ,  "windows-874" ,$obj_name3);
+			
 			$strINS = "insert into pr_master (
 											pr_no,pr_date,deptno,empno,mngno,PayCode,pr_payment,
 											flag_obj,obj_name1,obj_name2,obj_name3,
